@@ -4,7 +4,10 @@ import { itemInitialState } from "../initialStates/itemsInitialState";
 export interface IItem {
   name: string;
   id: string;
+  description: string;
   collection: string;
+  picture: string;
+  city: string;
 }
 
 export default function itemReducer(
@@ -13,14 +16,7 @@ export default function itemReducer(
 ): IItem[] {
   switch (action.type) {
     case ADD_ITEM:
-      return [
-        ...state,
-        {
-          name: action.name,
-          id: action.id,
-          collection: action.collection,
-        },
-      ];
+      return [...state, action.item];
     default:
       return state;
   }

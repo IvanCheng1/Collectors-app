@@ -1,28 +1,38 @@
 import { Dispatch } from "redux";
 import { generateID } from "../../utils/other";
+import { IItem } from "../reducers/itemReducer";
 
 export const ADD_ITEM = "ADD_ITEM";
 
 interface addItemAction {
   type: typeof ADD_ITEM;
-  name: string;
-  id: string;
-  collection: string;
+  item: IItem;
 }
 
-const addItemAction = (name: string, id: string, collection: string): ItemActionTypes => {
+const addItemAction = (item: IItem): ItemActionTypes => {
   return {
     type: ADD_ITEM,
-    name,
-    id,
-    collection,
+    item,
   };
 };
 
-export const handleAddItem = (name: string, collection: string) => {
+export const handleAddItem = (
+  name: string,
+  collection: string,
+  description: string,
+  city: string,
+  picture: string
+) => {
   return (dispatch: Dispatch<ItemActionTypes>) => {
-    const id = generateID();
-    dispatch(addItemAction(name, id, collection));
+    const item: IItem = {
+      name,
+      id: generateID(),
+      collection,
+      description,
+      city,
+      picture,
+    };
+    dispatch(addItemAction(item));
     // async to do
   };
 };

@@ -10,12 +10,21 @@ export const itemInitialState = [
   },
   {
     name: "Hard Rock Amsterdam",
-    description: "Guitar",
+    description: "Guitar with stripes",
     collection: "Pins",
     // dateCreated: 2,
     picture: "",
     city: "Amsterdam",
     id: "_mku890hj55s"
+  },
+  {
+    name: "Hard Rock New York",
+    description: "Blue Guitar",
+    collection: "Pins",
+    // dateCreated: 2,
+    picture: "",
+    city: "New York",
+    id: "_mkf892gj541"
   },
   {
     name: "A250e",

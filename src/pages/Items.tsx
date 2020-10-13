@@ -10,6 +10,7 @@ import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./CollectionStack";
 import { IItem } from "../store/reducers/itemReducer";
+import { ItemActionTypes } from "../store/actions/itemActions";
 
 interface IProps {
   navigation: StackNavigationProp<RootStackParamList, "Item">;
@@ -34,10 +35,16 @@ class Items extends React.Component<Props, IState> {
         {filteredItems &&
           filteredItems.map((i) => (
             <TouchableOpacity
-              onPress={() => navigation.navigate("Item", { title: i.name })}
+              onPress={() =>
+                navigation.navigate("Item", {
+                  id: i.id,
+                  title: i.name,
+                  collection: i.collection,
+                })
+              }
               key={i.id}
             >
-              <Text>Click here for {i.name}</Text>
+              <Text>{i.name}</Text>
             </TouchableOpacity>
           ))}
       </SafeAreaView>
@@ -59,7 +66,7 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, CollectionActionTypes>,
+  dispatch: ThunkDispatch<any, any, ItemActionTypes>,
   ownProps: IProps
 ): LinkDispatchProps => ({});
 

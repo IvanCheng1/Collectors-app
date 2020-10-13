@@ -10,7 +10,7 @@ import Item from "./Item";
 export type RootStackParamList = {
   Collections: undefined;
   Items: { id: string; collection: string };
-  Item: { title: string };
+  Item: { id: string; title: string; collection: string };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
