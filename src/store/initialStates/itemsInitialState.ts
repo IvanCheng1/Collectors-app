@@ -6,7 +6,7 @@ export const itemInitialState = [
     // dateCreated: 2,
     picture: "",
     city: "London",
-    id: ""
+    id: "_a5x31hxvnm8"
   },
   {
     name: "Hard Rock Amsterdam",
@@ -15,7 +15,7 @@ export const itemInitialState = [
     // dateCreated: 2,
     picture: "",
     city: "Amsterdam",
-    id: ""
+    id: "_mku890hj55s"
   },
   {
     name: "A250e",
@@ -24,6 +24,6 @@ export const itemInitialState = [
     // dateCreated: 2,
     picture: "",
     city: "London",
-    id: ""
+    id: "_36v8a79vak8"
   },
 ]

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, UIEventHandler } from "react";
 // import { connect } from "react-redux";
 import { myStyles } from "../utils/myStyles";
 import { SafeAreaView, Text, View } from "react-native";
@@ -7,7 +7,13 @@ import Collections from "./Collections";
 import Items from "./Items";
 import Item from "./Item";
 
-const Stack = createStackNavigator();
+export type RootStackParamList = {
+  Collections: undefined;
+  Items: { id: string; collection: string };
+  Item: { title: string };
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 const CollectionStack = () => {
   return (
@@ -33,14 +39,12 @@ const CollectionStack = () => {
       <Stack.Screen
         name="Items"
         component={Items}
-        options={{
-          title: "Items",
-        }}
+        options={({ route }) => ({ title: route.params.collection })}
       />
       <Stack.Screen
         name="Item"
         component={Item}
-        // options={({ route }) => ({ title: route.params.name })}
+        options={({ route }) => ({ title: route.params.title })}
       />
     </Stack.Navigator>
   );

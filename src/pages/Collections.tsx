@@ -2,14 +2,18 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { myStyles } from "../utils/myStyles";
 import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { collectionInitialState } from "../store/initialStates/collectionInitialState";
 import { rootState } from "../store/reducers";
 import { ThunkDispatch } from "redux-thunk";
 import { CollectionActionTypes } from "../store/actions/collectionActions";
 import { ICollection } from "../store/reducers/collectionReducer";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RouteProp } from "@react-navigation/native";
+import { RootStackParamList } from "./CollectionStack";
 
-interface IProps {}
+interface IProps {
+  navigation: StackNavigationProp<RootStackParamList, "Items">;
+  route: RouteProp<RootStackParamList, "Collections">;
+}
 
 interface IState {}
 
@@ -17,8 +21,7 @@ type Props = IProps & LinkStateProps & LinkDispatchProps;
 
 class Collections extends React.Component<Props, IState> {
   render() {
-    const collections = this.props.collections;
-    const { navigation }: any = this.props;
+    const { collections, navigation }: Props = this.props;
     return (
       <SafeAreaView style={myStyles.container}>
         <Text>Spaceholder for Searchbar</Text>
@@ -26,8 +29,13 @@ class Collections extends React.Component<Props, IState> {
         {collections &&
           collections.map((c) => (
             <TouchableOpacity
-              onPress={() => navigation.navigate("Items")}
-              key={c.name}
+              onPress={() =>
+                navigation.navigate("Items", {
+                  id: c.id,
+                  collection: c.name,
+                })
+              }
+              key={c.id}
             >
               <Text>{c.name}</Text>
             </TouchableOpacity>
@@ -38,7 +46,7 @@ class Collections extends React.Component<Props, IState> {
 }
 
 interface LinkStateProps {
-  collections: ICollection[]
+  collections: ICollection[];
 }
 
 interface LinkDispatchProps {}
@@ -47,7 +55,7 @@ const mapStateToProps = (
   state: rootState,
   ownProps: IProps
 ): LinkStateProps => ({
-  collections: state.collection
+  collections: state.collection,
 });
 
 const mapDispatchToProps = (

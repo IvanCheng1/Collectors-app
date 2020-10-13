@@ -6,7 +6,7 @@ import { collectionInitialState } from "../initialStates/collectionInitialState"
 
 export interface ICollection {
   name: string;
-  // id: string;
+  id: string;
 }
 
 export default function collectionReducer(
@@ -19,6 +19,7 @@ export default function collectionReducer(
         ...state,
         {
           name: action.name,
+          id: action.id,
         },
       ];
     default:
