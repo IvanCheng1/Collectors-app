@@ -11,19 +11,21 @@ import {
   Text,
   StatusBar,
 } from "react-native";
+import { Provider } from "react-redux";
 import AddStack from "./src/pages/AddStack";
 
 import CollectionStack from "./src/pages/CollectionStack";
+import { store } from "./src/store";
 import { myStyles } from "./src/utils/myStyles";
 
-declare const global: { HermesInternal: null | {} };
+// declare const global: { HermesInternal: null | {} };
 
 const BottomTab = createBottomTabNavigator();
 
-export default class App extends React.Component {
+class App extends React.Component {
   render() {
     return (
-      <>
+      <Provider store={store}>
         <NavigationContainer>
           {/* <StatusBar barStyle="dark-content" /> */}
           <BottomTab.Navigator>
@@ -49,7 +51,9 @@ export default class App extends React.Component {
             />
           </BottomTab.Navigator>
         </NavigationContainer>
-      </>
+      </Provider>
     );
   }
 }
+
+export default App;

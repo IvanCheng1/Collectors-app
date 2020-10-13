@@ -7,10 +7,10 @@ const AddQuestion = ({ navigation }: any) => {
   return (
     <SafeAreaView style={myStyles.container}>
       <TouchableOpacity onPress={() => navigation.navigate("NewCollection")}>
-        <Text>New Collection?</Text>
+        <Text>New Collection</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("ChooseCollection")}>
-        <Text>Add to Collection?</Text>
+        <Text>Add to Collection</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
