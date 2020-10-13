@@ -9,6 +9,7 @@ import { CollectionActionTypes } from "../store/actions/collectionActions";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./CollectionStack";
+import { IItem } from "../store/reducers/itemReducer";
 
 interface IProps {
   navigation: StackNavigationProp<RootStackParamList, "Item">;
@@ -21,27 +22,41 @@ type Props = IProps & LinkStateProps & LinkDispatchProps;
 
 class Items extends React.Component<Props, IState> {
   render() {
-    const { navigation }: Props = this.props;
+    const { navigation, route, items }: Props = this.props;
+    const filteredItems = items.filter(
+      (i) => i.collection === route.params.collection
+    );
 
     return (
       <SafeAreaView style={myStyles.container}>
-        <Text>{this.props.route.params.collection} here</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("Item", {title: "hard rock"})}>
-          <Text>Click</Text>
-        </TouchableOpacity>
+        <Text>{route.params.collection} here</Text>
+
+        {filteredItems &&
+          filteredItems.map((i) => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Item", { title: i.name })}
+              key={i.id}
+            >
+              <Text>Click here for {i.name}</Text>
+            </TouchableOpacity>
+          ))}
       </SafeAreaView>
     );
   }
 }
 
-interface LinkStateProps {}
+interface LinkStateProps {
+  items: IItem[];
+}
 
 interface LinkDispatchProps {}
 
 const mapStateToProps = (
   state: rootState,
   ownProps: IProps
-): LinkStateProps => ({});
+): LinkStateProps => ({
+  items: state.item,
+});
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, CollectionActionTypes>,

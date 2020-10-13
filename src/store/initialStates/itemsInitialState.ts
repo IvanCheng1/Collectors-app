@@ -2,7 +2,7 @@ export const itemInitialState = [
   {
     name: "Turtle",
     description: "A lovely turtle",
-    type: "Pins",
+    collection: "Pins",
     // dateCreated: 2,
     picture: "",
     city: "London",
@@ -11,7 +11,7 @@ export const itemInitialState = [
   {
     name: "Hard Rock Amsterdam",
     description: "Guitar",
-    type: "Pins",
+    collection: "Pins",
     // dateCreated: 2,
     picture: "",
     city: "Amsterdam",
@@ -20,7 +20,7 @@ export const itemInitialState = [
   {
     name: "A250e",
     description: "Hybrid Mercedes-Benz",
-    type: "Cars",
+    collection: "Cars",
     // dateCreated: 2,
     picture: "",
     city: "London",
