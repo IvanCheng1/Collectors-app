@@ -7,6 +7,7 @@ import { collectionInitialState } from "../initialStates/collectionInitialState"
 export interface ICollection {
   name: string;
   id: string;
+  dateCreated: Date;
 }
 
 export default function collectionReducer(
@@ -20,6 +21,7 @@ export default function collectionReducer(
         {
           name: action.name,
           id: action.id,
+          dateCreated: action.dateCreated,
         },
       ];
     default:

@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { generateID } from "../../utils/other";
+import { generateID } from "../../utils/functions";
 import { IItem } from "../reducers/itemReducer";
 
 export const ADD_ITEM = "ADD_ITEM";
@@ -31,6 +31,7 @@ export const handleAddItem = (
       description,
       city,
       picture,
+      dateCreated: new Date(),
     };
     dispatch(addItemAction(item));
     // async to do

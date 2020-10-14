@@ -6,11 +6,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Collections from "./Collections";
 import Items from "./Items";
 import Item from "./Item";
+import { Sort } from "../utils/types";
 
 export type RootStackParamList = {
   Collections: undefined;
   Items: { id: string; collection: string };
-  Item: { id: string; title: string; collection: string };
+  Item: { id: string; title: string; collection: string; sort: Sort };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();

@@ -8,6 +8,7 @@ export interface IItem {
   collection: string;
   picture: string;
   city: string;
+  dateCreated: Date;
 }
 
 export default function itemReducer(

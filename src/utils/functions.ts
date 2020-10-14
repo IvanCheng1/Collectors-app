@@ -6,3 +6,4 @@ export function generateID(): string {
   // after the decimal.
   return '_' + Math.random().toString(36).substr(2);
 };
+
