@@ -9,7 +9,7 @@ export const itemInitialState = [
     id: "_a5x31hxvnm8"
   },
   {
-    name: "AATurtle",
+    name: "ZTurtle",
     description: "A lovely turtle",
     collection: "Pins",
     dateCreated: new Date("2018-02-21"),

@@ -8,18 +8,18 @@ import Items from "./Items";
 import Item from "./Item";
 import { Sort } from "../utils/types";
 
-export type RootStackParamList = {
+export type CollectionStackParamList = {
   Collections: undefined;
   Items: { id: string; collection: string };
   Item: { id: string; title: string; collection: string; sort: Sort };
 };
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<CollectionStackParamList>();
 
 const CollectionStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Collections"
+      // initialRouteName="Collections"
       screenOptions={{
         headerStyle: {
           backgroundColor: "#f4511e",

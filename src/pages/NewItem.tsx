@@ -1,15 +1,46 @@
 import React, { Component } from "react";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 import { myStyles } from "../utils/myStyles";
 import { SafeAreaView, Text, View } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { AddStackParamList } from "./AddStack";
+import { rootState } from "../store/reducers";
+import { ThunkDispatch } from "redux-thunk";
+import { AllActionTypes } from "../store/actions";
+import { RouteProp } from "@react-navigation/native";
 
+interface IProps {
+  route: RouteProp<AddStackParamList, "NewItem">;
+}
 
-const NewItem = () => {
-  return (
-    <SafeAreaView style={myStyles.container}>
-      <Text>New Item Page</Text>
-    </SafeAreaView>
-  );
-};
+interface IState {}
 
-export default NewItem;
+type Props = IProps & LinkStateProps & LinkDispatchProps;
+
+class NewItem extends React.Component<Props, IState> {
+  render() {
+    const { route } = this.props;
+    console.log(route);
+    return (
+      <SafeAreaView style={myStyles.container}>
+        <Text>Add to {route.params.collection}</Text>
+      </SafeAreaView>
+    );
+  }
+}
+
+interface LinkStateProps {}
+
+interface LinkDispatchProps {}
+
+const mapStateToProps = (
+  state: rootState,
+  ownProps: IProps
+): LinkStateProps => ({});
+
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<any, any, AllActionTypes>,
+  ownProps: IProps
+): LinkDispatchProps => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewItem);

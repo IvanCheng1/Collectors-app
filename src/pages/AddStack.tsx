@@ -8,7 +8,14 @@ import NewCollection from "./NewCollection";
 import ChooseCollection from "./ChooseCollection";
 import NewItem from "./NewItem";
 
-const Stack = createStackNavigator();
+export type AddStackParamList = {
+  AddQuestion: undefined;
+  NewCollection: undefined;
+  ChooseCollection: undefined;
+  NewItem: { id: string; collection: string };
+};
+
+const Stack = createStackNavigator<AddStackParamList>();
 
 const AddStack = () => {
   return (

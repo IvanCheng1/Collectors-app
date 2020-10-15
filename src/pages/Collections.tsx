@@ -8,12 +8,12 @@ import { CollectionActionTypes } from "../store/actions/collectionActions";
 import { ICollection } from "../store/reducers/collectionReducer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
-import { RootStackParamList } from "./CollectionStack";
+import { CollectionStackParamList } from "./CollectionStack";
 import { Sort } from "../utils/types";
 
 interface IProps {
-  navigation: StackNavigationProp<RootStackParamList, "Items">;
-  route: RouteProp<RootStackParamList, "Collections">;
+  navigation: StackNavigationProp<CollectionStackParamList, "Items">;
+  route: RouteProp<CollectionStackParamList, "Collections">;
 }
 
 interface IState {

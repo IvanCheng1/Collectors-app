@@ -19,11 +19,11 @@ import { ItemActionTypes } from "../store/actions/itemActions";
 import { rootState } from "../store/reducers";
 import { IItem } from "../store/reducers/itemReducer";
 import { myStyles } from "../utils/myStyles";
-import { RootStackParamList } from "./CollectionStack";
+import { CollectionStackParamList } from "./CollectionStack";
 
 interface IProps {
-  navigation: StackNavigationProp<RootStackParamList, "Item">;
-  route: RouteProp<RootStackParamList, "Item">;
+  navigation: StackNavigationProp<CollectionStackParamList, "Item">;
+  route: RouteProp<CollectionStackParamList, "Item">;
 }
 
 interface IState {}

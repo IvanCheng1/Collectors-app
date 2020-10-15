@@ -8,14 +8,14 @@ import { ThunkDispatch } from "redux-thunk";
 import { CollectionActionTypes } from "../store/actions/collectionActions";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "./CollectionStack";
+import { CollectionStackParamList } from "./CollectionStack";
 import { IItem } from "../store/reducers/itemReducer";
 import { ItemActionTypes } from "../store/actions/itemActions";
 import { Sort } from "../utils/types";
 
 interface IProps {
-  navigation: StackNavigationProp<RootStackParamList, "Item">;
-  route: RouteProp<RootStackParamList, "Items">;
+  navigation: StackNavigationProp<CollectionStackParamList, "Item">;
+  route: RouteProp<CollectionStackParamList, "Items">;
 }
 
 interface IState {
@@ -31,19 +31,19 @@ class Items extends React.Component<Props, IState> {
 
   render() {
     const { navigation, route, items }: Props = this.props;
-    const {sort} = this.state
+    const { sort } = this.state;
     const filteredItems = items.filter(
       (i) => i.collection === route.params.collection
     );
 
-    const orderedFilteredItems = filteredItems.sort((a,b)=> {
+    const orderedFilteredItems = filteredItems.sort((a, b) => {
       if (sort === "alphabetical") {
         return a.name > b.name ? 1 : -1;
       } else if (sort === "date descending") {
         return b.dateCreated.getTime() - a.dateCreated.getTime();
       }
       return 1;
-    })
+    });
 
     return (
       <SafeAreaView style={myStyles.container}>
