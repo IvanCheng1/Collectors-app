@@ -79,6 +79,7 @@ class Item extends React.Component<Props, IState> {
               id: nextItem.id,
               title: nextItem.name,
               collection: nextItem.collection,
+              sort,
             })
           }
         >

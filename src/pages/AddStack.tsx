@@ -55,9 +55,7 @@ const AddStack = () => {
       <Stack.Screen
         name="NewItem"
         component={NewItem}
-        options={{
-          title: "New Item",
-        }}
+        options={({ route }) => ({ title: route.params.collection })}
       />
     </Stack.Navigator>
   );
