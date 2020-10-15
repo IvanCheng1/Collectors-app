@@ -4,6 +4,7 @@ import { IItem } from "../reducers/itemReducer";
 
 export const ADD_ITEM = "ADD_ITEM";
 export const EDIT_ITEM = "EDIT_ITEM";
+export const EDIT_ITEM_FOR_COLLECTION = "EDIT_ITEM_FOR_COLLECTION";
 
 interface addItemAction {
   type: typeof ADD_ITEM;
@@ -14,6 +15,12 @@ interface editItemAction {
   type: typeof EDIT_ITEM;
   id: string;
   newItem: IItem;
+}
+
+interface editItemForCollectionAction {
+  type: typeof EDIT_ITEM_FOR_COLLECTION;
+  oldCollection: string;
+  newCollection: string;
 }
 
 const addItemAction = (item: IItem): ItemActionTypes => {
@@ -28,6 +35,17 @@ const editItemAction = (id: string, newItem: IItem): ItemActionTypes => {
     type: EDIT_ITEM,
     id,
     newItem,
+  };
+};
+
+const editItemForCollectionAction = (
+  oldCollection: string,
+  newCollection: string
+): ItemActionTypes => {
+  return {
+    type: EDIT_ITEM_FOR_COLLECTION,
+    oldCollection,
+    newCollection,
   };
 };
 
@@ -55,14 +73,24 @@ export const handleAddItem = (
   };
 };
 
-export const handleEditItem = (
-  id: string,
-  newItem: IItem
-) => {
+export const handleEditItem = (id: string, newItem: IItem) => {
   return (dispatch: Dispatch<ItemActionTypes>) => {
-
     dispatch(editItemAction(id, newItem));
+    // async to do
   };
 };
 
-export type ItemActionTypes = addItemAction | editItemAction;
+export const handleEditItemForCollection = (
+  oldCollection: string,
+  newCollection: string
+) => {
+  return (dispatch: Dispatch<ItemActionTypes>) => {
+    dispatch(editItemForCollectionAction(oldCollection, newCollection));
+    // async to do
+  };
+};
+
+export type ItemActionTypes =
+  | addItemAction
+  | editItemAction
+  | editItemForCollectionAction;

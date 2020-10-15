@@ -15,7 +15,7 @@ export type CollectionStackParamList = {
   Items: { id: string; collection: string };
   Item: { id: string; title: string; collection: string; sort: Sort };
   EditCollection: { id: string };
-  EditItem: { id: string, };
+  EditItem: { id: string };
 };
 
 const Stack = createStackNavigator<CollectionStackParamList>();

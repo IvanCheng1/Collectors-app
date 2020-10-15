@@ -1,4 +1,9 @@
-import { ADD_ITEM, EDIT_ITEM, ItemActionTypes } from "../actions/itemActions";
+import {
+  ADD_ITEM,
+  EDIT_ITEM,
+  EDIT_ITEM_FOR_COLLECTION,
+  ItemActionTypes,
+} from "../actions/itemActions";
 import { itemInitialState } from "../initialStates/itemsInitialState";
 
 export interface IItem {
@@ -26,6 +31,13 @@ export default function itemReducer(
         } else {
           return i;
         }
+      });
+    case EDIT_ITEM_FOR_COLLECTION:
+      return state.map((i) => {
+        if (i.collection === action.oldCollection) {
+          i.collection = action.newCollection;
+        }
+        return i;
       });
     default:
       return state;
