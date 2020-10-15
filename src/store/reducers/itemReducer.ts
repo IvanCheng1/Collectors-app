@@ -1,4 +1,4 @@
-import { ADD_ITEM, ItemActionTypes } from "../actions/itemActions";
+import { ADD_ITEM, EDIT_ITEM, ItemActionTypes } from "../actions/itemActions";
 import { itemInitialState } from "../initialStates/itemsInitialState";
 
 export interface IItem {
@@ -9,6 +9,7 @@ export interface IItem {
   picture: string;
   city: string;
   dateCreated: Date;
+  dateModified: Date;
 }
 
 export default function itemReducer(
@@ -18,6 +19,14 @@ export default function itemReducer(
   switch (action.type) {
     case ADD_ITEM:
       return [...state, action.item];
+    case EDIT_ITEM:
+      return state.map((i) => {
+        if (i.id === action.id) {
+          return action.newItem;
+        } else {
+          return i;
+        }
+      });
     default:
       return state;
   }

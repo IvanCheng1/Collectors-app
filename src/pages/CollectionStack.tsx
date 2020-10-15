@@ -8,12 +8,14 @@ import Items from "./Items";
 import Item from "./Item";
 import { Sort } from "../utils/types";
 import EditCollection from "./EditCollection";
+import EditItem from "./EditItem";
 
 export type CollectionStackParamList = {
   Collections: undefined;
   Items: { id: string; collection: string };
   Item: { id: string; title: string; collection: string; sort: Sort };
-  EditCollection: {id: string};
+  EditCollection: { id: string };
+  EditItem: { id: string, };
 };
 
 const Stack = createStackNavigator<CollectionStackParamList>();
@@ -52,6 +54,11 @@ const CollectionStack = () => {
       <Stack.Screen
         name="EditCollection"
         component={EditCollection}
+        // options={({ route }) => ({ title: route.params.title })}
+      />
+      <Stack.Screen
+        name="EditItem"
+        component={EditItem}
         // options={({ route }) => ({ title: route.params.title })}
       />
     </Stack.Navigator>

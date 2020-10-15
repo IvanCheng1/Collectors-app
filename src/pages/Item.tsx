@@ -85,6 +85,15 @@ class Item extends React.Component<Props, IState> {
         >
           <Text>Next item</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("EditItem", {
+              id,
+            })
+          }
+        >
+          <Text>Edit item</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }

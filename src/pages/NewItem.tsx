@@ -51,6 +51,7 @@ class NewItem extends React.Component<Props, IState> {
   onSubmit = (): void => {
     const { name, description, picture, city } = this.state;
     const { collection } = this.props.route.params;
+    
     this.props.handleAddItem(name, collection, description, city, picture);
     // clear state to do
   };
