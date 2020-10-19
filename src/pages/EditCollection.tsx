@@ -10,6 +10,8 @@ import {
   NativeSyntheticEvent,
   TextInputChangeEventData,
   TouchableOpacity,
+  Image,
+  Alert,
 } from "react-native";
 import { IItem } from "../store/reducers/itemReducer";
 import { rootState } from "../store/reducers";
@@ -27,6 +29,10 @@ import { CollectionStackParamList } from "./CollectionStack";
 import { ICollection } from "../store/reducers/collectionReducer";
 import { handleEditItemForCollection } from "../store/actions/itemActions";
 import { StackNavigationProp } from "@react-navigation/stack";
+import Constants from "expo-constants";
+import * as Permissions from "expo-permissions";
+import * as ImagePicker from "expo-image-picker";
+import { createCollectionObject, dateToString } from "../utils/functions";
 
 interface IProps {
   route: RouteProp<CollectionStackParamList, "EditCollection">;
@@ -38,6 +44,7 @@ interface IState {
   id: string;
   dateCreated: Date;
   oldCollectionName: string;
+  image: string;
 }
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
@@ -48,6 +55,7 @@ class EditCollection extends React.Component<Props, IState> {
     id: "",
     dateCreated: new Date(), // bypass TypeScript
     oldCollectionName: "",
+    image: "",
   };
 
   componentDidMount() {
@@ -61,20 +69,57 @@ class EditCollection extends React.Component<Props, IState> {
     });
   }
 
-  changeStateValues = (value: string, stateKey: "name"): void => {
+  changeName = (value: string): void => {
     this.setState({
-      [stateKey]: value,
+      name: value,
     });
   };
 
+  getPermissionAsync = async () => {
+    if (Constants.platform?.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== "granted") {
+        Alert.alert(
+          "Sorry, we need camera roll permissions to make this work!"
+        );
+      }
+    }
+  };
+
+  pickImage = async () => {
+    this.getPermissionAsync();
+
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        this.setState({ image: result.uri });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   onSubmit = (): void => {
-    const { name, id, dateCreated, oldCollectionName } = this.state;
-    const newCollection: ICollection = {
+    const { name, id, dateCreated, oldCollectionName, image } = this.state;
+    // const newCollection: ICollection = {
+    //   name,
+    //   id,
+    //   dateCreated,
+    //   dateModified: new Date(),
+    //   image: "",
+    // };
+
+    const newCollection: ICollection = createCollectionObject(
       name,
-      id,
-      dateCreated,
-      dateModified: new Date(),
-    };
+      dateToString(dateCreated),
+      image,
+      id
+    );
 
     // to store for collection and items
     this.props.handleEditCollection(this.state.id, newCollection);
@@ -88,6 +133,7 @@ class EditCollection extends React.Component<Props, IState> {
       id: "",
       dateCreated: new Date(), // bypass TypeScript
       oldCollectionName: "",
+      image: "",
     });
 
     // go back
@@ -98,18 +144,32 @@ class EditCollection extends React.Component<Props, IState> {
   };
 
   render() {
-    const { name, id } = this.state;
+    const { name, id, image } = this.state;
     return (
       <SafeAreaView style={myStyles.container}>
         <ScrollView>
           <KeyboardAvoidingView>
             <Text>Edit Collection page</Text>
+
+            <TouchableOpacity
+              onPress={this.pickImage}
+              style={{ marginBottom: 20 }}
+            >
+              {image ? (
+                <Image style={myStyles.img} source={{ uri: image }} />
+              ) : (
+                <View style={myStyles.imgPlaceHolder}>
+                  <Text>Choose Image</Text>
+                </View>
+              )}
+            </TouchableOpacity>
+
             <TextInput
               style={myStyles.input}
               placeholder="Collection name"
               value={name}
               onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-                this.changeStateValues(e.nativeEvent.text, "name")
+                this.changeName(e.nativeEvent.text)
               }
             />
             <TouchableOpacity style={myStyles.btn} onPress={this.onSubmit}>

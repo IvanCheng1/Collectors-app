@@ -9,17 +9,25 @@ export function generateID(): string {
   return "_" + Math.random().toString(36).substr(2);
 }
 
+export function dateToString(date: Date): string {
+  const y = date.getFullYear();
+  const m = date.getMonth();
+  const d = date.getDate();
+
+  return `${y}-${m}-${d}`;
+}
+
 export function createCollectionObject(
   name: string,
   dateCreated: string,
-  dateModified: string,
+  // dateModified: string,
   image: string
 ): ICollection {
   return {
     name,
     id: generateID(),
     dateCreated: new Date(dateCreated),
-    dateModified: new Date(dateModified),
+    dateModified: new Date(),
     image,
   };
 }

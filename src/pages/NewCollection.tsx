@@ -50,7 +50,7 @@ class NewCollection extends React.Component<Props, IState> {
   };
 
   getPermissionAsync = async () => {
-    if (Constants.platform.ios) {
+    if (Constants.platform?.ios) {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
       if (status !== "granted") {
         // alert("Sorry, we need camera roll permissions to make this work!");
@@ -82,7 +82,6 @@ class NewCollection extends React.Component<Props, IState> {
   onSubmit = (): void => {
     const collection = createCollectionObject(
       this.state.collectionName,
-      "2020-02-02",
       "2020-02-02",
       this.state.image
     );
