@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { myStyles } from "../utils/myStyles";
-import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { rootState } from "../store/reducers";
 import { ThunkDispatch } from "redux-thunk";
@@ -12,6 +18,7 @@ import { CollectionStackParamList } from "./CollectionStack";
 import { IItem } from "../store/reducers/itemReducer";
 import { ItemActionTypes } from "../store/actions/itemActions";
 import { Sort } from "../utils/types";
+import { FlatList } from "react-native-gesture-handler";
 
 interface IProps {
   navigation: StackNavigationProp<CollectionStackParamList, "Item">;
@@ -27,6 +34,32 @@ type Props = IProps & LinkStateProps & LinkDispatchProps;
 class Items extends React.Component<Props, IState> {
   state = {
     sort: "alphabetical" as Sort,
+  };
+
+  renderItem = (i: IItem) => {
+    const { navigation } = this.props;
+    const { sort } = this.state;
+    const image = i.image ? { uri: i.image } : require("../images/books.jpg");
+
+    return (
+      <View style={myStyles.recipeContainer}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("Item", {
+              id: i.id,
+              title: i.name,
+              collection: i.collection,
+              sort,
+            })
+          }
+          key={i.id}
+          style={{ borderWidth: 1, borderColor: "red" }}
+        >
+          <Text>{i.name}</Text>
+          <Image style={myStyles.imageListThirds} source={image} />
+        </TouchableOpacity>
+      </View>
+    );
   };
 
   render() {
@@ -69,7 +102,15 @@ class Items extends React.Component<Props, IState> {
           <Text>sort by letters</Text>
         </TouchableOpacity>
 
-        {orderedFilteredItems &&
+        {orderedFilteredItems && (
+          <FlatList
+            data={orderedFilteredItems}
+            numColumns={3}
+            renderItem={({ item }) => this.renderItem(item)}
+          />
+        )}
+
+        {/* {orderedFilteredItems &&
           orderedFilteredItems.map((i) => (
             <TouchableOpacity
               onPress={() =>
@@ -84,7 +125,7 @@ class Items extends React.Component<Props, IState> {
             >
               <Text>{i.name}</Text>
             </TouchableOpacity>
-          ))}
+          ))} */}
 
         <TouchableOpacity
           onPress={() =>

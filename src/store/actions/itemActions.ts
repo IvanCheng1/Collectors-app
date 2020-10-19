@@ -49,25 +49,10 @@ const editItemForCollectionAction = (
   };
 };
 
-export const handleAddItem = (
-  name: string,
-  collection: string,
-  description: string,
-  city: string,
-  picture: string
-) => {
+export const handleAddItem = (item: IItem) => {
   return (dispatch: Dispatch<ItemActionTypes>) => {
     const date = new Date();
-    const item: IItem = {
-      name,
-      id: generateID(),
-      collection,
-      description,
-      city,
-      picture,
-      dateCreated: date,
-      dateModified: date,
-    };
+
     dispatch(addItemAction(item));
     // async to do
   };

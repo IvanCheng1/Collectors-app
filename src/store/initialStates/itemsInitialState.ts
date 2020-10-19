@@ -8,6 +8,7 @@ export const itemInitialState = [
     picture: "",
     city: "London",
     id: "_a5x31hxvnm8",
+    image: "https://info.hobbydb.com/wp-content/uploads/2018/12/Core-head-stock.png",
   },
   {
     name: "ZTurtle",
@@ -18,6 +19,7 @@ export const itemInitialState = [
     picture: "",
     city: "London",
     id: "_y5d33hev3j6",
+    image: "https://info.hobbydb.com/wp-content/uploads/2018/12/Core-head-stock.png",
   },
   {
     name: "Hard Rock Amsterdam",
@@ -28,6 +30,7 @@ export const itemInitialState = [
     picture: "",
     city: "Amsterdam",
     id: "_mku890hj55s",
+    image: "https://info.hobbydb.com/wp-content/uploads/2018/12/Core-head-stock.png",
   },
   {
     name: "Hard Rock New York",
@@ -38,6 +41,7 @@ export const itemInitialState = [
     picture: "",
     city: "New York",
     id: "_mkf892gj541",
+    image: "https://info.hobbydb.com/wp-content/uploads/2018/12/Core-head-stock.png",
   },
   {
     name: "A250e",
@@ -48,5 +52,6 @@ export const itemInitialState = [
     picture: "",
     city: "London",
     id: "_36v8a79vak8",
+    image: "https://info.hobbydb.com/wp-content/uploads/2018/12/Core-head-stock.png",
   },
 ];

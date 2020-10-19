@@ -1,4 +1,5 @@
 import { ICollection } from "../store/reducers/collectionReducer";
+import { IItem } from "../store/reducers/itemReducer";
 
 export function generateID(): string {
   // source: https://gist.github.com/gordonbrander/2230317
@@ -21,13 +22,34 @@ export function createCollectionObject(
   name: string,
   dateCreated: string,
   // dateModified: string,
-  image: string
+  image: string,
+  id?: string
 ): ICollection {
   return {
     name,
-    id: generateID(),
+    id: id ? id : generateID(),
     dateCreated: new Date(dateCreated),
     dateModified: new Date(),
     image,
+  };
+}
+
+export function createItemObject(
+  name: string,
+  collection: string,
+  description: string,
+  city: string,
+  image: string,
+  dateCreated: string
+): IItem {
+  return {
+    name,
+    id: generateID(),
+    collection,
+    description,
+    city,
+    image,
+    dateCreated: new Date(dateCreated),
+    dateModified: new Date(),
   };
 }

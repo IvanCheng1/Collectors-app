@@ -11,10 +11,10 @@ export interface IItem {
   id: string;
   description: string;
   collection: string;
-  picture: string;
   city: string;
   dateCreated: Date;
   dateModified: Date;
+  image: string;
 }
 
 export default function itemReducer(

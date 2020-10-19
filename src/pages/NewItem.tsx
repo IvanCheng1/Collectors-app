@@ -18,8 +18,10 @@ import { AllActionTypes } from "../store/actions";
 import { RouteProp } from "@react-navigation/native";
 import { bindActionCreators } from "redux";
 import { handleAddItem } from "../store/actions/itemActions";
+import { createItemObject, dateToString } from "../utils/functions";
+import { IItem } from "../store/reducers/itemReducer";
 
-type StateKey = "name" | "description" | "picture" | "city";
+type StateKey = "name" | "description" | "image" | "city";
 
 interface IProps {
   route: RouteProp<AddStackParamList, "NewItem">;
@@ -28,7 +30,7 @@ interface IProps {
 interface IState {
   name: string;
   description: string;
-  picture: string;
+  image: string;
   city: string;
 }
 
@@ -38,27 +40,36 @@ class NewItem extends React.Component<Props, IState> {
   state = {
     name: "",
     description: "",
-    picture: "",
+    image: "",
     city: "",
   };
 
   changeStateValues = (value: string, stateKey: StateKey): void => {
     this.setState({
       [stateKey]: value,
-    } as Pick<IState, keyof IState>);
+    } as Pick<IState, keyof IState>); // not safe!!!!!!!
   };
 
   onSubmit = (): void => {
-    const { name, description, picture, city } = this.state;
+    const { name, description, image, city } = this.state;
     const { collection } = this.props.route.params;
-    
-    this.props.handleAddItem(name, collection, description, city, picture);
+
+    const item = createItemObject(
+      name,
+      collection,
+      description,
+      city,
+      image,
+      dateToString(new Date())
+    );
+
+    this.props.handleAddItem(item);
     // clear state to do
   };
 
   render() {
     const { route } = this.props;
-    const { name, description, picture, city } = this.state;
+    const { name, description, image, city } = this.state;
 
     return (
       <SafeAreaView style={myStyles.container}>
@@ -88,11 +99,10 @@ class NewItem extends React.Component<Props, IState> {
           }
         />
 
-        <TouchableOpacity
-          style={myStyles.btn}
-          onPress={this.onSubmit}
-        >
-          <Text style={myStyles.btnText}>Save Item to {route.params.collection}</Text>
+        <TouchableOpacity style={myStyles.btn} onPress={this.onSubmit}>
+          <Text style={myStyles.btnText}>
+            Save Item to {route.params.collection}
+          </Text>
         </TouchableOpacity>
       </SafeAreaView>
     );
@@ -103,11 +113,7 @@ interface LinkStateProps {}
 
 interface LinkDispatchProps {
   handleAddItem: (
-    name: string,
-    collection: string,
-    description: string,
-    city: string,
-    picture: string
+    item: IItem
   ) => void;
 }
 

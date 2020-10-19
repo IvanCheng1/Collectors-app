@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from "react-native";
 const windowWidth = Dimensions.get("window").width;
 const windowHalfWidth = windowWidth / 2;
+const windowThirdWidth = windowWidth / 3;
 const windowHeight = Dimensions.get("window").height;
 
 export const myStyles = StyleSheet.create({
@@ -27,20 +28,25 @@ export const myStyles = StyleSheet.create({
     height: windowHalfWidth * 0.99,
     // borderRadius: 10,
   },
+  imageListThirds: {
+    width: windowThirdWidth * 0.99,
+    height: windowThirdWidth * 0.99,
+    // borderRadius: 10,
+  },
   box: {
     borderColor: "grey",
     borderWidth: 1,
   },
   recipeContainer: {
-    paddingTop: 5,
-    paddingBottom: 5,
-    width: windowHalfWidth,
+    // paddingTop: 5,
+    // paddingBottom: 5,
+    width: windowThirdWidth,
     // height: windowHalfWidth + 50,
     // height: 100%,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
-    marginBottom: 5,
+    // marginBottom: 5,
     // borderColor: "grey",
   },
   recipeTitle: {

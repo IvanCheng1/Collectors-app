@@ -17,6 +17,7 @@ import { RouteProp } from "@react-navigation/native";
 import { CollectionStackParamList } from "./CollectionStack";
 import { Sort } from "../utils/types";
 import { FlatList } from "react-native-gesture-handler";
+import ClickableCollection from "../components/ClickableCollection";
 
 interface IProps {
   navigation: StackNavigationProp<CollectionStackParamList, "Items">;

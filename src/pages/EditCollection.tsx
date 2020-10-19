@@ -66,6 +66,7 @@ class EditCollection extends React.Component<Props, IState> {
       id,
       dateCreated: collection.dateCreated,
       oldCollectionName: collection.name,
+      image: collection.image,
     });
   }
 
@@ -74,6 +75,8 @@ class EditCollection extends React.Component<Props, IState> {
       name: value,
     });
   };
+
+  changeDateCreated = (): void => {};
 
   getPermissionAsync = async () => {
     if (Constants.platform?.ios) {
@@ -106,13 +109,6 @@ class EditCollection extends React.Component<Props, IState> {
 
   onSubmit = (): void => {
     const { name, id, dateCreated, oldCollectionName, image } = this.state;
-    // const newCollection: ICollection = {
-    //   name,
-    //   id,
-    //   dateCreated,
-    //   dateModified: new Date(),
-    //   image: "",
-    // };
 
     const newCollection: ICollection = createCollectionObject(
       name,
