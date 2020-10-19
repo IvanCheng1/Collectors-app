@@ -10,6 +10,7 @@ export interface ICollection {
   id: string;
   dateCreated: Date;
   dateModified: Date;
+  image: string;
 }
 
 export default function collectionReducer(

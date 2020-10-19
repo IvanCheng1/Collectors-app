@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { myStyles } from "../utils/myStyles";
-import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { rootState } from "../store/reducers";
 import { ThunkDispatch } from "redux-thunk";
 import { CollectionActionTypes } from "../store/actions/collectionActions";
@@ -10,6 +16,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 import { CollectionStackParamList } from "./CollectionStack";
 import { Sort } from "../utils/types";
+import { FlatList } from "react-native-gesture-handler";
 
 interface IProps {
   navigation: StackNavigationProp<CollectionStackParamList, "Items">;
@@ -27,8 +34,27 @@ class Collections extends React.Component<Props, IState> {
     sort: "alphabetical" as Sort,
   };
 
+  renderItem = (c: ICollection) => {
+    const { navigation } = this.props;
+    const image = c.image ? { uri: c.image } : require("../images/books.jpg");
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate("Items", {
+            id: c.id,
+            collection: c.name,
+          })
+        }
+        key={c.id}
+      >
+        <Text>{c.name}</Text>
+        <Image style={myStyles.imageList} source={image} />
+      </TouchableOpacity>
+    );
+  };
+
   render() {
-    const { collections, navigation }: Props = this.props;
+    const { collections, navigation } = this.props;
     const { sort } = this.state;
 
     const orderedCollections = collections.sort((a, b) => {
@@ -64,20 +90,14 @@ class Collections extends React.Component<Props, IState> {
         </TouchableOpacity>
 
         <Text>Collections here</Text>
-        {orderedCollections &&
-          orderedCollections.map((c) => (
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("Items", {
-                  id: c.id,
-                  collection: c.name,
-                })
-              }
-              key={c.id}
-            >
-              <Text>{c.name}</Text>
-            </TouchableOpacity>
-          ))}
+        {orderedCollections && (
+          <FlatList
+            // style={myStyles.recipeList}
+            data={orderedCollections}
+            numColumns={2}
+            renderItem={({ item }) => this.renderItem(item)}
+          />
+        )}
       </SafeAreaView>
     );
   }

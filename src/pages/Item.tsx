@@ -61,6 +61,7 @@ class Item extends React.Component<Props, IState> {
       <SafeAreaView style={myStyles.container}>
         <Text>{currentItem.name}</Text>
         <Text>{currentItem.description}</Text>
+        <Text>{currentItem.city}</Text>
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("Item", {

@@ -36,16 +36,8 @@ const editCollectionAction = (
   };
 };
 
-export const handleAddCollection = (name: string) => {
+export const handleAddCollection = (collection: ICollection) => {
   return (dispatch: Dispatch<CollectionActionTypes>) => {
-    const date = new Date();
-
-    const collection: ICollection = {
-      name,
-      id: generateID(),
-      dateCreated: date,
-      dateModified: date,
-    };
     dispatch(addCollectionAction(collection));
     // async to do
   };

@@ -10,6 +10,7 @@ import {
   NativeSyntheticEvent,
   TextInputChangeEventData,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { IItem } from "../store/reducers/itemReducer";
 import { rootState } from "../store/reducers";
@@ -21,11 +22,17 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { createCollectionObject } from "../utils/functions";
+import { ICollection } from "../store/reducers/collectionReducer";
+import * as ImagePicker from "expo-image-picker";
+import Constants from "expo-constants";
+import * as Permissions from "expo-permissions";
 
 interface IProps {}
 
 interface IState {
   collectionName: string;
+  image: string;
 }
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
@@ -33,32 +40,91 @@ type Props = IProps & LinkStateProps & LinkDispatchProps;
 class NewCollection extends React.Component<Props, IState> {
   state = {
     collectionName: "",
+    image: "",
   };
 
-  changeStateValues = (value: string, stateKey: "collectionName"): void => {
+  changeName = (value: string): void => {
     this.setState({
-      [stateKey]: value,
+      collectionName: value,
     });
   };
 
+  getPermissionAsync = async () => {
+    if (Constants.platform.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== "granted") {
+        // alert("Sorry, we need camera roll permissions to make this work!");
+      }
+    }
+  };
+
+  pickImage = async () => {
+    this.getPermissionAsync();
+
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        this.setState({ image: result.uri });
+        console.log(result.uri);
+      }
+
+      // console.log(result);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   onSubmit = (): void => {
-    this.props.handleAddCollection(this.state.collectionName);
+    const collection = createCollectionObject(
+      this.state.collectionName,
+      "2020-02-02",
+      "2020-02-02",
+      this.state.image
+    );
+    // console.log(collection);
+
+    this.props.handleAddCollection(collection);
     // clear state to do
+    this.setState({
+      collectionName: "",
+      image: "",
+    });
+
+    // go home to do
   };
 
   render() {
-    const { collectionName } = this.state;
+    const { collectionName, image } = this.state;
     return (
       <SafeAreaView style={myStyles.container}>
         <ScrollView>
           <KeyboardAvoidingView>
             <Text>New Collection page</Text>
+
+            <TouchableOpacity
+              onPress={this.pickImage}
+              style={{ marginBottom: 20 }}
+            >
+              {image ? (
+                <Image style={myStyles.img} source={{ uri: image }} />
+              ) : (
+                <View style={myStyles.imgPlaceHolder}>
+                  <Text>Choose Image</Text>
+                </View>
+              )}
+            </TouchableOpacity>
+
             <TextInput
               style={myStyles.input}
               placeholder="Collection name"
               value={collectionName}
               onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-                this.changeStateValues(e.nativeEvent.text, "collectionName")
+                this.changeName(e.nativeEvent.text)
               }
             />
             <TouchableOpacity
@@ -77,7 +143,7 @@ class NewCollection extends React.Component<Props, IState> {
 interface LinkStateProps {}
 
 interface LinkDispatchProps {
-  handleAddCollection: (name: string) => void;
+  handleAddCollection: (collection: ICollection) => void;
 }
 
 const mapStateToProps = (
