@@ -46,9 +46,9 @@ class Item extends React.Component<Props, IState> {
     );
 
     const orderedFilteredItems = filteredItems.sort((a, b) => {
-      if (sort === "alphabetical") {
+      if (sort === "Alphabetical") {
         return a.name > b.name ? 1 : -1;
-      } else if (sort === "date descending") {
+      } else if (sort === "Date descending") {
         return b.dateCreated.getTime() - a.dateCreated.getTime();
       }
       return 1;

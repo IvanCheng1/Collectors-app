@@ -58,10 +58,12 @@ class Collections extends React.Component<Props, IState> {
     const { sort } = this.state;
 
     const orderedCollections = collections.sort((a, b) => {
-      if (sort === "alphabetical") {
+      if (sort === "Alphabetical") {
         return a.name > b.name ? 1 : -1;
-      } else if (sort === "date descending") {
+      } else if (sort === "Date descending") {
         return b.dateCreated.getTime() - a.dateCreated.getTime();
+      } else if (sort === "Date ascending") {
+        return a.dateCreated.getTime() - b.dateCreated.getTime();
       }
       return 1;
     });
@@ -73,7 +75,7 @@ class Collections extends React.Component<Props, IState> {
         <TouchableOpacity
           onPress={() => {
             this.setState({
-              sort: "date descending",
+              sort: "Date descending",
             });
           }}
         >
@@ -82,7 +84,7 @@ class Collections extends React.Component<Props, IState> {
         <TouchableOpacity
           onPress={() => {
             this.setState({
-              sort: "alphabetical",
+              sort: "Alphabetical",
             });
           }}
         >

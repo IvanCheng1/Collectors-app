@@ -162,7 +162,7 @@ class EditItem extends React.Component<Props, IState> {
       id: newItem.id,
       title: newItem.name,
       collection: newItem.collection,
-      sort: "alphabetical", // this will be from store.settings
+      sort: "Alphabetical", // this will be from store.settings
     });
   };
 
