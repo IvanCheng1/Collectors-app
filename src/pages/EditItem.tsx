@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useRef } from "react";
 // import { connect } from "react-redux";
 import { myStyles } from "../utils/myStyles";
 import {
@@ -30,8 +30,8 @@ import { handleDeleteItem, handleEditItem } from "../store/actions/itemActions";
 import { StackNavigationProp } from "@react-navigation/stack";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
-import { createItemObject } from "../utils/functions";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import { createItemObject, dateToDisplay } from "../utils/functions";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 interface IProps {
   route: RouteProp<CollectionStackParamList, "EditItem">;
@@ -120,18 +120,11 @@ class EditItem extends React.Component<Props, IState> {
     }));
   };
 
-  changeDate = (e: Event, selectedDate?: Date) => {
-    if (selectedDate) {
-      this.setState({
-        dateCreated: selectedDate,
-        showDatePicker: Platform.OS === "ios"
-      });
-    }
-    // if (Platform.OS === "android") {
-    //   console.log("trying to close");
-    //   // close if android
-    //   this.showDatePicker(false);
-    // }
+  changeDate = (date: Date) => {
+    this.setState({
+      dateCreated: date,
+      showDatePicker: false,
+    });
   };
 
   onSubmit = (): void => {
@@ -199,12 +192,12 @@ class EditItem extends React.Component<Props, IState> {
       dateCreated,
       showDatePicker,
     } = this.state;
+
     return (
       <SafeAreaView style={myStyles.container}>
         <ScrollView>
           <KeyboardAvoidingView>
             <Text>Edit Item page</Text>
-
             <TouchableOpacity
               onPress={this.pickImage}
               style={{ marginBottom: 20 }}
@@ -217,7 +210,6 @@ class EditItem extends React.Component<Props, IState> {
                 </View>
               )}
             </TouchableOpacity>
-
             <TextInput
               style={myStyles.input}
               placeholder="Item Name"
@@ -242,7 +234,6 @@ class EditItem extends React.Component<Props, IState> {
                 this.changeCity(e.nativeEvent.text)
               }
             />
-
             <TouchableOpacity
               style={myStyles.btn}
               onPress={this.showDatePicker}
@@ -250,9 +241,15 @@ class EditItem extends React.Component<Props, IState> {
               <Text style={myStyles.btnText}>Change date</Text>
             </TouchableOpacity>
 
-            {showDatePicker && (
-              <DateTimePicker value={dateCreated} onChange={this.changeDate} />
-            )}
+            <Text>{dateToDisplay(dateCreated)}</Text>
+
+            <DateTimePickerModal
+              isVisible={showDatePicker}
+              date={dateCreated}
+              mode="date"
+              onConfirm={this.changeDate}
+              onCancel={this.showDatePicker}
+            />
 
             <TouchableOpacity style={myStyles.btn} onPress={this.onSubmit}>
               <Text style={myStyles.btnText}>Save Item</Text>

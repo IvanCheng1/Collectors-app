@@ -32,6 +32,8 @@ interface IState {
   description: string;
   image: string;
   city: string;
+  dateCreated: Date;
+  showDatePicker: boolean;
 }
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
@@ -42,12 +44,22 @@ class NewItem extends React.Component<Props, IState> {
     description: "",
     image: "",
     city: "",
+    dateCreated: new Date(), // bypass
+    showDatePicker: false,
   };
 
   changeStateValues = (value: string, stateKey: StateKey): void => {
-    this.setState({
-      [stateKey]: value,
-    } as Pick<IState, keyof IState>); // not safe!!!!!!!
+    switch (stateKey) {
+      case "name":
+        this.setState({ name: value });
+        return;
+      case "description":
+        this.setState({ description: value });
+        return;
+      case "city":
+        this.setState({ city: value });
+        return;
+    }
   };
 
   onSubmit = (): void => {
@@ -99,6 +111,10 @@ class NewItem extends React.Component<Props, IState> {
           }
         />
 
+        <TouchableOpacity style={myStyles.btn} onPress={this.showDatePicker}>
+          <Text style={myStyles.btnText}>Change date</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity style={myStyles.btn} onPress={this.onSubmit}>
           <Text style={myStyles.btnText}>
             Save Item to {route.params.collection}
@@ -112,9 +128,7 @@ class NewItem extends React.Component<Props, IState> {
 interface LinkStateProps {}
 
 interface LinkDispatchProps {
-  handleAddItem: (
-    item: IItem
-  ) => void;
+  handleAddItem: (item: IItem) => void;
 }
 
 const mapStateToProps = (
