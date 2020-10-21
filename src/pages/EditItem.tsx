@@ -155,6 +155,8 @@ class EditItem extends React.Component<Props, IState> {
     // clear state
     this.clearState();
 
+
+    // to do - check if collection is changed
     // go back
     this.props.navigation.navigate("Item", {
       id: newItem.id,
@@ -165,7 +167,7 @@ class EditItem extends React.Component<Props, IState> {
   };
 
   onDelete = (): void => {
-    const collection = this.props.collection.filter(
+    const collection = this.props.collections.filter(
       (c) => c.name === this.state.collection
     )[0];
 
@@ -271,7 +273,7 @@ class EditItem extends React.Component<Props, IState> {
               <Picker
                 selectedValue={collection}
                 onValueChange={(value) => this.changeCollection(value)}
-                prompt="hi"
+                prompt="Collection"
               >
                 {collections.map((c) => {
                   return (

@@ -70,40 +70,44 @@ class Item extends React.Component<Props, IState> {
         {/* <Text>{currentItem.name}</Text> */}
         <Text>{currentItem.description}</Text>
         <Text>From {currentItem.city}</Text>
-
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("Item", {
-              id: prevItem.id,
-              title: prevItem.name,
-              collection: prevItem.collection,
-              sort,
-            })
-          }
-        >
-          <Text>Previous item</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("Item", {
-              id: nextItem.id,
-              title: nextItem.name,
-              collection: nextItem.collection,
-              sort,
-            })
-          }
-        >
-          <Text>Next item</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("EditItem", {
-              id,
-            })
-          }
-        >
-          <Text>Edit item</Text>
-        </TouchableOpacity>
+        <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("Item", {
+                id: prevItem.id,
+                title: prevItem.name,
+                collection: prevItem.collection,
+                sort,
+              })
+            }
+            style={myStyles.btnBarButtons}
+          >
+            <Text style={myStyles.btnBarButtonText}>Previous item</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("EditItem", {
+                id,
+              })
+            }
+            style={myStyles.btnBarButtons}
+          >
+            <Text style={myStyles.btnBarButtonText}>Edit item</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("Item", {
+                id: nextItem.id,
+                title: nextItem.name,
+                collection: nextItem.collection,
+                sort,
+              })
+            }
+            style={myStyles.btnBarButtons}
+          >
+            <Text style={myStyles.btnBarButtonText}>Next item</Text>
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
     );
   }

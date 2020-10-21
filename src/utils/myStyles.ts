@@ -136,7 +136,7 @@ export const myStyles = StyleSheet.create({
     marginRight: 5,
     marginLeft: 4,
     fontWeight: "400",
-    color: "grey"
+    color: "grey",
   },
   recipeItem: {
     fontSize: 16,
@@ -158,7 +158,6 @@ export const myStyles = StyleSheet.create({
   },
   btnDisabled: {
     backgroundColor: "grey",
-    
   },
   btnSmall: {
     backgroundColor: "#f56436",
@@ -169,8 +168,8 @@ export const myStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
-    width: 150,
-    height: 40,
+    width: 100,
+    // height: 40,
   },
   btnDark: {
     backgroundColor: "#bc3409",
@@ -178,6 +177,25 @@ export const myStyles = StyleSheet.create({
   btnText: {
     color: "#FFF",
     fontSize: 15,
+  },
+  btnBar: {
+    flexDirection: "row",
+  },
+  btnBarButtons: {
+    backgroundColor: "#f56436",
+    paddingTop: 8,
+    paddingBottom: 8,
+    // paddingLeft: 20,
+    // paddingRight: 20,
+    margin: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    width: 100,
+    // height: 40,
+  },
+  btnBarButtonText: {
+    color: "white",
   },
   input: {
     padding: 15,
@@ -216,8 +234,8 @@ export const myStyles = StyleSheet.create({
   img: {
     width: 300,
     height: 300,
-    resizeMode: 'contain',
-    backgroundColor: 'black',
+    resizeMode: "contain",
+    backgroundColor: "black",
     borderRadius: 10,
   },
   imgPlaceHolder: {
@@ -258,11 +276,11 @@ export const myStyles = StyleSheet.create({
     // paddingLeft: 5,
   },
   shoppingItemDescriptionCrossed: {
-    textDecorationLine: 'line-through',
+    textDecorationLine: "line-through",
     color: "grey",
   },
   shoppingListBin: {
     marginLeft: 10,
     marginRight: 10,
-  }
+  },
 });
