@@ -19,6 +19,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { ItemActionTypes } from "../store/actions/itemActions";
 import { rootState } from "../store/reducers";
 import { IItem } from "../store/reducers/itemReducer";
+import { dateToDisplay, dateToString } from "../utils/functions";
 import { myStyles } from "../utils/myStyles";
 import { CollectionStackParamList } from "./CollectionStack";
 
@@ -63,11 +64,12 @@ class Item extends React.Component<Props, IState> {
 
     return (
       <SafeAreaView style={myStyles.container}>
+        <Text>{dateToDisplay(currentItem.dateCreated)}</Text>
         <Image style={myStyles.img} source={image} />
 
         {/* <Text>{currentItem.name}</Text> */}
         <Text>{currentItem.description}</Text>
-        <Text>{currentItem.city}</Text>
+        <Text>From {currentItem.city}</Text>
 
         <TouchableOpacity
           onPress={() =>

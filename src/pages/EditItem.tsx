@@ -25,7 +25,7 @@ import { bindActionCreators } from "redux";
 import { RouteProp } from "@react-navigation/native";
 import { CollectionStackParamList } from "./CollectionStack";
 import { ICollection } from "../store/reducers/collectionReducer";
-import { handleEditItem } from "../store/actions/itemActions";
+import { handleDeleteItem, handleEditItem } from "../store/actions/itemActions";
 import { StackNavigationProp } from "@react-navigation/stack";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
@@ -102,25 +102,18 @@ class EditItem extends React.Component<Props, IState> {
     const oldItem: IItem = this.props.items.filter((i) => i.id === id)[0];
 
     const newItem: IItem = createItemObject(
-      this.setState.name,
+      this.state.name,
       this.state.collection,
       this.state.description,
       this.state.city,
       this.state.image,
-      dateToString(oldItem.dateCreated),
+      oldItem.dateCreated,
       this.state.id
     );
 
     this.props.handleEditItem(id, newItem);
     // clear state
-    this.setState({
-      name: "",
-      description: "",
-      image: "",
-      city: "",
-      collection: "",
-      id: "",
-    });
+    this.clearState();
 
     // go back
     this.props.navigation.navigate("Item", {
@@ -128,6 +121,35 @@ class EditItem extends React.Component<Props, IState> {
       title: newItem.name,
       collection: newItem.collection,
       sort: "alphabetical", // this will be from store.settings
+    });
+  };
+
+  onDelete = (): void => {
+    const collection = this.props.collection.filter(
+      (c) => c.name === this.state.collection
+    )[0];
+
+    // store
+    this.props.handleDeleteItem(this.state.id);
+
+    // clear state
+    this.clearState();
+
+    // go back to collection
+    this.props.navigation.navigate("Items", {
+      id: collection.id,
+      collection: collection.name,
+    });
+  };
+
+  clearState = (): void => {
+    this.setState({
+      name: "",
+      description: "",
+      image: "",
+      city: "",
+      collection: "",
+      id: "",
     });
   };
 
@@ -180,6 +202,12 @@ class EditItem extends React.Component<Props, IState> {
             <TouchableOpacity style={myStyles.btn} onPress={this.onSubmit}>
               <Text style={myStyles.btnText}>Save Item</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={[myStyles.btn, myStyles.btnDark]}
+              onPress={this.onDelete}
+            >
+              <Text style={myStyles.btnText}>Delete Item</Text>
+            </TouchableOpacity>
           </KeyboardAvoidingView>
         </ScrollView>
       </SafeAreaView>
@@ -189,10 +217,12 @@ class EditItem extends React.Component<Props, IState> {
 
 interface LinkStateProps {
   items: IItem[];
+  collection: ICollection[];
 }
 
 interface LinkDispatchProps {
   handleEditItem: (id: string, newItem: IItem) => void;
+  handleDeleteItem: (id: string) => void;
 }
 
 const mapStateToProps = (
@@ -200,6 +230,7 @@ const mapStateToProps = (
   ownProps: IProps
 ): LinkStateProps => ({
   items: state.item,
+  collection: state.collection,
 });
 
 const mapDispatchToProps = (
@@ -207,6 +238,7 @@ const mapDispatchToProps = (
   ownProps: IProps
 ): LinkDispatchProps => ({
   handleEditItem: bindActionCreators(handleEditItem, dispatch),
+  handleDeleteItem: bindActionCreators(handleDeleteItem, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditItem);

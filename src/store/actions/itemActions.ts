@@ -5,6 +5,7 @@ import { IItem } from "../reducers/itemReducer";
 export const ADD_ITEM = "ADD_ITEM";
 export const EDIT_ITEM = "EDIT_ITEM";
 export const EDIT_ITEM_FOR_COLLECTION = "EDIT_ITEM_FOR_COLLECTION";
+export const DELETE_ITEM = "DELETE_ITEM";
 
 interface addItemAction {
   type: typeof ADD_ITEM;
@@ -21,6 +22,11 @@ interface editItemForCollectionAction {
   type: typeof EDIT_ITEM_FOR_COLLECTION;
   oldCollection: string;
   newCollection: string;
+}
+
+interface deleteItemAction {
+  type: typeof DELETE_ITEM;
+  id: string;
 }
 
 const addItemAction = (item: IItem): ItemActionTypes => {
@@ -46,6 +52,13 @@ const editItemForCollectionAction = (
     type: EDIT_ITEM_FOR_COLLECTION,
     oldCollection,
     newCollection,
+  };
+};
+
+const deleteItemAction = (id: string): ItemActionTypes => {
+  return {
+    type: DELETE_ITEM,
+    id,
   };
 };
 
@@ -75,7 +88,15 @@ export const handleEditItemForCollection = (
   };
 };
 
+export const handleDeleteItem = (id: string) => {
+  return (dispatch: Dispatch<ItemActionTypes>) => {
+    dispatch(deleteItemAction(id));
+    // async to do
+  };
+};
+
 export type ItemActionTypes =
   | addItemAction
   | editItemAction
-  | editItemForCollectionAction;
+  | editItemForCollectionAction
+  | deleteItemAction;

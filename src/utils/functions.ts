@@ -1,6 +1,21 @@
 import { ICollection } from "../store/reducers/collectionReducer";
 import { IItem } from "../store/reducers/itemReducer";
 
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 export function generateID(): string {
   // source: https://gist.github.com/gordonbrander/2230317
 
@@ -10,17 +25,29 @@ export function generateID(): string {
   return "_" + Math.random().toString(36).substr(2);
 }
 
-export function dateToString(date: Date): string {
+function dateToYMD(date: Date): { y: number; m: number; d: number } {
   const y = date.getFullYear();
   const m = date.getMonth();
   const d = date.getDate();
+  return { y, m, d };
+}
+
+export function dateToString(date: Date): string {
+  const { y, m, d } = dateToYMD(date);
 
   return `${y}-${m}-${d}`;
 }
 
+export function dateToDisplay(date: Date): string {
+  // format??????
+
+  const { y, m, d } = dateToYMD(date);
+  return `${d} ${months[m]} ${y}`;
+}
+
 export function createCollectionObject(
   name: string,
-  dateCreated: string,
+  dateCreated: string | Date,
   // dateModified: string,
   image: string,
   id?: string
@@ -28,7 +55,8 @@ export function createCollectionObject(
   return {
     name,
     id: id ? id : generateID(),
-    dateCreated: new Date(dateCreated),
+    dateCreated:
+      typeof dateCreated === "string" ? new Date(dateCreated) : dateCreated,
     dateModified: new Date(),
     image,
   };
@@ -40,7 +68,7 @@ export function createItemObject(
   description: string,
   city: string,
   image: string,
-  dateCreated: string,
+  dateCreated: string | Date,
   id?: string
 ): IItem {
   return {
@@ -50,7 +78,8 @@ export function createItemObject(
     description,
     city,
     image,
-    dateCreated: new Date(dateCreated),
+    dateCreated:
+      typeof dateCreated === "string" ? new Date(dateCreated) : dateCreated,
     dateModified: new Date(),
   };
 }
