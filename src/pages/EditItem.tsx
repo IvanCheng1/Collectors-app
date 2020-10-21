@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   Image,
   Platform,
+  Picker,
 } from "react-native";
 import { IItem } from "../store/reducers/itemReducer";
 import { rootState } from "../store/reducers";
@@ -32,8 +33,9 @@ import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import { createItemObject, dateToDisplay } from "../utils/functions";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Picker } from "@react-native-community/picker";
+// import { Picker } from "@react-native-community/picker";
 import RNPickerSelect from "react-native-picker-select";
+// import Picker from "react-native-picker-select";
 
 interface IProps {
   route: RouteProp<CollectionStackParamList, "EditItem">;
@@ -155,7 +157,6 @@ class EditItem extends React.Component<Props, IState> {
     // clear state
     this.clearState();
 
-
     // to do - check if collection is changed
     // go back
     this.props.navigation.navigate("Item", {
@@ -270,17 +271,19 @@ class EditItem extends React.Component<Props, IState> {
                 textInputProps={{ color: "black" }}
               />
             ) : (
-              <Picker
-                selectedValue={collection}
-                onValueChange={(value) => this.changeCollection(value)}
-                prompt="Collection"
-              >
-                {collections.map((c) => {
-                  return (
-                    <Picker.Item label={c.name} value={c.name} key={c.id} />
-                  );
-                })}
-              </Picker>
+              <>
+                <Picker
+                  selectedValue={collection}
+                  onValueChange={(value) => this.changeCollection(value)}
+                  prompt="Collection"
+                >
+                  {collections.map((c) => {
+                    return (
+                      <Picker.Item label={c.name} value={c.name} key={c.id} />
+                    );
+                  })}
+                </Picker>
+              </>
             )}
 
             <TouchableOpacity

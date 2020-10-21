@@ -27,8 +27,13 @@ import { ICollection } from "../store/reducers/collectionReducer";
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { CollectionStackParamList } from "./CollectionStack";
+import { AddStackParamList } from "./AddStack";
 
-interface IProps {}
+interface IProps {
+  navigation: StackNavigationProp<AddStackParamList, "AddQuestion">;
+}
 
 interface IState {
   collectionName: string;
@@ -95,6 +100,7 @@ class NewCollection extends React.Component<Props, IState> {
     });
 
     // go home to do
+    this.props.navigation.navigate("AddQuestion")
   };
 
   render() {

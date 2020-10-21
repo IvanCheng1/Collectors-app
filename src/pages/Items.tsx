@@ -8,10 +8,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
 import { rootState } from "../store/reducers";
 import { ThunkDispatch } from "redux-thunk";
-import { CollectionActionTypes } from "../store/actions/collectionActions";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { CollectionStackParamList } from "./CollectionStack";
@@ -32,7 +30,6 @@ interface IState {
 }
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
-
 
 class Items extends React.Component<Props, IState> {
   state = {

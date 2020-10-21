@@ -10,11 +10,14 @@ import {
   View,
   Text,
   StatusBar,
+  Settings,
 } from "react-native";
 import { Provider } from "react-redux";
 import AddStack from "./src/pages/AddStack";
 
 import CollectionStack from "./src/pages/CollectionStack";
+import SettingsPage from "./src/pages/SettingsPage";
+import SettingsStack from "./src/pages/SettingsStack";
 import { store } from "./src/store";
 import { myStyles } from "./src/utils/myStyles";
 
@@ -46,6 +49,16 @@ class App extends React.Component {
                 tabBarLabel: "Add",
                 tabBarIcon: ({ color }) => (
                   <AntDesign name="plussquareo" color={color} size={24} />
+                ),
+              }}
+            />
+            <BottomTab.Screen
+              name="Settings"
+              component={SettingsStack}
+              options={{
+                tabBarLabel: "Settings",
+                tabBarIcon: ({ color }) => (
+                  <AntDesign name="setting" color={color} size={24} />
                 ),
               }}
             />
