@@ -11,6 +11,7 @@ import {
   TextInputChangeEventData,
   TouchableOpacity,
   Image,
+  Platform,
 } from "react-native";
 import { IItem } from "../store/reducers/itemReducer";
 import { rootState } from "../store/reducers";
@@ -29,9 +30,8 @@ import { handleDeleteItem, handleEditItem } from "../store/actions/itemActions";
 import { StackNavigationProp } from "@react-navigation/stack";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
-import { createItemObject, dateToString } from "../utils/functions";
-
-type StateKey = "name" | "description" | "city";
+import { createItemObject } from "../utils/functions";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 interface IProps {
   route: RouteProp<CollectionStackParamList, "EditItem">;
@@ -45,6 +45,8 @@ interface IState {
   city: string;
   collection: string;
   id: string;
+  dateCreated: Date;
+  showDatePicker: boolean;
 }
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
@@ -57,6 +59,8 @@ class EditItem extends React.Component<Props, IState> {
     city: "",
     collection: "",
     id: "",
+    dateCreated: new Date(), // bypass
+    showDatePicker: false,
   };
 
   componentDidMount() {
@@ -70,13 +74,26 @@ class EditItem extends React.Component<Props, IState> {
       city: oldItem.city,
       collection: oldItem.collection,
       id,
+      dateCreated: oldItem.dateCreated,
     });
   }
 
-  changeStateValues = (value: string, stateKey: StateKey): void => {
+  changeName = (value: string): void => {
     this.setState({
-      [stateKey]: value,
-    } as Pick<IState, keyof IState>);
+      name: value,
+    });
+  };
+
+  changeDescription = (value: string): void => {
+    this.setState({
+      description: value,
+    });
+  };
+
+  changeCity = (value: string): void => {
+    this.setState({
+      city: value,
+    });
   };
 
   pickImage = async () => {
@@ -95,6 +112,26 @@ class EditItem extends React.Component<Props, IState> {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  showDatePicker = (): void => {
+    this.setState((prev) => ({
+      showDatePicker: !prev.showDatePicker,
+    }));
+  };
+
+  changeDate = (e: Event, selectedDate?: Date) => {
+    if (selectedDate) {
+      this.setState({
+        dateCreated: selectedDate,
+        showDatePicker: Platform.OS === "ios"
+      });
+    }
+    // if (Platform.OS === "android") {
+    //   console.log("trying to close");
+    //   // close if android
+    //   this.showDatePicker(false);
+    // }
   };
 
   onSubmit = (): void => {
@@ -154,7 +191,14 @@ class EditItem extends React.Component<Props, IState> {
   };
 
   render() {
-    const { name, description, image, city } = this.state;
+    const {
+      name,
+      description,
+      image,
+      city,
+      dateCreated,
+      showDatePicker,
+    } = this.state;
     return (
       <SafeAreaView style={myStyles.container}>
         <ScrollView>
@@ -179,7 +223,7 @@ class EditItem extends React.Component<Props, IState> {
               placeholder="Item Name"
               value={name}
               onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-                this.changeStateValues(e.nativeEvent.text, "name")
+                this.changeName(e.nativeEvent.text)
               }
             />
             <TextInput
@@ -187,7 +231,7 @@ class EditItem extends React.Component<Props, IState> {
               placeholder="Description"
               value={description}
               onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-                this.changeStateValues(e.nativeEvent.text, "description")
+                this.changeDescription(e.nativeEvent.text)
               }
             />
             <TextInput
@@ -195,9 +239,20 @@ class EditItem extends React.Component<Props, IState> {
               placeholder="City"
               value={city}
               onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-                this.changeStateValues(e.nativeEvent.text, "city")
+                this.changeCity(e.nativeEvent.text)
               }
             />
+
+            <TouchableOpacity
+              style={myStyles.btn}
+              onPress={this.showDatePicker}
+            >
+              <Text style={myStyles.btnText}>Change date</Text>
+            </TouchableOpacity>
+
+            {showDatePicker && (
+              <DateTimePicker value={dateCreated} onChange={this.changeDate} />
+            )}
 
             <TouchableOpacity style={myStyles.btn} onPress={this.onSubmit}>
               <Text style={myStyles.btnText}>Save Item</Text>
