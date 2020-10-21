@@ -1,1 +1,1 @@
-export type Sort = "alphabetical" | "date descending";
+export type Sort = "Date descending" | "Date ascending" | "Alphabetical";

@@ -70,7 +70,7 @@ class Item extends React.Component<Props, IState> {
         {/* <Text>{currentItem.name}</Text> */}
         <Text>{currentItem.description}</Text>
         <Text>From {currentItem.city}</Text>
-        <View style={{ flexDirection: "row" }}>
+        <View style={myStyles.btnBar}>
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("Item", {

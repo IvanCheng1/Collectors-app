@@ -19,6 +19,7 @@ import { IItem } from "../store/reducers/itemReducer";
 import { ItemActionTypes } from "../store/actions/itemActions";
 import { Sort } from "../utils/types";
 import { FlatList } from "react-native-gesture-handler";
+import { ButtonGroup } from "react-native-elements";
 
 interface IProps {
   navigation: StackNavigationProp<CollectionStackParamList, "Item">;
@@ -27,13 +28,21 @@ interface IProps {
 
 interface IState {
   sort: Sort;
+  sortIndex: number;
 }
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
 
+const sortButtons: Sort[] = [
+  "Date descending",
+  "Date ascending",
+  "Alphabetical",
+];
+
 class Items extends React.Component<Props, IState> {
   state = {
-    sort: "alphabetical" as Sort,
+    sort: "Date descending" as Sort, /// to be changed to from store.settings
+    sortIndex: 0,
   };
 
   renderItem = (i: IItem) => {
@@ -62,18 +71,27 @@ class Items extends React.Component<Props, IState> {
     );
   };
 
+  updateSortIndex = (selectedIndex: number) => {
+    this.setState({
+      sort: sortButtons[selectedIndex],
+      sortIndex: selectedIndex,
+    });
+  };
+
   render() {
     const { navigation, route, items }: Props = this.props;
-    const { sort } = this.state;
+    const { sort, sortIndex } = this.state;
     const filteredItems = items.filter(
       (i) => i.collection === route.params.collection
     );
 
     const orderedFilteredItems = filteredItems.sort((a, b) => {
-      if (sort === "alphabetical") {
+      if (sort === "Alphabetical") {
         return a.name > b.name ? 1 : -1;
-      } else if (sort === "date descending") {
+      } else if (sort === "Date descending") {
         return b.dateCreated.getTime() - a.dateCreated.getTime();
+      } else if (sort === "Date ascending") {
+        return a.dateCreated.getTime() - b.dateCreated.getTime();
       }
       return 1;
     });
@@ -81,16 +99,22 @@ class Items extends React.Component<Props, IState> {
     return (
       <SafeAreaView style={myStyles.container}>
         <Text>search bar here / filter</Text>
-        <Text>{route.params.collection} here</Text>
+        {/* <Text>{route.params.collection} here</Text> */}
 
-        <TouchableOpacity
+        <ButtonGroup
+          onPress={this.updateSortIndex}
+          selectedIndex={sortIndex}
+          buttons={sortButtons}
+        />
+
+        {/* <TouchableOpacity
           onPress={() => {
             this.setState({
-              sort: "date descending",
+              sort: "Date descending",
             });
           }}
         >
-          <Text>sort by date descending</Text>
+          <Text>sort by Date descending</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -101,7 +125,7 @@ class Items extends React.Component<Props, IState> {
           }}
         >
           <Text>sort by letters</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         {orderedFilteredItems && (
           <FlatList
