@@ -1,3 +1,4 @@
+import { ImageSourcePropType } from "react-native";
 import { ICollection } from "../store/reducers/collectionReducer";
 import { IItem } from "../store/reducers/itemReducer";
 
@@ -83,3 +84,41 @@ export function createItemObject(
     dateModified: new Date(),
   };
 }
+
+export const generateCollectionPicture = (): ImageSourcePropType => {
+  const randomNum = Math.floor(Math.random() * 5);
+
+  switch (randomNum) {
+    case 0:
+      return require(`../images/collectionsExamples/0.jpg`);
+    case 1:
+      return require(`../images/collectionsExamples/1.jpg`);
+    case 2:
+      return require(`../images/collectionsExamples/2.jpg`);
+    case 3:
+      return require(`../images/collectionsExamples/3.jpg`);
+    case 4:
+      return require(`../images/collectionsExamples/4.jpg`);
+    default:
+      return require(`../images/collectionsExamples/4.jpg`);
+  }
+};
+
+export const generateItemPicture = (): ImageSourcePropType => {
+  const randomNum = Math.floor(Math.random() * 5);
+
+  switch (randomNum) {
+    case 0:
+      return require(`../images/itemsExamples/0.jpg`);
+    case 1:
+      return require(`../images/itemsExamples/1.jpg`);
+    case 2:
+      return require(`../images/itemsExamples/2.jpg`);
+    case 3:
+      return require(`../images/itemsExamples/3.jpg`);
+    case 4:
+      return require(`../images/itemsExamples/4.jpg`);
+    default:
+      return require(`../images/itemsExamples/4.jpg`);
+  }
+};

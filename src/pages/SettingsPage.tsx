@@ -6,6 +6,9 @@ const SettingsPage = () => {
   return (
     <View style={myStyles.container}>
       <Text>Settings page</Text>
+      <Text>collections sort</Text>
+      <Text>items sort</Text>
+      <Text>default collection???</Text>
     </View>
   );
 };

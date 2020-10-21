@@ -18,6 +18,7 @@ import { ItemActionTypes } from "../store/actions/itemActions";
 import { Sort, sortButtons } from "../utils/types";
 import { FlatList } from "react-native-gesture-handler";
 import { ButtonGroup } from "react-native-elements";
+import { generateItemPicture } from "../utils/functions";
 
 interface IProps {
   navigation: StackNavigationProp<CollectionStackParamList, "Item">;
@@ -40,7 +41,7 @@ class Items extends React.Component<Props, IState> {
   renderItem = (i: IItem) => {
     const { navigation } = this.props;
     const { sort } = this.state;
-    const image = i.image ? { uri: i.image } : require("../images/book.jpg");
+    const image = i.image ? { uri: i.image } : generateItemPicture();
 
     return (
       <View style={myStyles.recipeContainer}>
@@ -56,8 +57,8 @@ class Items extends React.Component<Props, IState> {
           key={i.id}
           style={{ borderWidth: 1, borderColor: "red" }}
         >
-          <Text>{i.name}</Text>
           <Image style={myStyles.imageListThirds} source={image} />
+          <Text>{i.name}</Text>
         </TouchableOpacity>
       </View>
     );

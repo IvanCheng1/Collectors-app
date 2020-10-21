@@ -18,6 +18,7 @@ import { CollectionStackParamList } from "./CollectionStack";
 import { Sort, sortButtons } from "../utils/types";
 import { FlatList } from "react-native-gesture-handler";
 import { ButtonGroup } from "react-native-elements";
+import { generateCollectionPicture } from "../utils/functions";
 
 interface IProps {
   navigation: StackNavigationProp<CollectionStackParamList, "Items">;
@@ -46,7 +47,7 @@ class Collections extends React.Component<Props, IState> {
 
   renderItem = (c: ICollection) => {
     const { navigation } = this.props;
-    const image = c.image ? { uri: c.image } : require("../images/books.jpg");
+    const image = c.image ? { uri: c.image } : generateCollectionPicture();
     return (
       <TouchableOpacity
         onPress={() =>

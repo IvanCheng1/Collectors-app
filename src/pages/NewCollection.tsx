@@ -22,7 +22,10 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { createCollectionObject } from "../utils/functions";
+import {
+  createCollectionObject,
+  generateCollectionPicture,
+} from "../utils/functions";
 import { ICollection } from "../store/reducers/collectionReducer";
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
@@ -75,7 +78,6 @@ class NewCollection extends React.Component<Props, IState> {
       });
       if (!result.cancelled) {
         this.setState({ image: result.uri });
-        console.log(result.uri);
       }
 
       // console.log(result);
@@ -90,7 +92,6 @@ class NewCollection extends React.Component<Props, IState> {
       "2020-02-02",
       this.state.image
     );
-    // console.log(collection);
 
     this.props.handleAddCollection(collection);
     // clear state to do
@@ -100,7 +101,7 @@ class NewCollection extends React.Component<Props, IState> {
     });
 
     // go home to do
-    this.props.navigation.navigate("AddQuestion")
+    this.props.navigation.navigate("AddQuestion");
   };
 
   render() {
