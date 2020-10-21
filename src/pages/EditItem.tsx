@@ -32,6 +32,8 @@ import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import { createItemObject, dateToDisplay } from "../utils/functions";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { Picker } from "@react-native-community/picker";
+import RNPickerSelect from "react-native-picker-select";
 
 interface IProps {
   route: RouteProp<CollectionStackParamList, "EditItem">;
@@ -94,6 +96,14 @@ class EditItem extends React.Component<Props, IState> {
     this.setState({
       city: value,
     });
+  };
+
+  changeCollection = (value: string | number): void => {
+    if (typeof value === "string") {
+      this.setState({
+        collection: value,
+      });
+    }
   };
 
   pickImage = async () => {
@@ -191,7 +201,10 @@ class EditItem extends React.Component<Props, IState> {
       city,
       dateCreated,
       showDatePicker,
+      collection,
     } = this.state;
+
+    const { collections } = this.props;
 
     return (
       <SafeAreaView style={myStyles.container}>
@@ -234,6 +247,40 @@ class EditItem extends React.Component<Props, IState> {
                 this.changeCity(e.nativeEvent.text)
               }
             />
+
+            <Text style={myStyles.btnText}>Change collection</Text>
+
+            {Platform.OS === "ios" ? (
+              <RNPickerSelect
+                onValueChange={(value: string) => {
+                  this.changeCollection(value);
+                }}
+                items={collections.map((c) => {
+                  return {
+                    label: c.name,
+                    value: c.name,
+                    key: c.id,
+                  };
+                })}
+                value={collection}
+                // placeholder="hi"
+                useNativeAndroidPickerStyle={false}
+                textInputProps={{ color: "black" }}
+              />
+            ) : (
+              <Picker
+                selectedValue={collection}
+                onValueChange={(value) => this.changeCollection(value)}
+                prompt="hi"
+              >
+                {collections.map((c) => {
+                  return (
+                    <Picker.Item label={c.name} value={c.name} key={c.id} />
+                  );
+                })}
+              </Picker>
+            )}
+
             <TouchableOpacity
               style={myStyles.btn}
               onPress={this.showDatePicker}
@@ -269,7 +316,7 @@ class EditItem extends React.Component<Props, IState> {
 
 interface LinkStateProps {
   items: IItem[];
-  collection: ICollection[];
+  collections: ICollection[];
 }
 
 interface LinkDispatchProps {
@@ -282,7 +329,7 @@ const mapStateToProps = (
   ownProps: IProps
 ): LinkStateProps => ({
   items: state.item,
-  collection: state.collection,
+  collections: state.collection,
 });
 
 const mapDispatchToProps = (

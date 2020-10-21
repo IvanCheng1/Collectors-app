@@ -10,6 +10,7 @@ import {
   TextInputChangeEventData,
   TouchableOpacity,
   View,
+  useColorScheme,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { AddStackParamList } from "./AddStack";
@@ -29,6 +30,7 @@ import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { ScrollView } from "react-native-gesture-handler";
+import { useDarkMode } from "react-native-dynamic";
 
 type StateKey = "name" | "description" | "image" | "city";
 
@@ -125,7 +127,7 @@ class NewItem extends React.Component<Props, IState> {
     this.resetState();
 
     // go home
-    this.props.navigation.navigate("AddQuestion")
+    this.props.navigation.navigate("AddQuestion");
   };
 
   resetState = (): void => {
@@ -149,6 +151,8 @@ class NewItem extends React.Component<Props, IState> {
       showDatePicker,
       dateCreated,
     } = this.state;
+
+    // const isDarkMode = useColorScheme() === 'dark';
 
     return (
       <SafeAreaView style={myStyles.container}>
@@ -204,6 +208,8 @@ class NewItem extends React.Component<Props, IState> {
             mode="date"
             onConfirm={this.changeDate}
             onCancel={this.showDatePicker}
+            // pickerContainerStyleIOS={{ color: "white" }}
+            // textColor={isDarkMode ? "white" : undefined}
           />
 
           <TouchableOpacity style={myStyles.btn} onPress={this.onSubmit}>
