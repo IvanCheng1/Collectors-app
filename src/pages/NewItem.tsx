@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { myStyles } from "../utils/myStyles";
 import {
+  Image,
   NativeSyntheticEvent,
   SafeAreaView,
   Text,
@@ -18,13 +19,22 @@ import { AllActionTypes } from "../store/actions";
 import { RouteProp } from "@react-navigation/native";
 import { bindActionCreators } from "redux";
 import { handleAddItem } from "../store/actions/itemActions";
-import { createItemObject, dateToString } from "../utils/functions";
+import {
+  createItemObject,
+  dateToDisplay,
+  dateToString,
+} from "../utils/functions";
 import { IItem } from "../store/reducers/itemReducer";
+import * as Permissions from "expo-permissions";
+import * as ImagePicker from "expo-image-picker";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { ScrollView } from "react-native-gesture-handler";
 
 type StateKey = "name" | "description" | "image" | "city";
 
 interface IProps {
   route: RouteProp<AddStackParamList, "NewItem">;
+  navigation: StackNavigationProp<AddStackParamList>;
 }
 
 interface IState {
@@ -44,9 +54,13 @@ class NewItem extends React.Component<Props, IState> {
     description: "",
     image: "",
     city: "",
-    dateCreated: new Date(), // bypass
+    dateCreated: new Date(),
     showDatePicker: false,
   };
+
+  componentDidMount() {
+    this.resetState();
+  }
 
   changeStateValues = (value: string, stateKey: StateKey): void => {
     switch (stateKey) {
@@ -62,8 +76,39 @@ class NewItem extends React.Component<Props, IState> {
     }
   };
 
+  pickImage = async () => {
+    // this.getPermissionAsync();
+
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        this.setState({ image: result.uri });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  showDatePicker = (): void => {
+    this.setState((prev) => ({
+      showDatePicker: !prev.showDatePicker,
+    }));
+  };
+
+  changeDate = (date: Date) => {
+    this.setState({
+      dateCreated: date,
+      showDatePicker: false,
+    });
+  };
+
   onSubmit = (): void => {
-    const { name, description, image, city } = this.state;
+    const { name, description, image, city, dateCreated } = this.state;
     const { collection } = this.props.route.params;
 
     const item = createItemObject(
@@ -72,54 +117,101 @@ class NewItem extends React.Component<Props, IState> {
       description,
       city,
       image,
-      dateToString(new Date())
+      dateCreated
     );
 
     this.props.handleAddItem(item);
     // clear state to do
+    this.resetState();
+
+    // go home
+    this.props.navigation.navigate("AddQuestion")
+  };
+
+  resetState = (): void => {
+    this.setState({
+      name: "",
+      description: "",
+      image: "",
+      city: "",
+      dateCreated: new Date(),
+      showDatePicker: false,
+    });
   };
 
   render() {
     const { route } = this.props;
-    const { name, description, image, city } = this.state;
+    const {
+      name,
+      description,
+      image,
+      city,
+      showDatePicker,
+      dateCreated,
+    } = this.state;
 
     return (
       <SafeAreaView style={myStyles.container}>
-        <Text>New Item</Text>
-        <TextInput
-          style={myStyles.input}
-          placeholder="Item Name"
-          value={name}
-          onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-            this.changeStateValues(e.nativeEvent.text, "name")
-          }
-        />
-        <TextInput
-          style={myStyles.input}
-          placeholder="Description"
-          value={description}
-          onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-            this.changeStateValues(e.nativeEvent.text, "description")
-          }
-        />
-        <TextInput
-          style={myStyles.input}
-          placeholder="City"
-          value={city}
-          onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-            this.changeStateValues(e.nativeEvent.text, "city")
-          }
-        />
+        <ScrollView>
+          <Text>New Item</Text>
 
-        <TouchableOpacity style={myStyles.btn} onPress={this.showDatePicker}>
-          <Text style={myStyles.btnText}>Change date</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={this.pickImage}
+            style={{ marginBottom: 20 }}
+          >
+            {image ? (
+              <Image style={myStyles.img} source={{ uri: image }} />
+            ) : (
+              <View style={myStyles.imgPlaceHolder}>
+                <Text>Choose Image</Text>
+              </View>
+            )}
+          </TouchableOpacity>
 
-        <TouchableOpacity style={myStyles.btn} onPress={this.onSubmit}>
-          <Text style={myStyles.btnText}>
-            Save Item to {route.params.collection}
-          </Text>
-        </TouchableOpacity>
+          <TextInput
+            style={myStyles.input}
+            placeholder="Item Name"
+            value={name}
+            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+              this.changeStateValues(e.nativeEvent.text, "name")
+            }
+          />
+          <TextInput
+            style={myStyles.input}
+            placeholder="Description"
+            value={description}
+            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+              this.changeStateValues(e.nativeEvent.text, "description")
+            }
+          />
+          <TextInput
+            style={myStyles.input}
+            placeholder="City"
+            value={city}
+            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+              this.changeStateValues(e.nativeEvent.text, "city")
+            }
+          />
+          <Text>{dateToDisplay(dateCreated)}</Text>
+
+          <TouchableOpacity style={myStyles.btn} onPress={this.showDatePicker}>
+            <Text style={myStyles.btnText}>Change date</Text>
+          </TouchableOpacity>
+
+          <DateTimePickerModal
+            isVisible={showDatePicker}
+            date={dateCreated}
+            mode="date"
+            onConfirm={this.changeDate}
+            onCancel={this.showDatePicker}
+          />
+
+          <TouchableOpacity style={myStyles.btn} onPress={this.onSubmit}>
+            <Text style={myStyles.btnText}>
+              Save Item to {route.params.collection}
+            </Text>
+          </TouchableOpacity>
+        </ScrollView>
       </SafeAreaView>
     );
   }
