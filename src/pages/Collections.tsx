@@ -15,8 +15,9 @@ import { ICollection } from "../store/reducers/collectionReducer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 import { CollectionStackParamList } from "./CollectionStack";
-import { Sort } from "../utils/types";
+import { Sort, sortButtons } from "../utils/types";
 import { FlatList } from "react-native-gesture-handler";
+import { ButtonGroup } from "react-native-elements";
 
 interface IProps {
   navigation: StackNavigationProp<CollectionStackParamList, "Items">;
@@ -25,13 +26,22 @@ interface IProps {
 
 interface IState {
   sort: Sort;
+  sortIndex: number;
 }
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
 
 class Collections extends React.Component<Props, IState> {
   state = {
-    sort: "alphabetical" as Sort,
+    sort: "Date descending" as Sort, // to change to store.settings
+    sortIndex: 0,
+  };
+
+  updateSortIndex = (selectedIndex: number) => {
+    this.setState({
+      sort: sortButtons[selectedIndex],
+      sortIndex: selectedIndex,
+    });
   };
 
   renderItem = (c: ICollection) => {
@@ -47,15 +57,15 @@ class Collections extends React.Component<Props, IState> {
         }
         key={c.id}
       >
-        <Text>{c.name}</Text>
         <Image style={myStyles.imageList} source={image} />
+        <Text>{c.name}</Text>
       </TouchableOpacity>
     );
   };
 
   render() {
-    const { collections, navigation } = this.props;
-    const { sort } = this.state;
+    const { collections } = this.props;
+    const { sort, sortIndex } = this.state;
 
     const orderedCollections = collections.sort((a, b) => {
       if (sort === "Alphabetical") {
@@ -72,26 +82,12 @@ class Collections extends React.Component<Props, IState> {
       <SafeAreaView style={myStyles.container}>
         <Text>Spaceholder for Searchbar</Text>
 
-        <TouchableOpacity
-          onPress={() => {
-            this.setState({
-              sort: "Date descending",
-            });
-          }}
-        >
-          <Text>sort by date descending</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            this.setState({
-              sort: "Alphabetical",
-            });
-          }}
-        >
-          <Text>sort by letters</Text>
-        </TouchableOpacity>
+        <ButtonGroup
+          onPress={this.updateSortIndex}
+          selectedIndex={sortIndex}
+          buttons={sortButtons}
+        />
 
-        <Text>Collections here</Text>
         {orderedCollections && (
           <FlatList
             // style={myStyles.recipeList}

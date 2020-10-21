@@ -17,7 +17,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { CollectionStackParamList } from "./CollectionStack";
 import { IItem } from "../store/reducers/itemReducer";
 import { ItemActionTypes } from "../store/actions/itemActions";
-import { Sort } from "../utils/types";
+import { Sort, sortButtons } from "../utils/types";
 import { FlatList } from "react-native-gesture-handler";
 import { ButtonGroup } from "react-native-elements";
 
@@ -33,11 +33,6 @@ interface IState {
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
 
-const sortButtons: Sort[] = [
-  "Date descending",
-  "Date ascending",
-  "Alphabetical",
-];
 
 class Items extends React.Component<Props, IState> {
   state = {
@@ -100,32 +95,11 @@ class Items extends React.Component<Props, IState> {
       <SafeAreaView style={myStyles.container}>
         <Text>search bar here / filter</Text>
         {/* <Text>{route.params.collection} here</Text> */}
-
         <ButtonGroup
           onPress={this.updateSortIndex}
           selectedIndex={sortIndex}
           buttons={sortButtons}
         />
-
-        {/* <TouchableOpacity
-          onPress={() => {
-            this.setState({
-              sort: "Date descending",
-            });
-          }}
-        >
-          <Text>sort by Date descending</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            this.setState({
-              sort: "alphabetical",
-            });
-          }}
-        >
-          <Text>sort by letters</Text>
-        </TouchableOpacity> */}
 
         {orderedFilteredItems && (
           <FlatList
@@ -134,7 +108,6 @@ class Items extends React.Component<Props, IState> {
             renderItem={({ item }) => this.renderItem(item)}
           />
         )}
-
         {/* {orderedFilteredItems &&
           orderedFilteredItems.map((i) => (
             <TouchableOpacity
@@ -151,7 +124,6 @@ class Items extends React.Component<Props, IState> {
               <Text>{i.name}</Text>
             </TouchableOpacity>
           ))} */}
-
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("EditCollection", { id: route.params.id })
