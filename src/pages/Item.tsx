@@ -12,6 +12,7 @@ import {
   Text,
   StatusBar,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
@@ -35,6 +36,9 @@ class Item extends React.Component<Props, IState> {
     const { navigation, items, route } = this.props;
     const { id, sort } = this.props.route.params;
     const currentItem: IItem = this.props.items.filter((i) => i.id === id)[0];
+    const image = currentItem.image
+      ? { uri: currentItem.image }
+      : require("../images/book.jpg");
 
     const filteredItems = items.filter(
       (i) => i.collection === route.params.collection
@@ -59,9 +63,12 @@ class Item extends React.Component<Props, IState> {
 
     return (
       <SafeAreaView style={myStyles.container}>
-        <Text>{currentItem.name}</Text>
+        <Image style={myStyles.img} source={image} />
+
+        {/* <Text>{currentItem.name}</Text> */}
         <Text>{currentItem.description}</Text>
         <Text>{currentItem.city}</Text>
+
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("Item", {

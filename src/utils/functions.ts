@@ -40,11 +40,12 @@ export function createItemObject(
   description: string,
   city: string,
   image: string,
-  dateCreated: string
+  dateCreated: string,
+  id?: string
 ): IItem {
   return {
     name,
-    id: generateID(),
+    id: id ? id : generateID(),
     collection,
     description,
     city,

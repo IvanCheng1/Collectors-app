@@ -19,7 +19,7 @@ export const itemInitialState = [
     picture: "",
     city: "London",
     id: "_y5d33hev3j6",
-    image: "https://info.hobbydb.com/wp-content/uploads/2018/12/Core-head-stock.png",
+    image: "",
   },
   {
     name: "Hard Rock Amsterdam",

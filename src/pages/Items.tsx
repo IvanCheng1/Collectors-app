@@ -39,7 +39,7 @@ class Items extends React.Component<Props, IState> {
   renderItem = (i: IItem) => {
     const { navigation } = this.props;
     const { sort } = this.state;
-    const image = i.image ? { uri: i.image } : require("../images/books.jpg");
+    const image = i.image ? { uri: i.image } : require("../images/book.jpg");
 
     return (
       <View style={myStyles.recipeContainer}>
@@ -80,6 +80,7 @@ class Items extends React.Component<Props, IState> {
 
     return (
       <SafeAreaView style={myStyles.container}>
+        <Text>search bar here / filter</Text>
         <Text>{route.params.collection} here</Text>
 
         <TouchableOpacity

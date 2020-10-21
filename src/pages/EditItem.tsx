@@ -10,6 +10,7 @@ import {
   NativeSyntheticEvent,
   TextInputChangeEventData,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { IItem } from "../store/reducers/itemReducer";
 import { rootState } from "../store/reducers";
@@ -26,8 +27,11 @@ import { CollectionStackParamList } from "./CollectionStack";
 import { ICollection } from "../store/reducers/collectionReducer";
 import { handleEditItem } from "../store/actions/itemActions";
 import { StackNavigationProp } from "@react-navigation/stack";
+import * as Permissions from "expo-permissions";
+import * as ImagePicker from "expo-image-picker";
+import { createItemObject, dateToString } from "../utils/functions";
 
-type StateKey = "name" | "description" | "picture" | "city";
+type StateKey = "name" | "description" | "city";
 
 interface IProps {
   route: RouteProp<CollectionStackParamList, "EditItem">;
@@ -37,7 +41,7 @@ interface IProps {
 interface IState {
   name: string;
   description: string;
-  picture: string;
+  image: string;
   city: string;
   collection: string;
   id: string;
@@ -49,7 +53,7 @@ class EditItem extends React.Component<Props, IState> {
   state = {
     name: "",
     description: "",
-    picture: "",
+    image: "",
     city: "",
     collection: "",
     id: "",
@@ -62,7 +66,7 @@ class EditItem extends React.Component<Props, IState> {
     this.setState({
       name: oldItem.name,
       description: oldItem.description,
-      picture: oldItem.picture,
+      image: oldItem.image,
       city: oldItem.city,
       collection: oldItem.collection,
       id,
@@ -75,22 +79,44 @@ class EditItem extends React.Component<Props, IState> {
     } as Pick<IState, keyof IState>);
   };
 
+  pickImage = async () => {
+    // this.getPermissionAsync();
+
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        this.setState({ image: result.uri });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   onSubmit = (): void => {
     const { id } = this.props.route.params;
     const oldItem: IItem = this.props.items.filter((i) => i.id === id)[0];
 
-    const newItem: IItem = {
-      ...this.state,
-      dateCreated: oldItem.dateCreated,
-      dateModified: new Date(),
-    };
+    const newItem: IItem = createItemObject(
+      this.setState.name,
+      this.state.collection,
+      this.state.description,
+      this.state.city,
+      this.state.image,
+      dateToString(oldItem.dateCreated),
+      this.state.id
+    );
 
     this.props.handleEditItem(id, newItem);
     // clear state
     this.setState({
       name: "",
       description: "",
-      picture: "",
+      image: "",
       city: "",
       collection: "",
       id: "",
@@ -106,12 +132,26 @@ class EditItem extends React.Component<Props, IState> {
   };
 
   render() {
-    const { name, description, picture, city } = this.state;
+    const { name, description, image, city } = this.state;
     return (
       <SafeAreaView style={myStyles.container}>
         <ScrollView>
           <KeyboardAvoidingView>
             <Text>Edit Item page</Text>
+
+            <TouchableOpacity
+              onPress={this.pickImage}
+              style={{ marginBottom: 20 }}
+            >
+              {image ? (
+                <Image style={myStyles.img} source={{ uri: image }} />
+              ) : (
+                <View style={myStyles.imgPlaceHolder}>
+                  <Text>Choose Image</Text>
+                </View>
+              )}
+            </TouchableOpacity>
+
             <TextInput
               style={myStyles.input}
               placeholder="Item Name"
