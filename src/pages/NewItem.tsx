@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   View,
   useColorScheme,
+  Platform,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { AddStackParamList } from "./AddStack";
@@ -20,17 +21,19 @@ import { AllActionTypes } from "../store/actions";
 import { RouteProp } from "@react-navigation/native";
 import { bindActionCreators } from "redux";
 import { handleAddItem } from "../store/actions/itemActions";
-import {
-  createItemObject,
-  dateToDisplay,
-  dateToString,
-} from "../utils/functions";
+import { createItemObject, dateToDisplay } from "../utils/functions";
 import { IItem } from "../store/reducers/itemReducer";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { ScrollView } from "react-native-gesture-handler";
 import { useDarkMode } from "react-native-dynamic";
+import Constants from "expo-constants";
+import {
+  AntDesign,
+  FontAwesome,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 
 type StateKey = "name" | "description" | "image" | "city";
 
@@ -78,8 +81,17 @@ class NewItem extends React.Component<Props, IState> {
     }
   };
 
+  getPermissionAsync = async () => {
+    if (Constants.platform?.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== "granted") {
+        // alert("Sorry, we need camera roll permissions to make this work!");
+      }
+    }
+  };
+
   pickImage = async () => {
-    // this.getPermissionAsync();
+    this.getPermissionAsync();
 
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -91,6 +103,35 @@ class NewItem extends React.Component<Props, IState> {
       if (!result.cancelled) {
         this.setState({ image: result.uri });
       }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  getCameraPermissionAsync = async () => {
+    if (Constants.platform?.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA);
+      if (status !== "granted") {
+        // alert("Sorry, we need camera roll permissions to make this work!");
+      }
+    }
+  };
+
+  cameraRoll = async () => {
+    this.getCameraPermissionAsync();
+
+    try {
+      let result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        this.setState({ image: result.uri });
+      }
+
+      // console.log(result);
     } catch (e) {
       console.log(e);
     }
@@ -157,20 +198,38 @@ class NewItem extends React.Component<Props, IState> {
     return (
       <SafeAreaView style={myStyles.container}>
         <ScrollView>
-          <Text>New Item</Text>
-
-          <TouchableOpacity
-            onPress={this.pickImage}
-            style={{ marginBottom: 20 }}
-          >
+          <View style={myStyles.imgPlaceHolder}>
             {image ? (
               <Image style={myStyles.img} source={{ uri: image }} />
             ) : (
-              <View style={myStyles.imgPlaceHolder}>
-                <Text>Choose Image</Text>
-              </View>
+              <Text>No photo</Text>
             )}
-          </TouchableOpacity>
+          </View>
+          <View style={myStyles.btnBar}>
+            <TouchableOpacity
+              style={myStyles.btnBarButtons}
+              onPress={this.pickImage}
+            >
+              {Platform.OS === "android" ? (
+                <MaterialCommunityIcons
+                  name="google-photos"
+                  size={24}
+                  color="black"
+                />
+              ) : (
+                <FontAwesome name="photo" size={24} color="black" />
+              )}
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={myStyles.btnBarButtons}
+              onPress={this.cameraRoll}
+            >
+              <View>
+                <AntDesign name="camera" size={24} color="black" />
+              </View>
+            </TouchableOpacity>
+          </View>
 
           <TextInput
             style={myStyles.input}
@@ -196,10 +255,10 @@ class NewItem extends React.Component<Props, IState> {
               this.changeStateValues(e.nativeEvent.text, "city")
             }
           />
-          <Text>{dateToDisplay(dateCreated)}</Text>
 
           <TouchableOpacity style={myStyles.btn} onPress={this.showDatePicker}>
-            <Text style={myStyles.btnText}>Change date</Text>
+          <Text style={myStyles.btnText}>{dateToDisplay(dateCreated)}</Text>
+            {/* <Text style={myStyles.btnText}>Change date</Text> */}
           </TouchableOpacity>
 
           <DateTimePickerModal

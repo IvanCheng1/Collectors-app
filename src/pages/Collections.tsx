@@ -17,8 +17,9 @@ import { RouteProp } from "@react-navigation/native";
 import { CollectionStackParamList } from "./CollectionStack";
 import { Sort, sortButtons } from "../utils/types";
 import { FlatList } from "react-native-gesture-handler";
-import { ButtonGroup } from "react-native-elements";
+import { ButtonGroup, SearchBar } from "react-native-elements";
 import { generateCollectionPicture } from "../utils/functions";
+import { Font } from "expo";
 
 interface IProps {
   navigation: StackNavigationProp<CollectionStackParamList, "Items">;
@@ -28,6 +29,7 @@ interface IProps {
 interface IState {
   sort: Sort;
   sortIndex: number;
+  search: string;
 }
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
@@ -36,6 +38,17 @@ class Collections extends React.Component<Props, IState> {
   state = {
     sort: "Date descending" as Sort, // to change to store.settings
     sortIndex: 0,
+    search: "",
+  };
+
+  async componentDidMount() {
+    await Font.loadAsync({
+      Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf"),
+    });
+  }
+
+  updateSearch = (search: string): void => {
+    this.setState({ search });
   };
 
   updateSortIndex = (selectedIndex: number) => {
@@ -47,7 +60,9 @@ class Collections extends React.Component<Props, IState> {
 
   renderItem = (c: ICollection) => {
     const { navigation } = this.props;
-    const image = c.image ? { uri: c.image } : generateCollectionPicture(c.name);
+    const image = c.image
+      ? { uri: c.image }
+      : generateCollectionPicture(c.name);
     return (
       <TouchableOpacity
         onPress={() =>
@@ -66,7 +81,7 @@ class Collections extends React.Component<Props, IState> {
 
   render() {
     const { collections } = this.props;
-    const { sort, sortIndex } = this.state;
+    const { sort, sortIndex, search } = this.state;
 
     const orderedCollections = collections.sort((a, b) => {
       if (sort === "Alphabetical") {
@@ -81,7 +96,12 @@ class Collections extends React.Component<Props, IState> {
 
     return (
       <SafeAreaView style={myStyles.container}>
-        <Text>Spaceholder for Searchbar</Text>
+        <SearchBar
+          platform="ios"
+          onChangeText={this.updateSearch}
+          value={search}
+        />
+        {/* <Text>Spaceholder for Searchbar</Text> */}
 
         <ButtonGroup
           onPress={this.updateSortIndex}

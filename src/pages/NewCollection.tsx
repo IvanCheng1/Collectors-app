@@ -11,6 +11,7 @@ import {
   TextInputChangeEventData,
   TouchableOpacity,
   Image,
+  Platform,
 } from "react-native";
 import { IItem } from "../store/reducers/itemReducer";
 import { rootState } from "../store/reducers";
@@ -33,6 +34,12 @@ import * as Permissions from "expo-permissions";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { CollectionStackParamList } from "./CollectionStack";
 import { AddStackParamList } from "./AddStack";
+import {
+  AntDesign,
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 
 interface IProps {
   navigation: StackNavigationProp<AddStackParamList, "AddQuestion">;
@@ -101,9 +108,9 @@ class NewCollection extends React.Component<Props, IState> {
     try {
       let result = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        // allowsEditing: true,
-        // aspect: [1, 1],
-        // quality: 1,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
       });
       if (!result.cancelled) {
         this.setState({ image: result.uri });
@@ -139,29 +146,38 @@ class NewCollection extends React.Component<Props, IState> {
       <SafeAreaView style={myStyles.container}>
         <ScrollView>
           <KeyboardAvoidingView>
-            <Text>New Collection page</Text>
-
-            <TouchableOpacity
-              onPress={this.cameraRoll}
-              style={{ marginBottom: 20 }}
-            >
-              <View>
-                <Text>camera</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={this.pickImage}
-              style={{ marginBottom: 20 }}
-            >
+            <View style={myStyles.imgPlaceHolder}>
               {image ? (
                 <Image style={myStyles.img} source={{ uri: image }} />
               ) : (
-                <View style={myStyles.imgPlaceHolder}>
-                  <Text>Choose Image</Text>
-                </View>
+                <Text>No photo</Text>
               )}
-            </TouchableOpacity>
+            </View>
+            <View style={myStyles.btnBar}>
+              <TouchableOpacity
+                style={myStyles.btnBarButtons}
+                onPress={this.pickImage}
+              >
+                {Platform.OS === "android" ? (
+                  <MaterialCommunityIcons
+                    name="google-photos"
+                    size={24}
+                    color="black"
+                  />
+                ) : (
+                  <FontAwesome name="photo" size={24} color="black" />
+                )}
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={myStyles.btnBarButtons}
+                onPress={this.cameraRoll}
+              >
+                <View>
+                  <AntDesign name="camera" size={24} color="black" />
+                </View>
+              </TouchableOpacity>
+            </View>
 
             <TextInput
               style={myStyles.input}

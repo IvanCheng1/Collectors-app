@@ -106,28 +106,14 @@ class Items extends React.Component<Props, IState> {
             renderItem={({ item }) => this.renderItem(item)}
           />
         )}
-        {/* {orderedFilteredItems &&
-          orderedFilteredItems.map((i) => (
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("Item", {
-                  id: i.id,
-                  title: i.name,
-                  collection: i.collection,
-                  sort,
-                })
-              }
-              key={i.id}
-            >
-              <Text>{i.name}</Text>
-            </TouchableOpacity>
-          ))} */}
+
         <TouchableOpacity
+          style={myStyles.btn}
           onPress={() =>
             navigation.navigate("EditCollection", { id: route.params.id })
           }
         >
-          <Text>Edit Collection</Text>
+          <Text style={myStyles.btnText} >Edit Collection</Text>
         </TouchableOpacity>
       </SafeAreaView>
     );
