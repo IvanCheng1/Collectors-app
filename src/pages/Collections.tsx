@@ -17,8 +17,9 @@ import { RouteProp } from "@react-navigation/native";
 import { CollectionStackParamList } from "./CollectionStack";
 import { Sort, sortButtons } from "../utils/types";
 import { FlatList } from "react-native-gesture-handler";
-import { ButtonGroup, SearchBar } from "react-native-elements";
+import { ButtonGroup } from "react-native-elements";
 import { generateCollectionPicture } from "../utils/functions";
+import { Searchbar } from "react-native-paper";
 
 interface IProps {
   navigation: StackNavigationProp<CollectionStackParamList, "Items">;
@@ -89,12 +90,7 @@ class Collections extends React.Component<Props, IState> {
 
     return (
       <SafeAreaView style={myStyles.container}>
-        <SearchBar
-          platform="ios"
-          onChangeText={this.updateSearch}
-          value={search}
-        />
-        {/* <Text>Spaceholder for Searchbar</Text> */}
+        <Searchbar onChangeText={this.updateSearch} value={search} />
 
         <ButtonGroup
           onPress={this.updateSortIndex}
