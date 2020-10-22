@@ -85,10 +85,13 @@ export function createItemObject(
   };
 }
 
-export const generateCollectionPicture = (): ImageSourcePropType => {
-  const randomNum = Math.floor(Math.random() * 5);
+export const generateCollectionPicture = (
+  collectionName: string
+): ImageSourcePropType => {
+  const remain = (collectionName.charCodeAt(0) + collectionName.length) % 5;
+  // so that it's the same picture everytime
 
-  switch (randomNum) {
+  switch (remain) {
     case 0:
       return require(`../images/collectionsExamples/0.jpg`);
     case 1:
@@ -104,10 +107,11 @@ export const generateCollectionPicture = (): ImageSourcePropType => {
   }
 };
 
-export const generateItemPicture = (): ImageSourcePropType => {
-  const randomNum = Math.floor(Math.random() * 5);
+export const generateItemPicture = (itemName: string): ImageSourcePropType => {
+  const remain = (itemName.charCodeAt(0) + itemName.length) % 5;
+  // so that it's the same picture everytime
 
-  switch (randomNum) {
+  switch (remain) {
     case 0:
       return require(`../images/itemsExamples/0.jpg`);
     case 1:

@@ -19,7 +19,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { ItemActionTypes } from "../store/actions/itemActions";
 import { rootState } from "../store/reducers";
 import { IItem } from "../store/reducers/itemReducer";
-import { dateToDisplay, dateToString } from "../utils/functions";
+import { dateToDisplay, dateToString, generateItemPicture } from "../utils/functions";
 import { myStyles } from "../utils/myStyles";
 import { CollectionStackParamList } from "./CollectionStack";
 
@@ -39,7 +39,7 @@ class Item extends React.Component<Props, IState> {
     const currentItem: IItem = this.props.items.filter((i) => i.id === id)[0];
     const image = currentItem.image
       ? { uri: currentItem.image }
-      : require("../images/book.jpg");
+      : generateItemPicture(currentItem.name);
 
     const filteredItems = items.filter(
       (i) => i.collection === route.params.collection

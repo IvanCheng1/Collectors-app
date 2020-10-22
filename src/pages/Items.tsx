@@ -41,7 +41,7 @@ class Items extends React.Component<Props, IState> {
   renderItem = (i: IItem) => {
     const { navigation } = this.props;
     const { sort } = this.state;
-    const image = i.image ? { uri: i.image } : generateItemPicture();
+    const image = i.image ? { uri: i.image } : generateItemPicture(i.name);
 
     return (
       <View style={myStyles.recipeContainer}>

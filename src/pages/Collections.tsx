@@ -47,7 +47,7 @@ class Collections extends React.Component<Props, IState> {
 
   renderItem = (c: ICollection) => {
     const { navigation } = this.props;
-    const image = c.image ? { uri: c.image } : generateCollectionPicture();
+    const image = c.image ? { uri: c.image } : generateCollectionPicture(c.name);
     return (
       <TouchableOpacity
         onPress={() =>

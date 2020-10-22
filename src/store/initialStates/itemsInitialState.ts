@@ -30,7 +30,7 @@ export const itemInitialState = [
     picture: "",
     city: "Amsterdam",
     id: "_mku890hj55s",
-    image: "https://cf.shopee.com.my/file/a2212d326db053aefb44dbb82fd843d5",
+    image: "",
   },
   {
     name: "Hard Rock New York",
@@ -41,7 +41,7 @@ export const itemInitialState = [
     picture: "",
     city: "New York",
     id: "_mkf892gj541",
-    image: "https://cf.shopee.com.my/file/a2212d326db053aefb44dbb82fd843d5",
+    image: "",
   },
   {
     name: "A250e",
@@ -52,6 +52,6 @@ export const itemInitialState = [
     picture: "",
     city: "London",
     id: "_36v8a79vak8",
-    image: "https://cf.shopee.com.my/file/a2212d326db053aefb44dbb82fd843d5",
+    image: "",
   },
 ];

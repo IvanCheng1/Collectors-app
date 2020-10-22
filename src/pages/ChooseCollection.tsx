@@ -15,6 +15,7 @@ import { AddStackParamList } from "./AddStack";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { ICollection } from "../store/reducers/collectionReducer";
 import { FlatList } from "react-native-gesture-handler";
+import { generateCollectionPicture } from "../utils/functions";
 
 interface IProps {
   navigation: StackNavigationProp<AddStackParamList, "NewItem">;
@@ -27,7 +28,9 @@ type Props = IProps & LinkStateProps & LinkDispatchProps;
 class ChooseCollection extends React.Component<Props, IState> {
   renderItem = (c: ICollection) => {
     const { navigation } = this.props;
-    const image = c.image ? { uri: c.image } : require("../images/books.jpg");
+    const image = c.image
+      ? { uri: c.image }
+      : generateCollectionPicture(c.name);
 
     return (
       <TouchableOpacity
@@ -46,7 +49,7 @@ class ChooseCollection extends React.Component<Props, IState> {
   };
 
   render() {
-    const { navigation, collections } = this.props;
+    const { collections } = this.props;
 
     const orderedCollections = collections.sort((a, b) =>
       a.name > b.name ? 1 : -1

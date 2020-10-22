@@ -86,6 +86,35 @@ class NewCollection extends React.Component<Props, IState> {
     }
   };
 
+  getCameraPermissionAsync = async () => {
+    if (Constants.platform?.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA);
+      if (status !== "granted") {
+        // alert("Sorry, we need camera roll permissions to make this work!");
+      }
+    }
+  };
+
+  cameraRoll = async () => {
+    this.getCameraPermissionAsync();
+
+    try {
+      let result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        // allowsEditing: true,
+        // aspect: [1, 1],
+        // quality: 1,
+      });
+      if (!result.cancelled) {
+        this.setState({ image: result.uri });
+      }
+
+      // console.log(result);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   onSubmit = (): void => {
     const collection = createCollectionObject(
       this.state.collectionName,
@@ -111,6 +140,15 @@ class NewCollection extends React.Component<Props, IState> {
         <ScrollView>
           <KeyboardAvoidingView>
             <Text>New Collection page</Text>
+
+            <TouchableOpacity
+              onPress={this.cameraRoll}
+              style={{ marginBottom: 20 }}
+            >
+              <View>
+                <Text>camera</Text>
+              </View>
+            </TouchableOpacity>
 
             <TouchableOpacity
               onPress={this.pickImage}
