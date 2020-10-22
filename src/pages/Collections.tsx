@@ -19,7 +19,6 @@ import { Sort, sortButtons } from "../utils/types";
 import { FlatList } from "react-native-gesture-handler";
 import { ButtonGroup, SearchBar } from "react-native-elements";
 import { generateCollectionPicture } from "../utils/functions";
-import { Font } from "expo";
 
 interface IProps {
   navigation: StackNavigationProp<CollectionStackParamList, "Items">;
@@ -40,12 +39,6 @@ class Collections extends React.Component<Props, IState> {
     sortIndex: 0,
     search: "",
   };
-
-  async componentDidMount() {
-    await Font.loadAsync({
-      Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf"),
-    });
-  }
 
   updateSearch = (search: string): void => {
     this.setState({ search });
