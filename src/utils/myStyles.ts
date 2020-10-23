@@ -3,12 +3,12 @@ const windowWidth = Dimensions.get("window").width;
 const windowHalfWidth = windowWidth / 2;
 const windowThirdWidth = windowWidth / 3;
 const windowHeight = Dimensions.get("window").height;
-export const mainColor = "#05878a"
-export const secondColor = "#074e67"
-export const thirdColor = "#003850"
-export const fourthColor = "#002448"
-export const fifthColor = "#001440"
-export const stackBackgroundColor = secondColor
+export const mainColor = "#05878a";
+export const secondColor = "#074e67";
+export const thirdColor = "#003850";
+export const fourthColor = "#002448";
+export const fifthColor = "#001440";
+export const stackBackgroundColor = secondColor;
 
 export const myStyles = StyleSheet.create({
   container: {
@@ -23,15 +23,9 @@ export const myStyles = StyleSheet.create({
     // alignItems: "center",
     justifyContent: "center",
   },
-  recipeList: {
-    flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    // alignItems: "flex-start",
-  },
   imageList: {
-    width: windowHalfWidth * 0.99,
-    height: windowHalfWidth * 0.99,
+    width: windowHalfWidth,
+    height: windowHalfWidth,
     // borderRadius: 10,
   },
   imageListThirds: {
@@ -93,19 +87,34 @@ export const myStyles = StyleSheet.create({
     margin: 10,
     fontWeight: "bold",
   },
+  itemDate: {
+    fontSize: 20,
+    lineHeight: 26,
+    color: fifthColor,
+    margin: 5,
+    // fontWeight: "bold",
+  },
   subtitle: {
     fontSize: 18,
     lineHeight: 22,
     marginBottom: 20,
     color: "#f88967",
   },
-  notes: {
+  itemDescription: {
     fontSize: 22,
     lineHeight: 24,
     marginTop: 20,
     marginBottom: 20,
     textAlign: "center",
-    color: "#f88967",
+    color: secondColor,
+  },
+  itemLocation: {
+    fontSize: 14,
+    lineHeight: 16,
+    // marginTop: 20,
+    marginBottom: 10,
+    textAlign: "center",
+    color: mainColor,
   },
   imageRecipe: {
     width: windowWidth,
@@ -248,7 +257,7 @@ export const myStyles = StyleSheet.create({
     width: 300,
     height: 300,
     resizeMode: "contain",
-    backgroundColor: "black",
+    // backgroundColor: "black",
     borderRadius: 10,
   },
   imgPlaceHolder: {

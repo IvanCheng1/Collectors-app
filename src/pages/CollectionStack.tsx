@@ -46,6 +46,14 @@ const CollectionStack = () => {
         component={Collections}
         options={{
           title: "Collections",
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => Alert.alert("add collection")}
+              style={{ paddingRight: 14 }}
+            >
+              <AntDesign name="plus" size={24} color="white" />
+            </TouchableOpacity>
+          ),
         }}
       />
       <Stack.Screen

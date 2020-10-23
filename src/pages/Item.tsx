@@ -1,4 +1,4 @@
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer, RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -19,8 +19,12 @@ import { ThunkDispatch } from "redux-thunk";
 import { ItemActionTypes } from "../store/actions/itemActions";
 import { rootState } from "../store/reducers";
 import { IItem } from "../store/reducers/itemReducer";
-import { dateToDisplay, dateToString, generateItemPicture } from "../utils/functions";
-import { myStyles } from "../utils/myStyles";
+import {
+  dateToDisplay,
+  dateToString,
+  generateItemPicture,
+} from "../utils/functions";
+import { mainColor, myStyles } from "../utils/myStyles";
 import { CollectionStackParamList } from "./CollectionStack";
 
 interface IProps {
@@ -64,12 +68,17 @@ class Item extends React.Component<Props, IState> {
 
     return (
       <SafeAreaView style={myStyles.container}>
-        <Text>{dateToDisplay(currentItem.dateCreated)}</Text>
+        <Text style={myStyles.itemDate}>
+          {dateToDisplay(currentItem.dateCreated)}
+        </Text>
         <Image style={myStyles.img} source={image} />
 
         {/* <Text>{currentItem.name}</Text> */}
-        <Text>{currentItem.description}</Text>
-        <Text>From {currentItem.city}</Text>
+        <Text style={myStyles.itemDescription}>{currentItem.description}</Text>
+        <Text style={myStyles.itemLocation}>
+          <Entypo name="location-pin" size={14} color={mainColor} />
+          {currentItem.city}
+        </Text>
         <View style={myStyles.btnBar}>
           <TouchableOpacity
             onPress={() =>
@@ -84,16 +93,7 @@ class Item extends React.Component<Props, IState> {
           >
             <Text style={myStyles.btnBarButtonText}>Previous item</Text>
           </TouchableOpacity>
-          {/* <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("EditItem", {
-                id,
-              })
-            }
-            style={myStyles.btnBarButtons}
-          >
-            <Text style={myStyles.btnBarButtonText}>Edit item</Text>
-          </TouchableOpacity> */}
+
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("Item", {
