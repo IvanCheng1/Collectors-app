@@ -100,12 +100,14 @@ class Items extends React.Component<Props, IState> {
           selectedButtonStyle={{ backgroundColor: mainColor }}
         />
 
-        {orderedFilteredItems && (
+        {orderedFilteredItems.length > 0 ? (
           <FlatList
             data={orderedFilteredItems}
             numColumns={3}
             renderItem={({ item }) => this.renderItem(item)}
           />
+        ) : (
+          <Text>No items!</Text>
         )}
 
         {/* <TouchableOpacity

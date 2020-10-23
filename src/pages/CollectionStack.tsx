@@ -16,6 +16,8 @@ import { Sort } from "../utils/types";
 import EditCollection from "./EditCollection";
 import EditItem from "./EditItem";
 import { AntDesign } from "@expo/vector-icons";
+import NewItem from "./NewItem";
+import NewCollection from "./NewCollection";
 
 export type CollectionStackParamList = {
   Collections: undefined;
@@ -23,6 +25,8 @@ export type CollectionStackParamList = {
   Item: { id: string; title: string; collection: string; sort: Sort };
   EditCollection: { id: string };
   EditItem: { id: string };
+  NewCollection: { id?: string };
+  NewItem: { id?: string; collection: string };
 };
 
 const Stack = createStackNavigator<CollectionStackParamList>();
@@ -44,17 +48,17 @@ const CollectionStack = () => {
       <Stack.Screen
         name="Collections"
         component={Collections}
-        options={{
+        options={({ navigation }) => ({
           title: "Collections",
           headerRight: () => (
             <TouchableOpacity
-              onPress={() => Alert.alert("add collection")}
+              onPress={() => navigation.navigate("NewCollection")}
               style={{ paddingRight: 14 }}
             >
               <AntDesign name="plus" size={24} color="white" />
             </TouchableOpacity>
           ),
-        }}
+        })}
       />
       <Stack.Screen
         name="Items"
@@ -64,11 +68,13 @@ const CollectionStack = () => {
           headerRight: () => (
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate("EditCollection", { id: route.params.id })
+                navigation.navigate("NewItem", {
+                  collection: route.params.collection,
+                })
               }
               style={{ paddingRight: 14 }}
             >
-              <Text style={myStyles.btnText}>Edit</Text>
+              <AntDesign name="plus" size={24} color="white" />
             </TouchableOpacity>
           ),
         })}
@@ -92,6 +98,18 @@ const CollectionStack = () => {
             </TouchableOpacity>
           ),
         })}
+      />
+      <Stack.Screen
+        name="NewCollection"
+        component={NewCollection}
+        options={{
+          title: "New Collection",
+        }}
+      />
+      <Stack.Screen
+        name="NewItem"
+        component={NewItem}
+        options={({ route }) => ({ title: route.params.collection })}
       />
       <Stack.Screen
         name="EditCollection"

@@ -44,6 +44,7 @@ interface IProps {
 
 interface IState {
   name: string;
+  id: string;
   description: string;
   image: string;
   city: string;
@@ -56,6 +57,7 @@ type Props = IProps & LinkStateProps & LinkDispatchProps;
 class NewItem extends React.Component<Props, IState> {
   state = {
     name: "",
+    id: "",
     description: "",
     image: "",
     city: "",
@@ -257,7 +259,7 @@ class NewItem extends React.Component<Props, IState> {
           />
 
           <TouchableOpacity style={myStyles.btn} onPress={this.showDatePicker}>
-          <Text style={myStyles.btnText}>{dateToDisplay(dateCreated)}</Text>
+            <Text style={myStyles.btnText}>{dateToDisplay(dateCreated)}</Text>
             {/* <Text style={myStyles.btnText}>Change date</Text> */}
           </TouchableOpacity>
 

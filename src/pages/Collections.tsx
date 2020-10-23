@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { mainColor, myStyles } from "../utils/myStyles";
 import {
+  Alert,
   Image,
   SafeAreaView,
   Text,
@@ -22,6 +23,7 @@ import { generateCollectionPicture } from "../utils/functions";
 import { Searchbar } from "react-native-paper";
 // import { Font } from "expo";
 import * as Font from "expo-font";
+import * as Haptics from "expo-haptics";
 
 interface IProps {
   navigation: StackNavigationProp<CollectionStackParamList, "Items">;
@@ -68,6 +70,12 @@ class Collections extends React.Component<Props, IState> {
           })
         }
         key={c.id}
+        onLongPress={() => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+          navigation.navigate("EditCollection", {
+            id: c.id,
+          });
+        }}
       >
         <Image style={myStyles.imageList} source={image} />
         <Text style={myStyles.collectionTitleCard}>{c.name}</Text>
