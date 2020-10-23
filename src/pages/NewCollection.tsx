@@ -196,12 +196,11 @@ class NewCollection extends React.Component<Props, IState> {
       <SafeAreaView style={myStyles.container}>
         <ScrollView>
           <KeyboardAvoidingView>
-            {id !== "" ? <Text>edit mode</Text> : <Text>new</Text>}
             <View style={myStyles.imgPlaceHolder}>
               {image ? (
                 <Image style={myStyles.img} source={{ uri: image }} />
               ) : (
-                <Text>No photo</Text>
+                <Text>No Photo Selected</Text>
               )}
             </View>
             <View style={myStyles.btnBar}>

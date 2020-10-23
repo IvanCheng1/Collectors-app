@@ -91,33 +91,27 @@ class Items extends React.Component<Props, IState> {
 
     return (
       <SafeAreaView style={myStyles.container}>
-        <Text>search bar here / filter</Text>
-        {/* <Text>{route.params.collection} here</Text> */}
-        <ButtonGroup
-          onPress={this.updateSortIndex}
-          selectedIndex={sortIndex}
-          buttons={sortButtons}
-          selectedButtonStyle={{ backgroundColor: mainColor }}
-        />
-
         {orderedFilteredItems.length > 0 ? (
-          <FlatList
-            data={orderedFilteredItems}
-            numColumns={3}
-            renderItem={({ item }) => this.renderItem(item)}
-          />
+          <>
+            <Text>search bar here / filter</Text>
+            <ButtonGroup
+              onPress={this.updateSortIndex}
+              selectedIndex={sortIndex}
+              buttons={sortButtons}
+              selectedButtonStyle={{ backgroundColor: mainColor }}
+            />
+            <FlatList
+              data={orderedFilteredItems}
+              numColumns={3}
+              renderItem={({ item }) => this.renderItem(item)}
+            />
+          </>
         ) : (
-          <Text>No items!</Text>
+          <>
+            <Text>No items!</Text>
+            <Text>Click here to add items</Text>
+          </>
         )}
-
-        {/* <TouchableOpacity
-          style={myStyles.btn}
-          onPress={() =>
-            navigation.navigate("EditCollection", { id: route.params.id })
-          }
-        >
-          <Text style={myStyles.btnText} >Edit Collection</Text>
-        </TouchableOpacity> */}
       </SafeAreaView>
     );
   }
