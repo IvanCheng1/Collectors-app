@@ -72,7 +72,7 @@ class Collections extends React.Component<Props, IState> {
         key={c.id}
         onLongPress={() => {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-          navigation.navigate("EditCollection", {
+          navigation.navigate("NewCollection", {
             id: c.id,
           });
         }}

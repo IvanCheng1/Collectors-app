@@ -102,8 +102,11 @@ const CollectionStack = () => {
       <Stack.Screen
         name="NewCollection"
         component={NewCollection}
-        options={{
-          title: "New Collection",
+        options={({ route }) => {
+          const title = route.params ? "Edit Collection" : "New Collection";
+          return {
+            title,
+          };
         }}
       />
       <Stack.Screen
