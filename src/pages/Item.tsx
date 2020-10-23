@@ -84,7 +84,7 @@ class Item extends React.Component<Props, IState> {
           >
             <Text style={myStyles.btnBarButtonText}>Previous item</Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() =>
               navigation.navigate("EditItem", {
                 id,
@@ -93,7 +93,7 @@ class Item extends React.Component<Props, IState> {
             style={myStyles.btnBarButtons}
           >
             <Text style={myStyles.btnBarButtonText}>Edit item</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("Item", {

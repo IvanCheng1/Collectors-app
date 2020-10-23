@@ -1,7 +1,13 @@
 import React, { Component, UIEventHandler } from "react";
 // import { connect } from "react-redux";
 import { myStyles } from "../utils/myStyles";
-import { SafeAreaView, Text, View } from "react-native";
+import {
+  Alert,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Collections from "./Collections";
 import Items from "./Items";
@@ -9,6 +15,7 @@ import Item from "./Item";
 import { Sort } from "../utils/types";
 import EditCollection from "./EditCollection";
 import EditItem from "./EditItem";
+import { AntDesign } from "@expo/vector-icons";
 
 export type CollectionStackParamList = {
   Collections: undefined;
@@ -26,7 +33,7 @@ const CollectionStack = () => {
       // initialRouteName="Collections"
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#f4511e",
+          backgroundColor: "#05878a",
         },
         headerTintColor: "#fff",
         headerTitleStyle: {
@@ -44,12 +51,39 @@ const CollectionStack = () => {
       <Stack.Screen
         name="Items"
         component={Items}
-        options={({ route }) => ({ title: route.params.collection })}
+        options={({ route, navigation }) => ({
+          title: route.params.collection,
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("EditCollection", { id: route.params.id })
+              }
+              style={{ paddingRight: 14 }}
+            >
+              <Text style={myStyles.btnText}>Edit</Text>
+            </TouchableOpacity>
+          ),
+        })}
       />
       <Stack.Screen
         name="Item"
         component={Item}
-        options={({ route }) => ({ title: route.params.title })}
+        options={({ route, navigation }) => ({
+          title: route.params.title,
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("EditItem", {
+                  id: route.params.id,
+                })
+              }
+              // color="#fff"
+              style={{ paddingRight: 14 }}
+            >
+              <Text style={myStyles.btnText}>Edit</Text>
+            </TouchableOpacity>
+          ),
+        })}
       />
       <Stack.Screen
         name="EditCollection"
