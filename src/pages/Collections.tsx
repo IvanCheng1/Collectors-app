@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { myStyles } from "../utils/myStyles";
+import { mainColor, myStyles } from "../utils/myStyles";
 import {
   Image,
   SafeAreaView,
@@ -21,7 +21,7 @@ import { ButtonGroup, SearchBar } from "react-native-elements";
 import { generateCollectionPicture } from "../utils/functions";
 import { Searchbar } from "react-native-paper";
 // import { Font } from "expo";
-import * as Font from 'expo-font';
+import * as Font from "expo-font";
 
 interface IProps {
   navigation: StackNavigationProp<CollectionStackParamList, "Items">;
@@ -42,8 +42,6 @@ class Collections extends React.Component<Props, IState> {
     sortIndex: 0,
     search: "",
   };
-
-
 
   updateSearch = (search: string): void => {
     this.setState({ search });
@@ -72,7 +70,7 @@ class Collections extends React.Component<Props, IState> {
         key={c.id}
       >
         <Image style={myStyles.imageList} source={image} />
-        <Text>{c.name}</Text>
+        <Text style={myStyles.collectionTitleCard}>{c.name}</Text>
       </TouchableOpacity>
     );
   };
@@ -100,6 +98,7 @@ class Collections extends React.Component<Props, IState> {
           onPress={this.updateSortIndex}
           selectedIndex={sortIndex}
           buttons={sortButtons}
+          selectedButtonStyle={{ backgroundColor: mainColor }}
         />
 
         {orderedCollections && (

@@ -1,6 +1,6 @@
 import React, { Component, UIEventHandler } from "react";
 // import { connect } from "react-redux";
-import { myStyles } from "../utils/myStyles";
+import { myStyles, stackBackgroundColor } from "../utils/myStyles";
 import {
   Alert,
   SafeAreaView,
@@ -33,7 +33,7 @@ const CollectionStack = () => {
       // initialRouteName="Collections"
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#05878a",
+          backgroundColor: stackBackgroundColor,
         },
         headerTintColor: "#fff",
         headerTitleStyle: {

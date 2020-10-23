@@ -12,7 +12,6 @@ import {
   TouchableOpacity,
   Image,
   Platform,
-  Picker,
 } from "react-native";
 import { IItem } from "../store/reducers/itemReducer";
 import { rootState } from "../store/reducers";
@@ -33,7 +32,7 @@ import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import { createItemObject, dateToDisplay } from "../utils/functions";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-// import { Picker } from "@react-native-community/picker";
+import { Picker } from "@react-native-community/picker";
 import RNPickerSelect from "react-native-picker-select";
 // import Picker from "react-native-picker-select";
 
@@ -268,7 +267,7 @@ class EditItem extends React.Component<Props, IState> {
                 value={collection}
                 // placeholder="hi"
                 useNativeAndroidPickerStyle={false}
-                textInputProps={{ color: "black" }}
+                // textInputProps={{ color: "black" }}
               />
             ) : (
               <>

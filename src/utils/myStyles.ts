@@ -3,6 +3,12 @@ const windowWidth = Dimensions.get("window").width;
 const windowHalfWidth = windowWidth / 2;
 const windowThirdWidth = windowWidth / 3;
 const windowHeight = Dimensions.get("window").height;
+export const mainColor = "#05878a"
+export const secondColor = "#074e67"
+export const thirdColor = "#003850"
+export const fourthColor = "#002448"
+export const fifthColor = "#001440"
+export const stackBackgroundColor = secondColor
 
 export const myStyles = StyleSheet.create({
   container: {
@@ -29,31 +35,38 @@ export const myStyles = StyleSheet.create({
     // borderRadius: 10,
   },
   imageListThirds: {
-    width: windowThirdWidth * 0.99,
-    height: windowThirdWidth * 0.99,
+    width: windowThirdWidth,
+    height: windowThirdWidth,
     // borderRadius: 10,
   },
   box: {
     borderColor: "grey",
     borderWidth: 1,
   },
-  recipeContainer: {
+  itemCardContainer: {
     // paddingTop: 5,
     // paddingBottom: 5,
     width: windowThirdWidth,
     // height: windowHalfWidth + 50,
     // height: 100%,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
+    // alignItems: "center",
+    // justifyContent: "center",
+    // borderRadius: 10,
     // marginBottom: 5,
     // borderColor: "grey",
   },
-  recipeTitle: {
-    fontSize: 20,
-    lineHeight: 26,
-    color: "#f4511e",
+  collectionTitleCard: {
+    fontSize: 18,
+    lineHeight: 22,
+    color: fifthColor,
     fontWeight: "bold",
+    textAlign: "center",
+  },
+  itemTitleCard: {
+    fontSize: 14,
+    lineHeight: 16,
+    color: fifthColor,
+    // fontWeight: "bold",
     textAlign: "center",
   },
   receipeNotes: {
@@ -145,7 +158,7 @@ export const myStyles = StyleSheet.create({
     fontWeight: "500",
   },
   btn: {
-    backgroundColor: "#f56436",
+    backgroundColor: mainColor,
     padding: 10,
     paddingLeft: 20,
     paddingRight: 20,
@@ -160,7 +173,7 @@ export const myStyles = StyleSheet.create({
     backgroundColor: "grey",
   },
   btnSmall: {
-    backgroundColor: "#f56436",
+    backgroundColor: mainColor,
     padding: 10,
     paddingLeft: 20,
     paddingRight: 20,
@@ -182,7 +195,7 @@ export const myStyles = StyleSheet.create({
     flexDirection: "row",
   },
   btnBarButtons: {
-    backgroundColor: "#f56436",
+    backgroundColor: mainColor,
     paddingTop: 8,
     paddingBottom: 8,
     // paddingLeft: 20,

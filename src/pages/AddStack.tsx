@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import { connect } from "react-redux";
-import { myStyles } from "../utils/myStyles";
+import { myStyles, stackBackgroundColor } from "../utils/myStyles";
 import { SafeAreaView, Text, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import AddQuestion from "./AddQuestion";
@@ -23,7 +23,7 @@ const AddStack = () => {
       // initialRouteName="Collections"
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#f4511e",
+          backgroundColor: stackBackgroundColor,
         },
         headerTintColor: "#fff",
         headerTitleStyle: {

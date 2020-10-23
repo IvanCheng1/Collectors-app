@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { myStyles } from "../utils/myStyles";
+import { mainColor, myStyles } from "../utils/myStyles";
 import {
   Image,
   SafeAreaView,
@@ -44,7 +44,7 @@ class Items extends React.Component<Props, IState> {
     const image = i.image ? { uri: i.image } : generateItemPicture(i.name);
 
     return (
-      <View style={myStyles.recipeContainer}>
+      <View style={myStyles.itemCardContainer}>
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("Item", {
@@ -55,10 +55,10 @@ class Items extends React.Component<Props, IState> {
             })
           }
           key={i.id}
-          style={{ borderWidth: 1, borderColor: "red" }}
+          // style={{ borderWidth: 1, borderColor: "red" }}
         >
           <Image style={myStyles.imageListThirds} source={image} />
-          <Text>{i.name}</Text>
+          <Text style={myStyles.itemTitleCard}>{i.name}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -97,6 +97,7 @@ class Items extends React.Component<Props, IState> {
           onPress={this.updateSortIndex}
           selectedIndex={sortIndex}
           buttons={sortButtons}
+          selectedButtonStyle={{ backgroundColor: mainColor }}
         />
 
         {orderedFilteredItems && (
