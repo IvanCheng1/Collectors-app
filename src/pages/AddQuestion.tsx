@@ -6,7 +6,7 @@ import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 const AddQuestion = ({ navigation }: any) => {
   return (
     <SafeAreaView style={myStyles.container}>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={myStyles.btn}
         onPress={() => navigation.navigate("NewCollection")}
       >
@@ -17,7 +17,8 @@ const AddQuestion = ({ navigation }: any) => {
         onPress={() => navigation.navigate("ChooseCollection")}
       >
         <Text>Add to Collection</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+      <Text>Remove page</Text>
     </SafeAreaView>
   );
 };

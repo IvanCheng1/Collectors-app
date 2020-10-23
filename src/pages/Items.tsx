@@ -54,6 +54,9 @@ class Items extends React.Component<Props, IState> {
               sort,
             })
           }
+          onLongPress={() =>
+            navigation.navigate("NewItem", { id: i.id, collection: i.collection })
+          }
           key={i.id}
           // style={{ borderWidth: 1, borderColor: "red" }}
         >

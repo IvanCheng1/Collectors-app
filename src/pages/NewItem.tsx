@@ -20,7 +20,11 @@ import { ThunkDispatch } from "redux-thunk";
 import { AllActionTypes } from "../store/actions";
 import { RouteProp } from "@react-navigation/native";
 import { bindActionCreators } from "redux";
-import { handleAddItem } from "../store/actions/itemActions";
+import {
+  handleAddItem,
+  handleDeleteItem,
+  handleEditItem,
+} from "../store/actions/itemActions";
 import { createItemObject, dateToDisplay } from "../utils/functions";
 import { IItem } from "../store/reducers/itemReducer";
 import * as Permissions from "expo-permissions";
@@ -34,12 +38,16 @@ import {
   FontAwesome,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import RNPickerSelect from "react-native-picker-select";
+// import { Picker } from "@react-native-community/picker";
+import { ICollection } from "../store/reducers/collectionReducer";
+import { CollectionStackParamList } from "./CollectionStack";
 
 type StateKey = "name" | "description" | "image" | "city";
 
 interface IProps {
-  route: RouteProp<AddStackParamList, "NewItem">;
-  navigation: StackNavigationProp<AddStackParamList>;
+  route: RouteProp<CollectionStackParamList, "NewItem">;
+  navigation: StackNavigationProp<CollectionStackParamList>;
 }
 
 interface IState {
@@ -48,6 +56,7 @@ interface IState {
   description: string;
   image: string;
   city: string;
+  collection: string;
   dateCreated: Date;
   showDatePicker: boolean;
 }
@@ -61,12 +70,33 @@ class NewItem extends React.Component<Props, IState> {
     description: "",
     image: "",
     city: "",
+    collection: "",
     dateCreated: new Date(),
     showDatePicker: false,
   };
 
   componentDidMount() {
-    this.resetState();
+    if (this.props.route.params?.id) {
+      // edit mode
+      const { id } = this.props.route.params;
+      const oldItem: IItem = this.props.items.filter((i) => i.id === id)[0];
+
+      this.setState({
+        name: oldItem.name,
+        description: oldItem.description,
+        image: oldItem.image,
+        city: oldItem.city,
+        collection: oldItem.collection,
+        id,
+        dateCreated: oldItem.dateCreated,
+      });
+    } else {
+      // new mode
+      // this.resetState();
+      this.setState({
+        collection: this.props.route.params.collection,
+      });
+    }
   }
 
   changeStateValues = (value: string, stateKey: StateKey): void => {
@@ -80,6 +110,14 @@ class NewItem extends React.Component<Props, IState> {
       case "city":
         this.setState({ city: value });
         return;
+    }
+  };
+
+  changeCollection = (value: string | number): void => {
+    if (typeof value === "string") {
+      this.setState({
+        collection: value,
+      });
     }
   };
 
@@ -153,24 +191,60 @@ class NewItem extends React.Component<Props, IState> {
   };
 
   onSubmit = (): void => {
-    const { name, description, image, city, dateCreated } = this.state;
-    const { collection } = this.props.route.params;
-
-    const item = createItemObject(
+    const {
       name,
-      collection,
       description,
-      city,
       image,
-      dateCreated
-    );
+      city,
+      dateCreated,
+      collection,
+    } = this.state;
+    // const { collection } = this.props.route.params;
 
-    this.props.handleAddItem(item);
-    // clear state to do
+    let id: string;
+
+    if (this.props.route.params?.id) {
+      // edit mode
+      id = this.props.route.params.id;
+      const newItem: IItem = createItemObject(
+        name,
+        collection,
+        description,
+        city,
+        image,
+        dateCreated,
+        id
+      );
+
+      this.props.handleEditItem(id, newItem);
+    } else {
+      // new mode
+      const item = createItemObject(
+        name,
+        collection,
+        description,
+        city,
+        image,
+        dateCreated
+      );
+
+      id = item.id;
+      this.props.handleAddItem(item);
+    }
+
+    // clear state
     this.resetState();
 
+    // to do - check if collection is changed
+
     // go home
-    this.props.navigation.navigate("AddQuestion");
+    this.props.navigation.goBack();
+    // this.props.navigation.navigate("Item", {
+    //   id,
+    //   title: name,
+    //   collection,
+    //   sort: "Alphabetical",
+    // });
   };
 
   resetState = (): void => {
@@ -185,7 +259,7 @@ class NewItem extends React.Component<Props, IState> {
   };
 
   render() {
-    const { route } = this.props;
+    const { route, collections } = this.props;
     const {
       name,
       description,
@@ -193,6 +267,7 @@ class NewItem extends React.Component<Props, IState> {
       city,
       showDatePicker,
       dateCreated,
+      collection,
     } = this.state;
 
     // const isDarkMode = useColorScheme() === 'dark';
@@ -263,6 +338,29 @@ class NewItem extends React.Component<Props, IState> {
             {/* <Text style={myStyles.btnText}>Change date</Text> */}
           </TouchableOpacity>
 
+          {route.params?.id && (
+            <>
+              <Text style={myStyles.btnText}>Change collection</Text>
+
+              <RNPickerSelect
+                onValueChange={(value: string) => {
+                  this.changeCollection(value);
+                }}
+                items={collections.map((c) => {
+                  return {
+                    label: c.name,
+                    value: c.name,
+                    key: c.id,
+                  };
+                })}
+                value={collection}
+                // placeholder="hi"
+                useNativeAndroidPickerStyle={false}
+                // textInputProps={{ color: "black" }}
+              />
+            </>
+          )}
+
           <DateTimePickerModal
             isVisible={showDatePicker}
             date={dateCreated}
@@ -284,22 +382,32 @@ class NewItem extends React.Component<Props, IState> {
   }
 }
 
-interface LinkStateProps {}
+interface LinkStateProps {
+  items: IItem[];
+  collections: ICollection[];
+}
 
 interface LinkDispatchProps {
   handleAddItem: (item: IItem) => void;
+  handleEditItem: (id: string, newItem: IItem) => void;
+  handleDeleteItem: (id: string) => void;
 }
 
 const mapStateToProps = (
   state: rootState,
   ownProps: IProps
-): LinkStateProps => ({});
+): LinkStateProps => ({
+  items: state.item,
+  collections: state.collection,
+});
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AllActionTypes>,
   ownProps: IProps
 ): LinkDispatchProps => ({
   handleAddItem: bindActionCreators(handleAddItem, dispatch),
+  handleEditItem: bindActionCreators(handleEditItem, dispatch),
+  handleDeleteItem: bindActionCreators(handleDeleteItem, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewItem);
