@@ -309,14 +309,8 @@ class NewItem extends React.Component<Props, IState> {
     // const isDarkMode = useColorScheme() === 'dark';
 
     return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        {/* <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
-          style={myStyles.container}
-          keyboardVerticalOffset={64}
-        > */}
-        {/* <ScrollView showsVerticalScrollIndicator={false}> */}
-        {/* <KeyboardAwareScrollView style={myStyles.container}> */}
+      <SafeAreaView style={myStyles.container}>
+        <ScrollView>
           <View style={myStyles.container}>
             <View style={myStyles.imgPlaceHolder}>
               {image ? (
@@ -350,73 +344,73 @@ class NewItem extends React.Component<Props, IState> {
                 </View>
               </TouchableOpacity>
             </View>
-            {/* </TouchableOpacity> */}
+
+            <TextInput
+              style={myStyles.input}
+              placeholder="Item Name"
+              value={name}
+              onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+                this.changeStateValues(e.nativeEvent.text, "name")
+              }
+            />
+            <TextInput
+              style={myStyles.input}
+              placeholder="Description"
+              value={description}
+              onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+                this.changeStateValues(e.nativeEvent.text, "description")
+              }
+            />
+            <TextInput
+              style={myStyles.input}
+              placeholder="City"
+              value={city}
+              onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+                this.changeStateValues(e.nativeEvent.text, "city")
+              }
+            />
+
+            <TouchableOpacity
+              style={myStyles.btn}
+              onPress={this.showDatePicker}
+            >
+              <Text style={myStyles.btnText}>{dateToDisplay(dateCreated)}</Text>
+              {/* <Text style={myStyles.btnText}>Change date</Text> */}
+            </TouchableOpacity>
+            <View>
+              <Text>Change collection</Text>
+            </View>
+            {route.params?.id && (
+              <>
+                <RNPickerSelect
+                  onValueChange={(value: string) => {
+                    this.changeCollection(value);
+                  }}
+                  items={collections.map((c) => {
+                    return {
+                      label: c.name,
+                      value: c.name,
+                      key: c.id,
+                    };
+                  })}
+                  value={collection}
+                  // placeholder="hi"
+                  // useNativeAndroidPickerStyle={false}
+                  // textInputProps={{ color: "black" }}
+                  style={myStyles}
+                />
+
+                <TouchableOpacity
+                  style={[myStyles.btn, myStyles.btnDark]}
+                  onPress={this.onDelete}
+                >
+                  <Text style={myStyles.btnText}>Delete Item</Text>
+                </TouchableOpacity>
+              </>
+            )}
           </View>
-
-          <TextInput
-            style={myStyles.input}
-            placeholder="Item Name"
-            value={name}
-            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-              this.changeStateValues(e.nativeEvent.text, "name")
-            }
-          />
-          <TextInput
-            style={myStyles.input}
-            placeholder="Description"
-            value={description}
-            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-              this.changeStateValues(e.nativeEvent.text, "description")
-            }
-          />
-          <TextInput
-            style={myStyles.input}
-            placeholder="City"
-            value={city}
-            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-              this.changeStateValues(e.nativeEvent.text, "city")
-            }
-          />
-
-          <TouchableOpacity style={myStyles.btn} onPress={this.showDatePicker}>
-            <Text style={myStyles.btnText}>{dateToDisplay(dateCreated)}</Text>
-            {/* <Text style={myStyles.btnText}>Change date</Text> */}
-          </TouchableOpacity>
-
-          {route.params?.id && (
-            <>
-              <Text style={myStyles.btnText}>Change collection</Text>
-
-              <RNPickerSelect
-                onValueChange={(value: string) => {
-                  this.changeCollection(value);
-                }}
-                items={collections.map((c) => {
-                  return {
-                    label: c.name,
-                    value: c.name,
-                    key: c.id,
-                  };
-                })}
-                value={collection}
-                // placeholder="hi"
-                // useNativeAndroidPickerStyle={false}
-                // textInputProps={{ color: "black" }}
-                style={myStyles}
-              />
-
-              <TouchableOpacity
-                style={[myStyles.btn, myStyles.btnDark]}
-                onPress={this.onDelete}
-              >
-                <Text style={myStyles.btnText}>Delete Item</Text>
-              </TouchableOpacity>
-            </>
-          )}
-        {/* </KeyboardAwareScrollView> */}
-        {/* </ScrollView> */}
-        {/* </KeyboardAvoidingView> */}
-      </TouchableWithoutFeedback>
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }
