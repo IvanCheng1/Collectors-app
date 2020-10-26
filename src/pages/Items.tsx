@@ -19,7 +19,6 @@ import { Sort, sortButtons } from "../utils/types";
 import { FlatList } from "react-native-gesture-handler";
 import { ButtonGroup } from "react-native-elements";
 import { generateItemPicture } from "../utils/functions";
-import * as Haptics from "expo-haptics";
 
 interface IProps {
   navigation: StackNavigationProp<CollectionStackParamList, "Item">;
@@ -55,13 +54,9 @@ class Items extends React.Component<Props, IState> {
               sort,
             })
           }
-          onLongPress={() => {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-            navigation.navigate("NewItem", {
-              id: i.id,
-              collection: i.collection,
-            });
-          }}
+          onLongPress={() =>
+            navigation.navigate("NewItem", { id: i.id, collection: i.collection })
+          }
           key={i.id}
           // style={{ borderWidth: 1, borderColor: "red" }}
         >

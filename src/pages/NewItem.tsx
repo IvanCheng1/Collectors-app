@@ -13,8 +13,6 @@ import {
   useColorScheme,
   Platform,
   Alert,
-  KeyboardAvoidingView,
-  ScrollView,
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
@@ -35,7 +33,7 @@ import { IItem } from "../store/reducers/itemReducer";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-// import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 import { useDarkMode } from "react-native-dynamic";
 import Constants from "expo-constants";
 import {
@@ -48,8 +46,7 @@ import RNPickerSelect from "react-native-picker-select";
 import { ICollection } from "../store/reducers/collectionReducer";
 import { CollectionStackParamList } from "./CollectionStack";
 import Item from "./Item";
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
-
+// import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 
 type StateKey = "name" | "description" | "image" | "city";
 
@@ -318,127 +315,106 @@ class NewItem extends React.Component<Props, IState> {
           style={myStyles.container}
           keyboardVerticalOffset={64}
         > */}
-          {/* <ScrollView showsVerticalScrollIndicator={false}> */}
-            <KeyboardAwareScrollView style={myStyles.container}>
-
-            <View style={myStyles.container}>
-              <View style={myStyles.imgPlaceHolder}>
-                {image ? (
-                  <Image style={myStyles.img} source={{ uri: image }} />
+        {/* <ScrollView showsVerticalScrollIndicator={false}> */}
+        <KeyboardAwareScrollView style={myStyles.container}>
+          <View style={myStyles.container}>
+            <View style={myStyles.imgPlaceHolder}>
+              {image ? (
+                <Image style={myStyles.img} source={{ uri: image }} />
+              ) : (
+                <Text>No photo</Text>
+              )}
+            </View>
+            <View style={myStyles.btnBar}>
+              <TouchableOpacity
+                style={myStyles.btnBarButtons}
+                onPress={this.pickImage}
+              >
+                {Platform.OS === "android" ? (
+                  <MaterialCommunityIcons
+                    name="google-photos"
+                    size={24}
+                    color="black"
+                  />
                 ) : (
-                  <Text>No photo</Text>
+                  <FontAwesome name="photo" size={24} color="black" />
                 )}
-              </View>
-              <View style={myStyles.btnBar}>
-                <TouchableOpacity
-                  style={myStyles.btnBarButtons}
-                  onPress={this.pickImage}
-                >
-                  {Platform.OS === "android" ? (
-                    <MaterialCommunityIcons
-                      name="google-photos"
-                      size={24}
-                      color="black"
-                    />
-                  ) : (
-                    <FontAwesome name="photo" size={24} color="black" />
-                  )}
-                </TouchableOpacity>
+              </TouchableOpacity>
 
-                <TouchableOpacity
-                  style={myStyles.btnBarButtons}
-                  onPress={this.cameraRoll}
-                >
-                  <View>
-                    <AntDesign name="camera" size={24} color="black" />
-                  </View>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity
+                style={myStyles.btnBarButtons}
+                onPress={this.cameraRoll}
+              >
+                <View>
+                  <AntDesign name="camera" size={24} color="black" />
+                </View>
+              </TouchableOpacity>
+            </View>
+            {/* </TouchableOpacity> */}
+          </View>
 
-              <TextInput
-                style={myStyles.input}
-                placeholder="Item Name"
-                value={name}
-                onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-                  this.changeStateValues(e.nativeEvent.text, "name")
-                }
-              />
-              <TextInput
-                style={myStyles.input}
-                placeholder="Description"
-                value={description}
-                onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-                  this.changeStateValues(e.nativeEvent.text, "description")
-                }
-              />
-              <TextInput
-                style={myStyles.input}
-                placeholder="City"
-                value={city}
-                onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-                  this.changeStateValues(e.nativeEvent.text, "city")
-                }
+          <TextInput
+            style={myStyles.input}
+            placeholder="Item Name"
+            value={name}
+            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+              this.changeStateValues(e.nativeEvent.text, "name")
+            }
+          />
+          <TextInput
+            style={myStyles.input}
+            placeholder="Description"
+            value={description}
+            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+              this.changeStateValues(e.nativeEvent.text, "description")
+            }
+          />
+          <TextInput
+            style={myStyles.input}
+            placeholder="City"
+            value={city}
+            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+              this.changeStateValues(e.nativeEvent.text, "city")
+            }
+          />
+
+          <TouchableOpacity style={myStyles.btn} onPress={this.showDatePicker}>
+            <Text style={myStyles.btnText}>{dateToDisplay(dateCreated)}</Text>
+            {/* <Text style={myStyles.btnText}>Change date</Text> */}
+          </TouchableOpacity>
+
+          {route.params?.id && (
+            <>
+              <Text style={myStyles.btnText}>Change collection</Text>
+
+              <RNPickerSelect
+                onValueChange={(value: string) => {
+                  this.changeCollection(value);
+                }}
+                items={collections.map((c) => {
+                  return {
+                    label: c.name,
+                    value: c.name,
+                    key: c.id,
+                  };
+                })}
+                value={collection}
+                // placeholder="hi"
+                // useNativeAndroidPickerStyle={false}
+                // textInputProps={{ color: "black" }}
+                style={myStyles}
               />
 
               <TouchableOpacity
-                style={myStyles.btn}
-                onPress={this.showDatePicker}
+                style={[myStyles.btn, myStyles.btnDark]}
+                onPress={this.onDelete}
               >
-                <Text style={myStyles.btnText}>
-                  {dateToDisplay(dateCreated)}
-                </Text>
-                {/* <Text style={myStyles.btnText}>Change date</Text> */}
+                <Text style={myStyles.btnText}>Delete Item</Text>
               </TouchableOpacity>
-
-              {route.params?.id && (
-                <>
-                  <Text style={myStyles.btnText}>Change collection</Text>
-
-                  <RNPickerSelect
-                    onValueChange={(value: string) => {
-                      this.changeCollection(value);
-                    }}
-                    items={collections.map((c) => {
-                      return {
-                        label: c.name,
-                        value: c.name,
-                        key: c.id,
-                      };
-                    })}
-                    value={collection}
-                    // placeholder="hi"
-                    // useNativeAndroidPickerStyle={false}
-                    // textInputProps={{ color: "black" }}
-                    style={myStyles}
-                  />
-
-                  <TouchableOpacity
-                    style={[myStyles.btn, myStyles.btnDark]}
-                    onPress={this.onDelete}
-                  >
-                    <Text style={myStyles.btnText}>Delete Item</Text>
-                  </TouchableOpacity>
-                </>
-              )}
-
-              <DateTimePickerModal
-                isVisible={showDatePicker}
-                date={dateCreated}
-                mode="date"
-                onConfirm={this.changeDate}
-                onCancel={this.showDatePicker}
-                // pickerContainerStyleIOS={{ color: "white" }}
-                // textColor={isDarkMode ? "white" : undefined}
-              />
-
-              <TouchableOpacity style={myStyles.btn} onPress={this.onSubmit}>
-                <Text style={myStyles.btnText}>
-                  Save Item to {route.params.collection}
-                </Text>
-              </TouchableOpacity>
-            </View>
-            </KeyboardAwareScrollView>
-          {/* </ScrollView> */}
+            </>
+          )}
+        </KeyboardAwareScrollView>
+        {/* </ScrollView> */}
         {/* </KeyboardAvoidingView> */}
       </TouchableWithoutFeedback>
     );
