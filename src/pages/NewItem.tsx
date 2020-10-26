@@ -316,7 +316,7 @@ class NewItem extends React.Component<Props, IState> {
           keyboardVerticalOffset={64}
         > */}
         {/* <ScrollView showsVerticalScrollIndicator={false}> */}
-        <KeyboardAwareScrollView style={myStyles.container}>
+        {/* <KeyboardAwareScrollView style={myStyles.container}> */}
           <View style={myStyles.container}>
             <View style={myStyles.imgPlaceHolder}>
               {image ? (
@@ -413,7 +413,7 @@ class NewItem extends React.Component<Props, IState> {
               </TouchableOpacity>
             </>
           )}
-        </KeyboardAwareScrollView>
+        {/* </KeyboardAwareScrollView> */}
         {/* </ScrollView> */}
         {/* </KeyboardAvoidingView> */}
       </TouchableWithoutFeedback>
