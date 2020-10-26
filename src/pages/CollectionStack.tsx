@@ -87,12 +87,15 @@ const CollectionStack = () => {
           headerRight: () => (
             <TouchableOpacity
               onPress={() =>
-                Alert.alert('delete')
+                navigation.navigate("NewItem", {
+                  id: route.params.id,
+                  collection: route.params.collection,
+                })
               }
               // color="#fff"
               style={{ paddingRight: 14 }}
             >
-              <Text style={myStyles.btnText}>Delete</Text>
+              <Text style={myStyles.btnText}>Edit</Text>
             </TouchableOpacity>
           ),
         })}
@@ -114,7 +117,6 @@ const CollectionStack = () => {
           const title = route.params.id ? "Edit Item" : "New Item";
           return {
             title,
-            
           };
         }}
       />

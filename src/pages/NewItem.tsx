@@ -12,6 +12,7 @@ import {
   View,
   useColorScheme,
   Platform,
+  Alert,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { AddStackParamList } from "./AddStack";
@@ -42,6 +43,7 @@ import RNPickerSelect from "react-native-picker-select";
 // import { Picker } from "@react-native-community/picker";
 import { ICollection } from "../store/reducers/collectionReducer";
 import { CollectionStackParamList } from "./CollectionStack";
+import Item from "./Item";
 
 type StateKey = "name" | "description" | "image" | "city";
 
@@ -188,6 +190,37 @@ class NewItem extends React.Component<Props, IState> {
       dateCreated: date,
       showDatePicker: false,
     });
+  };
+
+  onDelete = (): void => {
+    // check first
+
+    Alert.alert(
+      "Delete Item",
+      `Are you sure you want to delete ${this.state.name} from ${this.state.collection}?`,
+      [
+        {
+          text: "Delete",
+          onPress: () => {
+            const collection = this.props.collections.filter(
+              (c) => c.name === this.state.collection
+            )[0];
+
+            // store
+            this.props.handleDeleteItem(this.state.id);
+
+            // clear state
+            this.resetState();
+
+            // go back to collection
+            this.props.navigation.goBack();
+          },
+        },
+        {
+          text: "Cancel",
+        },
+      ]
+    );
   };
 
   onSubmit = (): void => {
@@ -355,9 +388,17 @@ class NewItem extends React.Component<Props, IState> {
                 })}
                 value={collection}
                 // placeholder="hi"
-                useNativeAndroidPickerStyle={false}
+                // useNativeAndroidPickerStyle={false}
                 // textInputProps={{ color: "black" }}
+                style={myStyles}
               />
+
+              <TouchableOpacity
+                style={[myStyles.btn, myStyles.btnDark]}
+                onPress={this.onDelete}
+              >
+                <Text style={myStyles.btnText}>Delete Item</Text>
+              </TouchableOpacity>
             </>
           )}
 
