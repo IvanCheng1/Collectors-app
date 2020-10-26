@@ -1,6 +1,6 @@
 # 🚧 WIP - Collectors App
 
-An app that allows you to document your collections for easy access to show your friends.
+An app that allows you to document your collections and items for easy access to show your friends.
 
 Built using TypeScript, React and React-Redux.
 
