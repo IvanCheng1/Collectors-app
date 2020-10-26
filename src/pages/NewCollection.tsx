@@ -13,6 +13,8 @@ import {
   Image,
   Platform,
   Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import { IItem } from "../store/reducers/itemReducer";
 import { rootState } from "../store/reducers";
@@ -193,9 +195,13 @@ class NewCollection extends React.Component<Props, IState> {
   render() {
     const { name, image, id } = this.state;
     return (
-      <SafeAreaView style={myStyles.container}>
-        <ScrollView>
-          <KeyboardAvoidingView>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
+          style={myStyles.container}
+          keyboardVerticalOffset={200}
+        >
+          <>
             <View style={myStyles.imgPlaceHolder}>
               {image ? (
                 <Image style={myStyles.img} source={{ uri: image }} />
@@ -243,9 +249,9 @@ class NewCollection extends React.Component<Props, IState> {
             >
               <Text style={myStyles.btnText}>Save Collection</Text>
             </TouchableOpacity>
-          </KeyboardAvoidingView>
-        </ScrollView>
-      </SafeAreaView>
+          </>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     );
   }
 }
