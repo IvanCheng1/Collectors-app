@@ -48,6 +48,8 @@ import RNPickerSelect from "react-native-picker-select";
 import { ICollection } from "../store/reducers/collectionReducer";
 import { CollectionStackParamList } from "./CollectionStack";
 import Item from "./Item";
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
+
 
 type StateKey = "name" | "description" | "image" | "city";
 
@@ -311,12 +313,14 @@ class NewItem extends React.Component<Props, IState> {
 
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <KeyboardAvoidingView
+        {/* <KeyboardAvoidingView
           behavior={Platform.OS == "ios" ? "padding" : "height"}
           style={myStyles.container}
           keyboardVerticalOffset={64}
-        >
-          <ScrollView showsVerticalScrollIndicator={false}>
+        > */}
+          {/* <ScrollView showsVerticalScrollIndicator={false}> */}
+            <KeyboardAwareScrollView style={myStyles.container}>
+
             <View style={myStyles.container}>
               <View style={myStyles.imgPlaceHolder}>
                 {image ? (
@@ -433,8 +437,9 @@ class NewItem extends React.Component<Props, IState> {
                 </Text>
               </TouchableOpacity>
             </View>
-          </ScrollView>
-        </KeyboardAvoidingView>
+            </KeyboardAwareScrollView>
+          {/* </ScrollView> */}
+        {/* </KeyboardAvoidingView> */}
       </TouchableWithoutFeedback>
     );
   }
