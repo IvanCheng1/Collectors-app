@@ -11,6 +11,7 @@ import {
   TextInputChangeEventData,
   TouchableOpacity,
   View,
+  Animated,
 } from "react-native";
 import { rootState } from "../store/reducers";
 import { ThunkDispatch } from "redux-thunk";
@@ -34,6 +35,7 @@ interface IProps {
 interface IState {
   showIndex: number;
   search: string;
+  fadeInValue: Animated.Value;
 }
 
 const showIndexButtons = ["All", "Collections", "Items"];
@@ -44,6 +46,15 @@ class SearchPage extends React.Component<Props, IState> {
   state = {
     showIndex: 0,
     search: "",
+    fadeInValue: new Animated.Value(0),
+  };
+
+  _start = () => {
+    Animated.timing(this.state.fadeInValue, {
+      toValue: 1,
+      duration: 250,
+      useNativeDriver: true,
+    }).start();
   };
 
   updateSearch = (search: string): void => {
@@ -108,6 +119,11 @@ class SearchPage extends React.Component<Props, IState> {
     const { collections, items } = this.props;
     const searchLower = search.toLowerCase().trim();
 
+    // animate the cross icon in searchbar
+    if (search !== "") {
+      this._start();
+    }
+
     // collection names match search??
     const searchCollections = collections.filter((c) =>
       c.name.toLowerCase().includes(searchLower)
@@ -156,6 +172,7 @@ class SearchPage extends React.Component<Props, IState> {
         displayResults = combineResults;
         break;
     }
+    // sort by alphabetical order
     displayResults.sort((a, b) => {
       if (a.name > b.name) {
         return 1;
@@ -176,7 +193,9 @@ class SearchPage extends React.Component<Props, IState> {
           />
           {search !== "" && (
             <TouchableOpacity onPress={() => this.setState({ search: "" })}>
-              <Entypo name="cross" size={20} color={mainColor} />
+              <Animated.View style={{ opacity: this.state.fadeInValue }}>
+                <Entypo name="cross" size={20} color={mainColor} />
+              </Animated.View>
             </TouchableOpacity>
           )}
         </View>
