@@ -18,23 +18,18 @@ export const myStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: mainColor,
     borderRadius: 10,
-    color: 'black',
+    color: "black",
     paddingRight: 30, // to ensure the text is never behind the icon
     padding: 15,
-
-
-
-    // marginBottom: 20,
-    // width: 300,
   },
   inputAndroid: {
     fontSize: 16,
     paddingHorizontal: 10,
     paddingVertical: 8,
     borderWidth: 0.5,
-    borderColor: 'purple',
+    borderColor: "purple",
     borderRadius: 8,
-    color: 'black',
+    color: "black",
     paddingRight: 30, // to ensure the text is never behind the icon
   },
   container: {
@@ -42,6 +37,12 @@ export const myStyles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  containerFlatList: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    // justifyContent: "center",
   },
   containerNonCenter: {
     flex: 1,
@@ -244,6 +245,15 @@ export const myStyles = StyleSheet.create({
   },
   btnBarButtonText: {
     color: "white",
+  },
+  searchbar: {
+    padding: 10,
+    borderColor: mainColor,
+    borderWidth: 1,
+    borderRadius: 10,
+    marginTop: 10,
+    marginBottom: 5,
+    width: windowWidth * 0.93,
   },
   input: {
     padding: 15,

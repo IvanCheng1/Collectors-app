@@ -65,13 +65,21 @@ class SearchPage extends React.Component<Props, IState> {
       : this.isIItem(item)
       ? generateItemPicture(item.name)
       : generateCollectionPicture(item.name);
-    const { navigation } = this.props;
+    const { navigation, collections } = this.props;
 
     return (
       <View style={myStyles.itemCardContainer}>
         <TouchableOpacity
           onPress={() => {
             if (this.isIItem(item)) {
+              navigation.navigate("Collections");
+              // navigation.popToTop();
+
+              navigation.navigate("Items", {
+                id: collections.filter((c) => c.name === item.collection)[0].id,
+                collection: item.collection,
+              });
+
               navigation.navigate("Item", {
                 id: item.id,
                 title: item.name,
@@ -86,13 +94,9 @@ class SearchPage extends React.Component<Props, IState> {
             }
           }}
           key={item.id}
-          // style={{ borderWidth: 1, borderColor: "red" }}
         >
           <Image style={myStyles.imageListThirds} source={image} />
           <Text style={myStyles.itemTitleCard}>{item.name}</Text>
-          {/* <Text style={myStyles.itemTitleCard}>
-          {this.isIItem(item) ? "Item" : "Collection"}
-        </Text> */}
         </TouchableOpacity>
       </View>
     );
@@ -118,6 +122,18 @@ class SearchPage extends React.Component<Props, IState> {
       }
     });
 
+    let searchCollectionsInsideItems: ICollection[] = [];
+
+    searchItems.forEach((i) => {
+      collections.forEach((c) => {
+        if (c.name === i.collection) {
+          if (!searchCollectionsInsideItems.includes(c)) {
+            searchCollectionsInsideItems.push(c);
+          }
+        }
+      });
+    });
+
     const combineResults = searchCollections.concat(searchItems);
     let displayResults: any[];
 
@@ -126,7 +142,7 @@ class SearchPage extends React.Component<Props, IState> {
         displayResults = combineResults;
         break;
       case 1:
-        displayResults = searchCollections;
+        displayResults = searchCollectionsInsideItems;
         break;
       case 2:
         displayResults = searchItems;
@@ -143,16 +159,15 @@ class SearchPage extends React.Component<Props, IState> {
     });
 
     return (
-      <SafeAreaView style={myStyles.container}>
+      <SafeAreaView style={myStyles.containerFlatList}>
         <TextInput
-          style={myStyles.input}
+          style={myStyles.searchbar}
           placeholder="Search here"
           value={search}
           onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
             this.updateSearch(e.nativeEvent.text)
           }
         />
-        <Text>searching {search}</Text>
 
         <ButtonGroup
           onPress={this.updateShowIndex}
@@ -161,24 +176,17 @@ class SearchPage extends React.Component<Props, IState> {
           selectedButtonStyle={{ backgroundColor: mainColor }}
         />
 
-        <FlatList
-          data={displayResults}
-          numColumns={3}
-          renderItem={({ item }) => this.renderItem(item)}
-        />
-
-        {/* {displayResults &&
-          displayResults.map((item) => <Text key={item.id}>{item.name}</Text>)} */}
-
-        {/* <Text>===== Collections =====</Text>
-        {searchCollections &&
-          searchCollections.map((c) => <Text key={c.id}>{c.name}</Text>)}
-        <Text>===== Items =====</Text>
-        {searchItems &&
-          searchItems.map((i) => <Text key={i.id}>{i.name}</Text>)}
-        <Text>===== Both =====</Text>
-        {combineResults &&
-          combineResults.map((item) => <Text key={item.id}>{item.name}</Text>)} */}
+        {displayResults.length > 0 ? (
+          <FlatList
+            data={displayResults}
+            numColumns={3}
+            renderItem={({ item }) => this.renderItem(item)}
+          />
+        ) : (
+          <View>
+            <Text>no items</Text>
+          </View>
+        )}
       </SafeAreaView>
     );
   }

@@ -22,7 +22,13 @@ import SearchStack from "./src/pages/SearchStack";
 
 // declare const global: { HermesInternal: null | {} };
 
-const BottomTab = createBottomTabNavigator();
+export type BottomTabParamList = {
+  Collections: undefined;
+  Search: undefined;
+  Settings: undefined;
+};
+
+const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 class App extends React.Component {
   render() {
@@ -42,7 +48,7 @@ class App extends React.Component {
               }}
             />
             <BottomTab.Screen
-              name="Add"
+              name="Search"
               component={SearchStack}
               options={{
                 tabBarLabel: "Search",
