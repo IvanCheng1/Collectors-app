@@ -29,7 +29,7 @@ const SearchStack = () => {
         name="SearchPage"
         component={SearchPage}
         options={{
-          title: "SearchPage",
+          title: "Search",
         }}
       />
     </Stack.Navigator>

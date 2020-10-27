@@ -18,11 +18,8 @@ import { RouteProp } from "@react-navigation/native";
 import { CollectionStackParamList } from "./CollectionStack";
 import { Sort, sortButtons } from "../utils/types";
 import { FlatList } from "react-native-gesture-handler";
-import { ButtonGroup, SearchBar } from "react-native-elements";
+import { ButtonGroup } from "react-native-elements";
 import { generateCollectionPicture } from "../utils/functions";
-import { Searchbar } from "react-native-paper";
-// import { Font } from "expo";
-import * as Font from "expo-font";
 import * as Haptics from "expo-haptics";
 
 interface IProps {
