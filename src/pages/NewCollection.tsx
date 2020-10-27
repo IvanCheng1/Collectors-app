@@ -20,6 +20,7 @@ import { ThunkDispatch } from "redux-thunk";
 import {
   CollectionActionTypes,
   handleAddCollection,
+  handleDeleteCollection,
   handleEditCollection,
 } from "../store/actions/collectionActions";
 import { ScrollView } from "react-native-gesture-handler";
@@ -42,7 +43,10 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { RouteProp } from "@react-navigation/native";
-import { handleEditItemForCollection } from "../store/actions/itemActions";
+import {
+  handleDeleteItemForCollection,
+  handleEditItemForCollection,
+} from "../store/actions/itemActions";
 
 interface IProps {
   route: RouteProp<CollectionStackParamList, "NewCollection">;
@@ -179,6 +183,30 @@ class NewCollection extends React.Component<Props, IState> {
     this.props.navigation.navigate("Items", { id, collection: name });
   };
 
+  onDelete = () => {
+    const { items } = this.props;
+    const numberOfItems = items.filter((i) => i.collection === this.state.name)
+      .length;
+
+    Alert.alert(
+      "Delete Item",
+      `This will delete the collection and all ${numberOfItems} items inside. Are you sure?`,
+      [
+        {
+          text: "Delete",
+          onPress: () => {
+            this.props.handleDeleteCollection(this.state.id);
+            this.props.handleDeleteItemForCollection(this.state.name);
+            this.props.navigation.goBack()
+          },
+        },
+        {
+          text: "Cancel",
+        },
+      ]
+    );
+  };
+
   clearState = (): void => {
     this.setState({
       name: "",
@@ -191,6 +219,7 @@ class NewCollection extends React.Component<Props, IState> {
 
   render() {
     const { name, image, id } = this.state;
+    const { route } = this.props;
     return (
       <SafeAreaView style={myStyles.container}>
         {/* <ScrollView> */}
@@ -238,6 +267,16 @@ class NewCollection extends React.Component<Props, IState> {
                 this.changeName(e.nativeEvent.text)
               }
             />
+
+            {route.params?.id && (
+              <TouchableOpacity
+                style={[myStyles.btn, myStyles.btnDark]}
+                onPress={this.onDelete}
+              >
+                <Text style={myStyles.btnText}>Delete Item</Text>
+              </TouchableOpacity>
+            )}
+
             <TouchableOpacity
               style={myStyles.btn}
               onPress={() => this.onSubmit()}
@@ -254,6 +293,7 @@ class NewCollection extends React.Component<Props, IState> {
 
 interface LinkStateProps {
   collections: ICollection[];
+  items: IItem[];
 }
 
 interface LinkDispatchProps {
@@ -263,6 +303,8 @@ interface LinkDispatchProps {
     oldCollectionName: string,
     newCollectionName: string
   ) => void;
+  handleDeleteCollection: (id: string) => void;
+  handleDeleteItemForCollection: (collection: string) => void;
 }
 
 const mapStateToProps = (
@@ -270,6 +312,7 @@ const mapStateToProps = (
   ownProps: IProps
 ): LinkStateProps => ({
   collections: state.collection,
+  items: state.item,
 });
 
 const mapDispatchToProps = (
@@ -280,6 +323,11 @@ const mapDispatchToProps = (
   handleEditCollection: bindActionCreators(handleEditCollection, dispatch),
   handleEditItemForCollection: bindActionCreators(
     handleEditItemForCollection,
+    dispatch
+  ),
+  handleDeleteCollection: bindActionCreators(handleDeleteCollection, dispatch),
+  handleDeleteItemForCollection: bindActionCreators(
+    handleDeleteItemForCollection,
     dispatch
   ),
 });
