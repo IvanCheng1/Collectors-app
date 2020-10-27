@@ -4,6 +4,7 @@ import { ICollection } from "../reducers/collectionReducer";
 
 export const ADD_COLLECTION = "ADD_COLLECTION";
 export const EDIT_COLLECTION = "EDIT_COLLECTION";
+export const DELETE_COLLECTION = "DELETE_COLLECTION";
 
 interface addCollectionAction {
   type: typeof ADD_COLLECTION;
@@ -14,6 +15,11 @@ interface editCollectionAction {
   type: typeof EDIT_COLLECTION;
   id: string;
   newCollection: ICollection;
+}
+
+interface deleteCollectionAction {
+  type: typeof DELETE_COLLECTION;
+  id: string;
 }
 
 const addCollectionAction = (
@@ -36,6 +42,13 @@ const editCollectionAction = (
   };
 };
 
+const deleteCollectionAction = (id: string): CollectionActionTypes => {
+  return {
+    type: DELETE_COLLECTION,
+    id,
+  };
+};
+
 export const handleAddCollection = (collection: ICollection) => {
   return (dispatch: Dispatch<CollectionActionTypes>) => {
     dispatch(addCollectionAction(collection));
@@ -53,4 +66,14 @@ export const handleEditCollection = (
   };
 };
 
-export type CollectionActionTypes = addCollectionAction | editCollectionAction;
+export const handleDeleteCollection = (id: string) => {
+  return (dispatch: Dispatch<CollectionActionTypes>) => {
+    dispatch(deleteCollectionAction(id));
+    // async to do
+  };
+};
+
+export type CollectionActionTypes =
+  | addCollectionAction
+  | editCollectionAction
+  | deleteCollectionAction;

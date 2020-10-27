@@ -6,6 +6,7 @@ export const ADD_ITEM = "ADD_ITEM";
 export const EDIT_ITEM = "EDIT_ITEM";
 export const EDIT_ITEM_FOR_COLLECTION = "EDIT_ITEM_FOR_COLLECTION";
 export const DELETE_ITEM = "DELETE_ITEM";
+export const DELETE_ITEM_FOR_COLLECTION = "DELETE_ITEM_FOR_COLLECTION";
 
 interface addItemAction {
   type: typeof ADD_ITEM;
@@ -27,6 +28,11 @@ interface editItemForCollectionAction {
 interface deleteItemAction {
   type: typeof DELETE_ITEM;
   id: string;
+}
+
+interface deleteItemForCollectionAction {
+  type: typeof DELETE_ITEM_FOR_COLLECTION;
+  collection: string;
 }
 
 const addItemAction = (item: IItem): ItemActionTypes => {
@@ -59,6 +65,13 @@ const deleteItemAction = (id: string): ItemActionTypes => {
   return {
     type: DELETE_ITEM,
     id,
+  };
+};
+
+const deleteItemForCollectionAction = (collection: string): ItemActionTypes => {
+  return {
+    type: DELETE_ITEM_FOR_COLLECTION,
+    collection,
   };
 };
 
@@ -95,8 +108,16 @@ export const handleDeleteItem = (id: string) => {
   };
 };
 
+export const handleDeleteItemForCollection = (collection: string) => {
+  return (dispatch: Dispatch<ItemActionTypes>) => {
+    dispatch(deleteItemForCollectionAction(collection));
+    // async to do
+  };
+};
+
 export type ItemActionTypes =
   | addItemAction
   | editItemAction
   | editItemForCollectionAction
-  | deleteItemAction;
+  | deleteItemAction
+  | deleteItemForCollectionAction;
