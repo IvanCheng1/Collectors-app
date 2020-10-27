@@ -13,13 +13,12 @@ import {
   Settings,
 } from "react-native";
 import { Provider } from "react-redux";
-import AddStack from "./src/pages/AddStack";
 
 import CollectionStack from "./src/pages/CollectionStack";
-import SettingsPage from "./src/pages/SettingsPage";
 import SettingsStack from "./src/pages/SettingsStack";
 import { store } from "./src/store";
 import { myStyles } from "./src/utils/myStyles";
+import SearchStack from "./src/pages/SearchStack";
 
 // declare const global: { HermesInternal: null | {} };
 
@@ -44,11 +43,11 @@ class App extends React.Component {
             />
             <BottomTab.Screen
               name="Add"
-              component={AddStack}
+              component={SearchStack}
               options={{
-                tabBarLabel: "Add",
+                tabBarLabel: "Search",
                 tabBarIcon: ({ color }) => (
-                  <AntDesign name="plussquareo" color={color} size={24} />
+                  <AntDesign name="search1" color={color} size={24} />
                 ),
               }}
             />

@@ -122,7 +122,6 @@ class Items extends React.Component<Props, IState> {
               }
               style={myStyles.btn}
             >
-              {/* <AntDesign name="plus" size={24} color="white" /> */}
               <Text style={myStyles.btnText}>Add item</Text>
             </TouchableOpacity>
           </>

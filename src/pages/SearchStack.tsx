@@ -3,16 +3,15 @@ import React, { Component } from "react";
 import { myStyles, stackBackgroundColor } from "../utils/myStyles";
 import { SafeAreaView, Text, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
+import SearchPage from "./SearchPage";
 
-import SettingsPage from "./SettingsPage";
-
-export type SettingsStackParamList = {
-  SettingsPage: undefined;
+export type SearchStackParamList = {
+  SearchPage: undefined;
 };
 
-const Stack = createStackNavigator<SettingsStackParamList>();
+const Stack = createStackNavigator<SearchStackParamList>();
 
-const SettingsStack = () => {
+const SearchStack = () => {
   return (
     <Stack.Navigator
       // initialRouteName="Collections"
@@ -27,14 +26,14 @@ const SettingsStack = () => {
       }}
     >
       <Stack.Screen
-        name="SettingsPage"
-        component={SettingsPage}
+        name="SearchPage"
+        component={SearchPage}
         options={{
-          title: "Settings",
+          title: "SearchPage",
         }}
       />
     </Stack.Navigator>
   );
 };
 
-export default SettingsStack;
+export default SearchStack;

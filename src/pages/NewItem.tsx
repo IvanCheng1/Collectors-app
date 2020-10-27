@@ -17,7 +17,6 @@ import {
   Keyboard,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { AddStackParamList } from "./AddStack";
 import { rootState } from "../store/reducers";
 import { ThunkDispatch } from "redux-thunk";
 import { AllActionTypes } from "../store/actions";

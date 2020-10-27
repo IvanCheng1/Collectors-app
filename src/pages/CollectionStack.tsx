@@ -1,5 +1,4 @@
 import React, { Component, UIEventHandler } from "react";
-// import { connect } from "react-redux";
 import { myStyles, stackBackgroundColor } from "../utils/myStyles";
 import {
   Alert,
@@ -13,8 +12,6 @@ import Collections from "./Collections";
 import Items from "./Items";
 import Item from "./Item";
 import { Sort } from "../utils/types";
-// import EditCollection from "./__EditCollection";
-// import EditItem from "./__EditItem";
 import { AntDesign } from "@expo/vector-icons";
 import NewItem from "./NewItem";
 import NewCollection from "./NewCollection";
@@ -120,16 +117,6 @@ const CollectionStack = () => {
           };
         }}
       />
-      {/* <Stack.Screen
-        name="EditCollection"
-        component={EditCollection}
-        // options={({ route }) => ({ title: route.params.title })}
-      />
-      <Stack.Screen
-        name="EditItem"
-        component={EditItem}
-        // options={({ route }) => ({ title: route.params.title })}
-      /> */}
     </Stack.Navigator>
   );
 };

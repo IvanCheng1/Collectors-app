@@ -35,7 +35,6 @@ import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { CollectionStackParamList } from "./CollectionStack";
-import { AddStackParamList } from "./AddStack";
 import {
   AntDesign,
   FontAwesome,
