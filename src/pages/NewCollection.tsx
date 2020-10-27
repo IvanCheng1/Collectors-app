@@ -194,8 +194,10 @@ class NewCollection extends React.Component<Props, IState> {
     const { name, image, id } = this.state;
     return (
       <SafeAreaView style={myStyles.container}>
-        <ScrollView>
-          <KeyboardAvoidingView>
+        {/* <ScrollView> */}
+
+        <KeyboardAvoidingView>
+          <View style={myStyles.container}>
             <View style={myStyles.imgPlaceHolder}>
               {image ? (
                 <Image style={myStyles.img} source={{ uri: image }} />
@@ -243,8 +245,9 @@ class NewCollection extends React.Component<Props, IState> {
             >
               <Text style={myStyles.btnText}>Save Collection</Text>
             </TouchableOpacity>
-          </KeyboardAvoidingView>
-        </ScrollView>
+          </View>
+        </KeyboardAvoidingView>
+        {/* </ScrollView> */}
       </SafeAreaView>
     );
   }

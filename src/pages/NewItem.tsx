@@ -209,14 +209,16 @@ class NewItem extends React.Component<Props, IState> {
               (c) => c.name === this.state.collection
             )[0];
 
-            // store
-            this.props.handleDeleteItem(this.state.id);
-
             // clear state
-            this.resetState();
+            // this.resetState();
 
             // go back to collection
-            this.props.navigation.goBack();
+            this.props.navigation.navigate("Items", {
+              id: collection.id,
+              collection: collection.name,
+            });
+            // store
+            this.props.handleDeleteItem(this.state.id);
           },
         },
         {
@@ -310,7 +312,7 @@ class NewItem extends React.Component<Props, IState> {
 
     return (
       <SafeAreaView style={myStyles.container}>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={myStyles.container}>
             <View style={myStyles.imgPlaceHolder}>
               {image ? (
@@ -377,11 +379,21 @@ class NewItem extends React.Component<Props, IState> {
               <Text style={myStyles.btnText}>{dateToDisplay(dateCreated)}</Text>
               {/* <Text style={myStyles.btnText}>Change date</Text> */}
             </TouchableOpacity>
-            <View>
-              <Text>Change collection</Text>
-            </View>
+
+            <DateTimePickerModal
+              isVisible={showDatePicker}
+              date={dateCreated}
+              mode="date"
+              onConfirm={this.changeDate}
+              onCancel={this.showDatePicker}
+            />
+
             {route.params?.id && (
+              // edit mode
               <>
+                <View>
+                  <Text>Change collection</Text>
+                </View>
                 <RNPickerSelect
                   onValueChange={(value: string) => {
                     this.changeCollection(value);
@@ -408,6 +420,10 @@ class NewItem extends React.Component<Props, IState> {
                 </TouchableOpacity>
               </>
             )}
+
+            <TouchableOpacity style={myStyles.btn} onPress={this.onSubmit}>
+              <Text style={myStyles.btnText}>Save Item</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </SafeAreaView>

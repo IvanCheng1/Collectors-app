@@ -16,10 +16,16 @@ export const myStyles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 10,
     borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 4,
+    borderColor: mainColor,
+    borderRadius: 10,
     color: 'black',
     paddingRight: 30, // to ensure the text is never behind the icon
+    padding: 15,
+
+
+
+    // marginBottom: 20,
+    // width: 300,
   },
   inputAndroid: {
     fontSize: 16,
@@ -241,7 +247,7 @@ export const myStyles = StyleSheet.create({
   },
   input: {
     padding: 15,
-    borderColor: "#f4511e",
+    borderColor: mainColor,
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 20,
@@ -283,7 +289,7 @@ export const myStyles = StyleSheet.create({
   imgPlaceHolder: {
     width: 300,
     height: 300,
-    borderColor: "#f4511e",
+    borderColor: mainColor,
     borderWidth: 1,
     borderRadius: 10,
     alignItems: "center",

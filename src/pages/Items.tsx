@@ -55,7 +55,10 @@ class Items extends React.Component<Props, IState> {
             })
           }
           onLongPress={() =>
-            navigation.navigate("NewItem", { id: i.id, collection: i.collection })
+            navigation.navigate("NewItem", {
+              id: i.id,
+              collection: i.collection,
+            })
           }
           key={i.id}
           // style={{ borderWidth: 1, borderColor: "red" }}
@@ -96,7 +99,6 @@ class Items extends React.Component<Props, IState> {
       <SafeAreaView style={myStyles.container}>
         {orderedFilteredItems.length > 0 ? (
           <>
-            <Text>search bar here / filter</Text>
             <ButtonGroup
               onPress={this.updateSortIndex}
               selectedIndex={sortIndex}
@@ -112,7 +114,17 @@ class Items extends React.Component<Props, IState> {
         ) : (
           <>
             <Text>No items!</Text>
-            <Text>Click here to add items</Text>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("NewItem", {
+                  collection: route.params.collection,
+                })
+              }
+              style={myStyles.btn}
+            >
+              {/* <AntDesign name="plus" size={24} color="white" /> */}
+              <Text style={myStyles.btnText}>Add item</Text>
+            </TouchableOpacity>
           </>
         )}
       </SafeAreaView>
