@@ -1,6 +1,7 @@
 import {
   ADD_COLLECTION,
   CollectionActionTypes,
+  DELETE_COLLECTION,
   EDIT_COLLECTION,
 } from "../actions/collectionActions";
 import { collectionInitialState } from "../initialStates/collectionInitialState";
@@ -28,6 +29,8 @@ export default function collectionReducer(
           return c;
         }
       });
+    case DELETE_COLLECTION:
+      return state.filter((c) => c.id !== action.id);
     default:
       return state;
   }

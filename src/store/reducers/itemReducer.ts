@@ -2,6 +2,7 @@ import symbolicateStackTrace from "react-native/Libraries/Core/Devtools/symbolic
 import {
   ADD_ITEM,
   DELETE_ITEM,
+  DELETE_ITEM_FOR_COLLECTION,
   EDIT_ITEM,
   EDIT_ITEM_FOR_COLLECTION,
   ItemActionTypes,
@@ -43,6 +44,8 @@ export default function itemReducer(
       });
     case DELETE_ITEM:
       return state.filter((i) => i.id !== action.id);
+    case DELETE_ITEM_FOR_COLLECTION:
+      return state.filter((i) => i.collection !== action.collection);
     default:
       return state;
   }
