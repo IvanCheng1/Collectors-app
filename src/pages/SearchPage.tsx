@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { mainColor, myStyles } from "../utils/myStyles";
 import {
+  FlatList,
+  Image,
   NativeSyntheticEvent,
   SafeAreaView,
   Text,
@@ -16,7 +18,11 @@ import { AllActionTypes } from "../store/actions";
 import { ButtonGroup } from "react-native-elements";
 import { ICollection } from "../store/reducers/collectionReducer";
 import { IItem } from "../store/reducers/itemReducer";
-import { dateToDisplay } from "../utils/functions";
+import {
+  dateToDisplay,
+  generateCollectionPicture,
+  generateItemPicture,
+} from "../utils/functions";
 
 interface IProps {}
 
@@ -45,10 +51,34 @@ class SearchPage extends React.Component<Props, IState> {
     });
   };
 
+  isIItem = (item: IItem | ICollection): boolean => {
+    return (item as IItem).description !== undefined;
+  };
+
+  renderItem = (item: IItem | ICollection) => {
+    if (this.isIItem(item)) {
+    }
+    const image = item.image
+      ? { uri: item.image }
+      : this.isIItem(item)
+      ? generateItemPicture(item.name)
+      : generateCollectionPicture(item.name);
+
+    return (
+      <View style={myStyles.itemCardContainer}>
+        <Image style={myStyles.imageListThirds} source={image} />
+        <Text style={myStyles.itemTitleCard}>{item.name}</Text>
+        <Text style={myStyles.itemTitleCard}>
+          {this.isIItem(item) ? "Item" : "Collection"}
+        </Text>
+      </View>
+    );
+  };
+
   render() {
     const { search, showIndex } = this.state;
     const { collections, items } = this.props;
-    const searchLower = search.toLowerCase();
+    const searchLower = search.toLowerCase().trim();
 
     const searchCollections = collections.filter((c) =>
       c.name.toLowerCase().includes(searchLower)
@@ -108,8 +138,14 @@ class SearchPage extends React.Component<Props, IState> {
           selectedButtonStyle={{ backgroundColor: mainColor }}
         />
 
-        {displayResults &&
-          displayResults.map((item) => <Text key={item.id}>{item.name}</Text>)}
+        <FlatList
+          data={displayResults}
+          numColumns={3}
+          renderItem={({ item }) => this.renderItem(item)}
+        />
+
+        {/* {displayResults &&
+          displayResults.map((item) => <Text key={item.id}>{item.name}</Text>)} */}
 
         {/* <Text>===== Collections =====</Text>
         {searchCollections &&
