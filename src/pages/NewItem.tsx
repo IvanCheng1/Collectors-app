@@ -275,13 +275,26 @@ class NewItem extends React.Component<Props, IState> {
     // to do - check if collection is changed
 
     // go home
-    this.props.navigation.goBack();
-    // this.props.navigation.navigate("Item", {
-    //   id,
-    //   title: name,
-    //   collection,
-    //   sort: "Alphabetical",
-    // });
+    if (this.props.route.params.collection === collection) {
+      // collection didn't change
+      this.props.navigation.goBack();
+    } else {
+      // new collection
+
+      this.props.navigation.popToTop();
+
+      this.props.navigation.navigate("Items", {
+        id: this.props.collections.filter((c) => c.name === collection)[0].id,
+        collection: collection,
+      });
+
+      this.props.navigation.navigate("Item", {
+        id,
+        title: name,
+        collection,
+        sort: "Alphabetical",
+      });
+    }
   };
 
   resetState = (): void => {

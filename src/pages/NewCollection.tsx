@@ -197,7 +197,7 @@ class NewCollection extends React.Component<Props, IState> {
           onPress: () => {
             this.props.handleDeleteCollection(this.state.id);
             this.props.handleDeleteItemForCollection(this.state.name);
-            this.props.navigation.goBack()
+            this.props.navigation.goBack();
           },
         },
         {
