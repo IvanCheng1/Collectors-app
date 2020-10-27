@@ -8,6 +8,7 @@ export const secondColor = "#074e67";
 export const thirdColor = "#003850";
 export const fourthColor = "#002448";
 export const fifthColor = "#001440";
+export const paleColor = "#66babf";
 export const stackBackgroundColor = secondColor;
 
 export const myStyles = StyleSheet.create({

@@ -17,7 +17,15 @@ import { Provider } from "react-redux";
 import CollectionStack from "./src/pages/CollectionStack";
 import SettingsStack from "./src/pages/SettingsStack";
 import { store } from "./src/store";
-import { myStyles } from "./src/utils/myStyles";
+import {
+  fifthColor,
+  mainColor,
+  myStyles,
+  paleColor,
+  secondColor,
+  stackBackgroundColor,
+  thirdColor,
+} from "./src/utils/myStyles";
 import SearchStack from "./src/pages/SearchStack";
 
 // declare const global: { HermesInternal: null | {} };
@@ -36,7 +44,12 @@ class App extends React.Component {
       <Provider store={store}>
         <NavigationContainer>
           {/* <StatusBar barStyle="dark-content" /> */}
-          <BottomTab.Navigator>
+          <BottomTab.Navigator
+            tabBarOptions={{
+              activeTintColor: fifthColor,
+              inactiveTintColor: paleColor,
+            }}
+          >
             <BottomTab.Screen
               name="Collections"
               component={CollectionStack}

@@ -21,7 +21,7 @@ class SettingsPage extends React.Component<IState, Props> {
         <Text>Settings page</Text>
         <Text>collections sort</Text>
         <Text>items sort</Text>
-        <Switch />
+        {/* <Switch /> */}
         <Text>default collection???</Text>
       </View>
     );
