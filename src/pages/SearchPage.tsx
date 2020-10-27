@@ -23,8 +23,12 @@ import {
   generateCollectionPicture,
   generateItemPicture,
 } from "../utils/functions";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { CollectionStackParamList } from "./CollectionStack";
 
-interface IProps {}
+interface IProps {
+  navigation: StackNavigationProp<CollectionStackParamList>;
+}
 
 interface IState {
   showIndex: number;
@@ -51,26 +55,45 @@ class SearchPage extends React.Component<Props, IState> {
     });
   };
 
-  isIItem = (item: IItem | ICollection): boolean => {
-    return (item as IItem).description !== undefined;
+  isIItem = (item: IItem | ICollection): item is IItem => {
+    return "description" in item;
   };
 
   renderItem = (item: IItem | ICollection) => {
-    if (this.isIItem(item)) {
-    }
     const image = item.image
       ? { uri: item.image }
       : this.isIItem(item)
       ? generateItemPicture(item.name)
       : generateCollectionPicture(item.name);
+    const { navigation } = this.props;
 
     return (
       <View style={myStyles.itemCardContainer}>
-        <Image style={myStyles.imageListThirds} source={image} />
-        <Text style={myStyles.itemTitleCard}>{item.name}</Text>
-        <Text style={myStyles.itemTitleCard}>
+        <TouchableOpacity
+          onPress={() => {
+            if (this.isIItem(item)) {
+              navigation.navigate("Item", {
+                id: item.id,
+                title: item.name,
+                collection: item.collection,
+                sort: "Alphabetical",
+              });
+            } else {
+              navigation.navigate("Items", {
+                id: item.id,
+                collection: item.name,
+              });
+            }
+          }}
+          key={item.id}
+          // style={{ borderWidth: 1, borderColor: "red" }}
+        >
+          <Image style={myStyles.imageListThirds} source={image} />
+          <Text style={myStyles.itemTitleCard}>{item.name}</Text>
+          {/* <Text style={myStyles.itemTitleCard}>
           {this.isIItem(item) ? "Item" : "Collection"}
-        </Text>
+        </Text> */}
+        </TouchableOpacity>
       </View>
     );
   };
