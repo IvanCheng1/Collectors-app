@@ -247,6 +247,8 @@ export const myStyles = StyleSheet.create({
     color: "white",
   },
   searchbar: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     padding: 10,
     borderColor: mainColor,
     borderWidth: 1,
@@ -254,6 +256,11 @@ export const myStyles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 5,
     width: windowWidth * 0.93,
+  },
+  searchbarTextInput: {
+    width: "90%",
+    padding: 2,
+    
   },
   input: {
     padding: 15,

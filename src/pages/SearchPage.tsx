@@ -25,6 +25,7 @@ import {
 } from "../utils/functions";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { CollectionStackParamList } from "./CollectionStack";
+import { Entypo } from "@expo/vector-icons";
 
 interface IProps {
   navigation: StackNavigationProp<CollectionStackParamList>;
@@ -107,10 +108,12 @@ class SearchPage extends React.Component<Props, IState> {
     const { collections, items } = this.props;
     const searchLower = search.toLowerCase().trim();
 
+    // collection names match search??
     const searchCollections = collections.filter((c) =>
       c.name.toLowerCase().includes(searchLower)
     );
 
+    // items names match search??
     const searchItems = items.filter((i) => {
       if (
         i.name.toLowerCase().includes(searchLower) ||
@@ -122,8 +125,9 @@ class SearchPage extends React.Component<Props, IState> {
       }
     });
 
-    let searchCollectionsInsideItems: ICollection[] = [];
-
+    // prep for more collections inside items
+    let searchCollectionsInsideItems: ICollection[] = searchCollections;
+    // look through items, if match, push collection to above
     searchItems.forEach((i) => {
       collections.forEach((c) => {
         if (c.name === i.collection) {
@@ -134,7 +138,8 @@ class SearchPage extends React.Component<Props, IState> {
       });
     });
 
-    const combineResults = searchCollections.concat(searchItems);
+    // combine all
+    const combineResults = searchCollectionsInsideItems.concat(searchItems);
     let displayResults: any[];
 
     switch (showIndex) {
@@ -160,14 +165,21 @@ class SearchPage extends React.Component<Props, IState> {
 
     return (
       <SafeAreaView style={myStyles.containerFlatList}>
-        <TextInput
-          style={myStyles.searchbar}
-          placeholder="Search here"
-          value={search}
-          onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-            this.updateSearch(e.nativeEvent.text)
-          }
-        />
+        <View style={myStyles.searchbar}>
+          <TextInput
+            style={myStyles.searchbarTextInput}
+            placeholder="Search here"
+            value={search}
+            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+              this.updateSearch(e.nativeEvent.text)
+            }
+          />
+          {search !== "" && (
+            <TouchableOpacity onPress={() => this.setState({ search: "" })}>
+              <Entypo name="cross" size={20} color={mainColor} />
+            </TouchableOpacity>
+          )}
+        </View>
 
         <ButtonGroup
           onPress={this.updateShowIndex}
@@ -184,7 +196,7 @@ class SearchPage extends React.Component<Props, IState> {
           />
         ) : (
           <View>
-            <Text>no items</Text>
+            <Text>No match</Text>
           </View>
         )}
       </SafeAreaView>
