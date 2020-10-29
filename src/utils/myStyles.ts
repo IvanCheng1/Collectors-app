@@ -250,7 +250,7 @@ export const myStyles = StyleSheet.create({
   searchbar: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 10,
+    padding: 5,
     borderColor: mainColor,
     borderWidth: 1,
     borderRadius: 10,
@@ -261,7 +261,10 @@ export const myStyles = StyleSheet.create({
   searchbarTextInput: {
     width: "90%",
     padding: 2,
-    
+  },
+  searchbarCross: {
+    flexDirection: "column",
+    justifyContent: "center",
   },
   input: {
     padding: 15,

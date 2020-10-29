@@ -192,7 +192,10 @@ class SearchPage extends React.Component<Props, IState> {
             }
           />
           {search !== "" && (
-            <TouchableOpacity onPress={() => this.setState({ search: "" })}>
+            <TouchableOpacity
+              onPress={() => this.setState({ search: "" })}
+              style={myStyles.searchbarCross}
+            >
               <Animated.View style={{ opacity: this.state.fadeInValue }}>
                 <Entypo name="cross" size={20} color={mainColor} />
               </Animated.View>
