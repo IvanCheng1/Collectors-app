@@ -97,24 +97,32 @@ class Items extends React.Component<Props, IState> {
       return 1;
     });
 
+    const orderedFilteredItemsLength = orderedFilteredItems.length;
+
     return (
       <SafeAreaView style={myStyles.container}>
-        {orderedFilteredItems.length > 0 ? (
+        <ButtonGroup
+          onPress={this.updateSortIndex}
+          selectedIndex={sortIndex}
+          buttons={sortButtons}
+          selectedButtonStyle={{ backgroundColor: mainColor }}
+        />
+        {orderedFilteredItemsLength > 0 ? (
           <>
-            <ButtonGroup
-              onPress={this.updateSortIndex}
-              selectedIndex={sortIndex}
-              buttons={sortButtons}
-              selectedButtonStyle={{ backgroundColor: mainColor }}
-            />
             <FlatList
               data={orderedFilteredItems}
               numColumns={3}
               renderItem={({ item }) => this.renderItem(item)}
             />
+            <View style={myStyles.bottomCounter}>
+              <Text>
+                {orderedFilteredItemsLength} Item
+                {orderedFilteredItemsLength > 1 && "s"}
+              </Text>
+            </View>
           </>
         ) : (
-          <>
+          <View style={myStyles.container}>
             <Text>No items!</Text>
             <TouchableOpacity
               onPress={() =>
@@ -126,7 +134,7 @@ class Items extends React.Component<Props, IState> {
             >
               <Text style={myStyles.btnText}>Add item</Text>
             </TouchableOpacity>
-          </>
+          </View>
         )}
       </SafeAreaView>
     );

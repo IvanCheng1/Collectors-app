@@ -23,7 +23,7 @@ import { generateCollectionPicture } from "../utils/functions";
 import * as Haptics from "expo-haptics";
 
 interface IProps {
-  navigation: StackNavigationProp<CollectionStackParamList, "Items">;
+  navigation: StackNavigationProp<CollectionStackParamList>;
   route: RouteProp<CollectionStackParamList, "Collections">;
 }
 
@@ -95,8 +95,10 @@ class Collections extends React.Component<Props, IState> {
       return 1;
     });
 
+    const orderedCollectionsLength = orderedCollections.length;
+
     return (
-      <SafeAreaView style={myStyles.container}>
+      <SafeAreaView style={myStyles.containerFlatList}>
         {/* <Searchbar onChangeText={this.updateSearch} value={search} /> */}
 
         <ButtonGroup
@@ -106,13 +108,35 @@ class Collections extends React.Component<Props, IState> {
           selectedButtonStyle={{ backgroundColor: mainColor }}
         />
 
-        {orderedCollections && (
-          <FlatList
-            // style={myStyles.recipeList}
-            data={orderedCollections}
-            numColumns={2}
-            renderItem={({ item }) => this.renderItem(item)}
-          />
+        {orderedCollectionsLength > 0 ? (
+          <>
+            <FlatList
+              // style={myStyles.recipeList}
+              data={orderedCollections}
+              numColumns={2}
+              renderItem={({ item }) => this.renderItem(item)}
+            />
+            <View style={myStyles.bottomCounter}>
+              <Text>
+                {orderedCollectionsLength} Collection
+                {orderedCollectionsLength > 1 && "s"}
+              </Text>
+            </View>
+          </>
+        ) : (
+          <View style={myStyles.container}>
+            <Text>No collections!</Text>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.navigation.navigate("NewCollection", {
+                  id: undefined,
+                })
+              }
+              style={myStyles.btn}
+            >
+              <Text style={myStyles.btnText}>Add collection</Text>
+            </TouchableOpacity>
+          </View>
         )}
       </SafeAreaView>
     );

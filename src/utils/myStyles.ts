@@ -266,6 +266,11 @@ export const myStyles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
   },
+  bottomCounter: {
+    flexDirection: "row",
+    // justifyContent: "center",
+    margin: 3,
+  },
   input: {
     padding: 15,
     borderColor: mainColor,

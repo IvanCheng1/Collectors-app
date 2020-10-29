@@ -180,6 +180,9 @@ class SearchPage extends React.Component<Props, IState> {
       return -1;
     });
 
+    const collectionsLength = searchCollectionsInsideItems.length;
+    const itemsLength = searchItems.length;
+
     return (
       <SafeAreaView style={myStyles.containerFlatList}>
         <View style={myStyles.searchbar}>
@@ -211,14 +214,32 @@ class SearchPage extends React.Component<Props, IState> {
         />
 
         {displayResults.length > 0 ? (
-          <FlatList
-            data={displayResults}
-            numColumns={3}
-            renderItem={({ item }) => this.renderItem(item)}
-          />
+          <>
+            <FlatList
+              data={displayResults}
+              numColumns={3}
+              renderItem={({ item }) => this.renderItem(item)}
+            />
+            <View style={myStyles.bottomCounter}>
+              {showIndex < 2 && (
+                <Text>
+                  {collectionsLength > 0 && collectionsLength} Collection
+                  {collectionsLength > 1 && "s"}
+                </Text>
+              )}
+              {(showIndex === 0 || showIndex === 2) && (
+                <Text>
+                  {" "}
+                  {itemsLength > 0 && itemsLength}
+                  {itemsLength !== 0 && " Item"}
+                  {itemsLength > 1 && "s"}
+                </Text>
+              )}
+            </View>
+          </>
         ) : (
-          <View>
-            <Text>No match</Text>
+          <View style={myStyles.container}>
+            <Text>{search === "" ? "No items" : "No match"}</Text>
           </View>
         )}
       </SafeAreaView>

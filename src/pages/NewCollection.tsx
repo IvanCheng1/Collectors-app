@@ -189,8 +189,10 @@ class NewCollection extends React.Component<Props, IState> {
       .length;
 
     Alert.alert(
-      "Delete Item",
-      `This will delete the collection and all ${numberOfItems} items inside. Are you sure?`,
+      "Delete Collection",
+      `This will delete the collection and ${numberOfItems} item${
+        numberOfItems === 0 || (numberOfItems > 1 ? "s" : "")
+      } inside. Are you sure?`,
       [
         {
           text: "Delete",
@@ -273,7 +275,7 @@ class NewCollection extends React.Component<Props, IState> {
                 style={[myStyles.btn, myStyles.btnDark]}
                 onPress={this.onDelete}
               >
-                <Text style={myStyles.btnText}>Delete Item</Text>
+                <Text style={myStyles.btnText}>Delete Collection</Text>
               </TouchableOpacity>
             )}
 

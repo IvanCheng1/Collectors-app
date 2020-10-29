@@ -20,8 +20,6 @@ export type CollectionStackParamList = {
   Collections: undefined;
   Items: { id: string; collection: string };
   Item: { id: string; title: string; collection: string; sort: Sort };
-  EditCollection: { id: string };
-  EditItem: { id: string };
   NewCollection: { id?: string };
   NewItem: { id?: string; collection: string };
 };
@@ -101,7 +99,7 @@ const CollectionStack = () => {
         name="NewCollection"
         component={NewCollection}
         options={({ route }) => {
-          const title = route.params ? "Edit Collection" : "New Collection";
+          const title = route.params.id ? "Edit Collection" : "New Collection";
           return {
             title,
           };
