@@ -47,9 +47,9 @@ class Collections extends React.Component<Props, IState> {
   };
 
   componentDidMount() {
-    this.props.navigation.navigate("NewItem", {
-      collection: "Pins",
-    });
+    // this.props.navigation.navigate("NewItem", {
+    //   collection: "Pins",
+    // });
   }
 
   updateSearch = (search: string): void => {

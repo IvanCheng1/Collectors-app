@@ -47,6 +47,7 @@ import {
   handleDeleteItemForCollection,
   handleEditItemForCollection,
 } from "../store/actions/itemActions";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 interface IProps {
   route: RouteProp<CollectionStackParamList, "NewCollection">;
@@ -223,10 +224,12 @@ class NewCollection extends React.Component<Props, IState> {
     const { name, image, id } = this.state;
     const { route } = this.props;
     return (
+      // <KeyboardAvoidingView
+      //   behavior={Platform.OS == "ios" ? "padding" : "height"}
+      //   style={{ flex: 1 }}
+      // >
       <SafeAreaView style={myStyles.container}>
-        {/* <ScrollView> */}
-
-        <KeyboardAvoidingView>
+        <KeyboardAwareScrollView>
           <View style={myStyles.containerTop}>
             <View style={myStyles.imgPlaceHolder}>
               {image ? (
@@ -286,9 +289,10 @@ class NewCollection extends React.Component<Props, IState> {
               <Text style={myStyles.btnText}>Save Collection</Text>
             </TouchableOpacity>
           </View>
-        </KeyboardAvoidingView>
-        {/* </ScrollView> */}
+        </KeyboardAwareScrollView>
       </SafeAreaView>
+
+      // </KeyboardAvoidingView>
     );
   }
 }
