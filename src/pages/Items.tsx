@@ -66,10 +66,12 @@ class Items extends React.Component<Props, IState> {
           // style={{ borderWidth: 1, borderColor: "red" }}
         >
           <Image style={myStyles.imageListThirds} source={image} />
-          <Text style={myStyles.itemTitleCard}>{i.name}</Text>
-          <Text style={myStyles.itemDateCard}>
-            {dateToDisplayMY(i.dateCreated)}
-          </Text>
+          <View>
+            <Text style={myStyles.itemTitleCard}>{i.name}</Text>
+            <Text style={myStyles.itemDateCard}>
+              {dateToDisplayMY(i.dateCreated)}
+            </Text>
+          </View>
         </TouchableOpacity>
       </View>
     );
@@ -109,7 +111,7 @@ class Items extends React.Component<Props, IState> {
           selectedIndex={sortIndex}
           buttons={sortButtons}
           selectedButtonStyle={{ backgroundColor: mainColor }}
-          textStyle={{fontSize: 12}}
+          textStyle={{ fontSize: 12 }}
         />
         {orderedFilteredItemsLength > 0 ? (
           <>
@@ -120,7 +122,7 @@ class Items extends React.Component<Props, IState> {
               style={{ width: "100%" }}
             />
             <View style={myStyles.bottomCounter}>
-              <Text>
+              <Text style={myStyles.bottomCounterText}>
                 {orderedFilteredItemsLength} Item
                 {orderedFilteredItemsLength > 1 && "s"}
               </Text>

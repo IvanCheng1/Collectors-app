@@ -46,6 +46,12 @@ class Collections extends React.Component<Props, IState> {
     search: "",
   };
 
+  componentDidMount() {
+    this.props.navigation.navigate("NewItem", {
+      collection: "Pins",
+    });
+  }
+
   updateSearch = (search: string): void => {
     this.setState({ search });
   };
@@ -130,7 +136,7 @@ class Collections extends React.Component<Props, IState> {
               style={{ width: "100%" }}
             />
             <View style={myStyles.bottomCounter}>
-              <Text>
+              <Text style={myStyles.bottomCounterText}>
                 {orderedCollectionsLength} Collection
                 {orderedCollectionsLength > 1 && "s"}
               </Text>

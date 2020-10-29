@@ -223,14 +223,14 @@ class SearchPage extends React.Component<Props, IState> {
             />
             <View style={myStyles.bottomCounter}>
               {showIndex < 2 && (
-                <Text>
+                <Text style={myStyles.bottomCounterText}>
                   {collectionsLength > 0 && collectionsLength} Collection
                   {collectionsLength > 1 && "s"}
                 </Text>
               )}
               {(showIndex === 0 || showIndex === 2) && (
-                <Text>
-                  {showIndex !== 2 && "  "}
+                <Text style={myStyles.bottomCounterText}>
+                  {showIndex !== 2 && itemsLength > 0 && " and "}
                   {itemsLength > 0 && itemsLength}
                   {itemsLength !== 0 && " Item"}
                   {itemsLength > 1 && "s"}

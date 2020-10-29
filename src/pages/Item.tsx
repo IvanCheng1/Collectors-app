@@ -67,7 +67,7 @@ class Item extends React.Component<Props, IState> {
       orderedFilteredItems[currentIndex - 1 + orderedFilteredItems.length];
 
     return (
-      <SafeAreaView style={myStyles.container}>
+      <SafeAreaView style={myStyles.containerTop}>
         <Text style={myStyles.itemDate}>
           {dateToDisplay(currentItem.dateCreated)}
         </Text>
@@ -79,7 +79,7 @@ class Item extends React.Component<Props, IState> {
           <Entypo name="location-pin" size={14} color={mainColor} />
           {currentItem.city}
         </Text>
-        <View style={myStyles.btnBar}>
+        <View style={myStyles.btnBarArrows}>
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("Item", {
@@ -89,9 +89,10 @@ class Item extends React.Component<Props, IState> {
                 sort,
               })
             }
-            style={myStyles.btnBarButtons}
+            style={myStyles.btnBarArrowsButtons}
           >
-            <Text style={myStyles.btnBarButtonText}>Previous item</Text>
+            <AntDesign name="caretleft" size={18} color="white" />
+            <Text style={myStyles.btnBarArrowsButtonText}> Previous item</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -103,9 +104,10 @@ class Item extends React.Component<Props, IState> {
                 sort,
               })
             }
-            style={myStyles.btnBarButtons}
+            style={myStyles.btnBarArrowsButtons}
           >
-            <Text style={myStyles.btnBarButtonText}>Next item</Text>
+            <Text style={myStyles.btnBarArrowsButtonText}>Next item </Text>
+            <AntDesign name="caretright" size={18} color="white" />
           </TouchableOpacity>
         </View>
       </SafeAreaView>

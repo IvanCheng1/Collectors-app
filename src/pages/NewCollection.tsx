@@ -227,7 +227,7 @@ class NewCollection extends React.Component<Props, IState> {
         {/* <ScrollView> */}
 
         <KeyboardAvoidingView>
-          <View style={myStyles.container}>
+          <View style={myStyles.containerTop}>
             <View style={myStyles.imgPlaceHolder}>
               {image ? (
                 <Image style={myStyles.img} source={{ uri: image }} />
@@ -244,10 +244,10 @@ class NewCollection extends React.Component<Props, IState> {
                   <MaterialCommunityIcons
                     name="google-photos"
                     size={24}
-                    color="black"
+                    color="white"
                   />
                 ) : (
-                  <FontAwesome name="photo" size={24} color="black" />
+                  <FontAwesome name="photo" size={24} color="white" />
                 )}
               </TouchableOpacity>
 
@@ -256,7 +256,7 @@ class NewCollection extends React.Component<Props, IState> {
                 onPress={this.cameraRoll}
               >
                 <View>
-                  <AntDesign name="camera" size={24} color="black" />
+                  <AntDesign name="camera" size={24} color="white" />
                 </View>
               </TouchableOpacity>
             </View>
