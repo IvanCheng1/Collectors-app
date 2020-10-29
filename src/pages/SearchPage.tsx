@@ -219,6 +219,7 @@ class SearchPage extends React.Component<Props, IState> {
               data={displayResults}
               numColumns={3}
               renderItem={({ item }) => this.renderItem(item)}
+              style={{ width: "100%" }}
             />
             <View style={myStyles.bottomCounter}>
               {showIndex < 2 && (
@@ -229,7 +230,7 @@ class SearchPage extends React.Component<Props, IState> {
               )}
               {(showIndex === 0 || showIndex === 2) && (
                 <Text>
-                  {" "}
+                  {showIndex !== 2 && "  "}
                   {itemsLength > 0 && itemsLength}
                   {itemsLength !== 0 && " Item"}
                   {itemsLength > 1 && "s"}

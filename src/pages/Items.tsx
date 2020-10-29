@@ -18,7 +18,7 @@ import { ItemActionTypes } from "../store/actions/itemActions";
 import { Sort, sortButtons } from "../utils/types";
 import { FlatList } from "react-native-gesture-handler";
 import { ButtonGroup } from "react-native-elements";
-import { generateItemPicture } from "../utils/functions";
+import { dateToDisplayMY, generateItemPicture } from "../utils/functions";
 import * as Haptics from "expo-haptics";
 
 interface IProps {
@@ -67,6 +67,9 @@ class Items extends React.Component<Props, IState> {
         >
           <Image style={myStyles.imageListThirds} source={image} />
           <Text style={myStyles.itemTitleCard}>{i.name}</Text>
+          <Text style={myStyles.itemDateCard}>
+            {dateToDisplayMY(i.dateCreated)}
+          </Text>
         </TouchableOpacity>
       </View>
     );
@@ -106,6 +109,7 @@ class Items extends React.Component<Props, IState> {
           selectedIndex={sortIndex}
           buttons={sortButtons}
           selectedButtonStyle={{ backgroundColor: mainColor }}
+          textStyle={{fontSize: 12}}
         />
         {orderedFilteredItemsLength > 0 ? (
           <>
@@ -113,6 +117,7 @@ class Items extends React.Component<Props, IState> {
               data={orderedFilteredItems}
               numColumns={3}
               renderItem={({ item }) => this.renderItem(item)}
+              style={{ width: "100%" }}
             />
             <View style={myStyles.bottomCounter}>
               <Text>

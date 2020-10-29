@@ -46,6 +46,13 @@ export function dateToDisplay(date: Date): string {
   return `${d} ${months[m]} ${y}`;
 }
 
+export function dateToDisplayMY(date: Date): string {
+  // format??????
+
+  const { y, m } = dateToYMD(date);
+  return `${months[m].slice(0, 3)} ${y}`;
+}
+
 export function createCollectionObject(
   name: string,
   dateCreated: string | Date,

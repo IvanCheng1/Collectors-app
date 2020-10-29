@@ -77,17 +77,35 @@ export const myStyles = StyleSheet.create({
     // marginBottom: 5,
     // borderColor: "grey",
   },
+  collectionTitleHolder: {
+    // paddingLeft: 20,
+    // paddingRight: 20,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
   collectionTitleCard: {
     fontSize: 18,
-    lineHeight: 22,
+    lineHeight: 20,
     color: fifthColor,
     fontWeight: "bold",
     textAlign: "center",
+    paddingRight: 5,
+  },
+  collectionDateCard: {
+    color: thirdColor,
+    textAlign: "center",
   },
   itemTitleCard: {
-    fontSize: 14,
-    lineHeight: 16,
+    fontSize: 13,
+    lineHeight: 15,
     color: fifthColor,
+    // fontWeight: "bold",
+    textAlign: "center",
+  },
+  itemDateCard: {
+    fontSize: 11,
+    lineHeight: 13,
+    color: thirdColor,
     // fontWeight: "bold",
     textAlign: "center",
   },
@@ -356,5 +374,10 @@ export const myStyles = StyleSheet.create({
   shoppingListBin: {
     marginLeft: 10,
     marginRight: 10,
+  },
+  verticalAlign: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

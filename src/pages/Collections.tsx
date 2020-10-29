@@ -19,7 +19,11 @@ import { CollectionStackParamList } from "./CollectionStack";
 import { Sort, sortButtons } from "../utils/types";
 import { FlatList } from "react-native-gesture-handler";
 import { ButtonGroup } from "react-native-elements";
-import { generateCollectionPicture } from "../utils/functions";
+import {
+  dateToDisplay,
+  dateToDisplayMY,
+  generateCollectionPicture,
+} from "../utils/functions";
 import * as Haptics from "expo-haptics";
 
 interface IProps {
@@ -75,7 +79,14 @@ class Collections extends React.Component<Props, IState> {
         }}
       >
         <Image style={myStyles.imageList} source={image} />
-        <Text style={myStyles.collectionTitleCard}>{c.name}</Text>
+        <View style={myStyles.collectionTitleHolder}>
+          <Text style={myStyles.collectionTitleCard}>{c.name}</Text>
+          <View style={myStyles.verticalAlign}>
+            <Text style={myStyles.collectionDateCard}>
+              {dateToDisplayMY(c.dateCreated)}
+            </Text>
+          </View>
+        </View>
       </TouchableOpacity>
     );
   };
@@ -106,6 +117,7 @@ class Collections extends React.Component<Props, IState> {
           selectedIndex={sortIndex}
           buttons={sortButtons}
           selectedButtonStyle={{ backgroundColor: mainColor }}
+          textStyle={{ fontSize: 12 }}
         />
 
         {orderedCollectionsLength > 0 ? (
@@ -115,6 +127,7 @@ class Collections extends React.Component<Props, IState> {
               data={orderedCollections}
               numColumns={2}
               renderItem={({ item }) => this.renderItem(item)}
+              style={{ width: "100%" }}
             />
             <View style={myStyles.bottomCounter}>
               <Text>

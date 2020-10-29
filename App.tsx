@@ -46,8 +46,8 @@ class App extends React.Component {
           {/* <StatusBar barStyle="dark-content" /> */}
           <BottomTab.Navigator
             tabBarOptions={{
-              activeTintColor: fifthColor,
-              inactiveTintColor: paleColor,
+              activeTintColor: paleColor,
+              inactiveTintColor: fifthColor,
             }}
           >
             <BottomTab.Screen
@@ -70,7 +70,7 @@ class App extends React.Component {
                 ),
               }}
             />
-            <BottomTab.Screen
+            {/* <BottomTab.Screen
               name="Settings"
               component={SettingsStack}
               options={{
@@ -79,7 +79,7 @@ class App extends React.Component {
                   <AntDesign name="setting" color={color} size={24} />
                 ),
               }}
-            />
+            /> */}
           </BottomTab.Navigator>
         </NavigationContainer>
       </Provider>

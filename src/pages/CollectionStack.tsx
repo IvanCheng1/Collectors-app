@@ -99,7 +99,7 @@ const CollectionStack = () => {
         name="NewCollection"
         component={NewCollection}
         options={({ route }) => {
-          const title = route.params.id ? "Edit Collection" : "New Collection";
+          const title = route.params?.id ? "Edit Collection" : "New Collection";
           return {
             title,
           };
