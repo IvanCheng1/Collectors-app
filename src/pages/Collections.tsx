@@ -57,10 +57,10 @@ class Collections extends React.Component<Props, IState> {
   };
 
   componentDidMount() {
-    this.props.navigation.navigate("Items", {
-      id: "_95scyqx24rb",
-      collection: "Pins",
-    });
+    // this.props.navigation.navigate("Items", {
+    //   id: "_95scyqx24rb",
+    //   collection: "Pins",
+    // });
   }
 
   changeButtons = (selectedIndex: number) => {
@@ -94,12 +94,6 @@ class Collections extends React.Component<Props, IState> {
       });
     }
   };
-  // updateSortIndex = (selectedIndex: number) => {
-  //   this.setState({
-  //     sort: sortButtons[selectedIndex],
-  //     sortIndex: selectedIndex,
-  //   });
-  // };
 
   renderItem = (c: ICollection) => {
     const { navigation } = this.props;
@@ -140,7 +134,6 @@ class Collections extends React.Component<Props, IState> {
     const { sort, sortIndex, search } = this.state;
 
     const orderedCollections = collections.sort((a, b) => {
-
       const aDateCreated = new Date(a.dateCreated);
       const bDateCreated = new Date(b.dateCreated);
       const aDateModified = new Date(a.dateModified);
@@ -177,7 +170,6 @@ class Collections extends React.Component<Props, IState> {
         {orderedCollectionsLength > 0 ? (
           <>
             <FlatList
-              // style={myStyles.recipeList}
               data={orderedCollections}
               numColumns={2}
               renderItem={({ item }) => this.renderItem(item)}
