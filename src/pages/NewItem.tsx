@@ -271,7 +271,7 @@ class NewItem extends React.Component<Props, IState> {
     }
 
     // updating last modified date for collection
-    this.props.handleUpdateCollectionModifiedDate(collection)
+    this.props.handleUpdateCollectionModifiedDate(collection);
 
     // clear state
     this.resetState();
@@ -284,6 +284,11 @@ class NewItem extends React.Component<Props, IState> {
       this.props.navigation.goBack();
     } else {
       // new collection
+
+      // update the old collection modified date
+      this.props.handleUpdateCollectionModifiedDate(
+        this.props.route.params.collection
+      );
 
       this.props.navigation.popToTop();
 

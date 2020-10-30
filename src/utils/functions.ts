@@ -35,27 +35,21 @@ function dateToYMD(date: Date): { y: number; m: number; d: number } {
 
 export function dateToString(date: Date): string {
   const { y, m, d } = dateToYMD(date);
-
   return `${y}-${m}-${d}`;
 }
 
 export function dateToDisplay(date: number): string {
-  // format??????
-
   const { y, m, d } = dateToYMD(new Date(date));
   return `${d} ${months[m]} ${y}`;
 }
 
 export function dateToDisplayMY(date: number): string {
-  // format??????
-
   const { y, m } = dateToYMD(new Date(date));
   return `${months[m].slice(0, 3)} ${y}`;
 }
 
 export function createCollectionObject(
   name: string,
-  // dateModified: string,
   image: string,
   dateCreated?: number,
   id?: string
