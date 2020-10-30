@@ -101,19 +101,17 @@ class Collections extends React.Component<Props, IState> {
     const { collections } = this.props;
     const { sort, sortIndex, search } = this.state;
 
-    console.log(collections)
-
     const orderedCollections = collections.sort((a, b) => {
       // return 1
-      console.log("a", a, "b", b);
-      a.dateCreated = new Date(a.dateCreated)
-      b.dateCreated = new Date(b.dateCreated)
+      const aDate = new Date(a.dateCreated)
+      const bDate = new Date(b.dateCreated)
+
       if (sort === "Alphabetical") {
         return a.name > b.name ? 1 : -1;
       } else if (sort === "Date descending") {
-        return b.dateCreated.getTime() - a.dateCreated.getTime();
+        return aDate.getTime() - bDate.getTime();
       } else if (sort === "Date ascending") {
-        return a.dateCreated.getTime() - b.dateCreated.getTime();
+        return bDate.getTime() - aDate.getTime();
       }
       return 1;
     });

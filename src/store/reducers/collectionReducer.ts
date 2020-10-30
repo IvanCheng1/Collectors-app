@@ -9,8 +9,8 @@ import { collectionInitialState } from "../initialStates/collectionInitialState"
 export interface ICollection {
   name: string;
   id: string;
-  dateCreated: Date;
-  dateModified: Date;
+  dateCreated: number;
+  dateModified: number;
   image: string;
 }
 

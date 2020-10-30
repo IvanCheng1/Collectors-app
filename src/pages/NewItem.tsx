@@ -61,7 +61,7 @@ interface IState {
   image: string;
   city: string;
   collection: string;
-  dateCreated: Date;
+  dateCreated: number;
   showDatePicker: boolean;
 }
 
@@ -75,7 +75,7 @@ class NewItem extends React.Component<Props, IState> {
     image: "",
     city: "",
     collection: "",
-    dateCreated: new Date(),
+    dateCreated: 0,
     showDatePicker: false,
   };
 
@@ -189,7 +189,7 @@ class NewItem extends React.Component<Props, IState> {
 
   changeDate = (date: Date) => {
     this.setState({
-      dateCreated: date,
+      dateCreated: date.getTime(),
       showDatePicker: false,
     });
   };
@@ -303,7 +303,7 @@ class NewItem extends React.Component<Props, IState> {
       description: "",
       image: "",
       city: "",
-      dateCreated: new Date(),
+      dateCreated: 0,
       showDatePicker: false,
     });
   };
@@ -394,7 +394,7 @@ class NewItem extends React.Component<Props, IState> {
 
             <DateTimePickerModal
               isVisible={showDatePicker}
-              date={dateCreated}
+              date={new Date(dateCreated)}
               mode="date"
               onConfirm={this.changeDate}
               onCancel={this.showDatePicker}

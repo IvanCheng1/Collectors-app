@@ -58,7 +58,7 @@ interface IState {
   name: string;
   id: string;
   image: string;
-  dateCreated: Date;
+  dateCreated: number;
   oldCollectionName: string;
 }
 
@@ -69,7 +69,7 @@ class NewCollection extends React.Component<Props, IState> {
     name: "",
     id: "",
     image: "",
-    dateCreated: new Date(), // bypass
+    dateCreated: 0,
     oldCollectionName: "",
   };
 
@@ -163,8 +163,8 @@ class NewCollection extends React.Component<Props, IState> {
       // edit collection
       const newCollection: ICollection = createCollectionObject(
         name,
-        dateCreated,
         image,
+        dateCreated,
         id
       );
 
@@ -172,7 +172,7 @@ class NewCollection extends React.Component<Props, IState> {
       this.props.handleEditItemForCollection(oldCollectionName, name);
     } else {
       // new collection
-      const collection = createCollectionObject(name, new Date(), image);
+      const collection = createCollectionObject(name, image);
 
       this.props.handleAddCollection(collection);
     }
@@ -215,7 +215,7 @@ class NewCollection extends React.Component<Props, IState> {
       name: "",
       id: "",
       image: "",
-      dateCreated: new Date(),
+      dateCreated: 0,
       oldCollectionName: "",
     });
   };

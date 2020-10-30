@@ -39,33 +39,32 @@ export function dateToString(date: Date): string {
   return `${y}-${m}-${d}`;
 }
 
-export function dateToDisplay(date: Date): string {
+export function dateToDisplay(date: number): string {
   // format??????
 
-  const { y, m, d } = dateToYMD(date);
+  const { y, m, d } = dateToYMD(new Date(date));
   return `${d} ${months[m]} ${y}`;
 }
 
-export function dateToDisplayMY(date: Date): string {
+export function dateToDisplayMY(date: number): string {
   // format??????
 
-  const { y, m } = dateToYMD(date);
+  const { y, m } = dateToYMD(new Date(date));
   return `${months[m].slice(0, 3)} ${y}`;
 }
 
 export function createCollectionObject(
   name: string,
-  dateCreated: string | Date,
   // dateModified: string,
   image: string,
+  dateCreated?: number,
   id?: string
 ): ICollection {
   return {
     name,
     id: id ? id : generateID(),
-    dateCreated:
-      typeof dateCreated === "string" ? new Date(dateCreated) : dateCreated,
-    dateModified: new Date(),
+    dateCreated: dateCreated ? dateCreated : new Date().getTime(),
+    dateModified: new Date().getTime(),
     image,
   };
 }
@@ -76,7 +75,7 @@ export function createItemObject(
   description: string,
   city: string,
   image: string,
-  dateCreated: string | Date,
+  dateCreated?: number,
   id?: string
 ): IItem {
   return {
@@ -86,9 +85,8 @@ export function createItemObject(
     description,
     city,
     image,
-    dateCreated:
-      typeof dateCreated === "string" ? new Date(dateCreated) : dateCreated,
-    dateModified: new Date(),
+    dateCreated: dateCreated ? dateCreated : new Date().getTime(),
+    dateModified: new Date().getTime(),
   };
 }
 

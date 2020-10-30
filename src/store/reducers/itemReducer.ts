@@ -15,8 +15,8 @@ export interface IItem {
   description: string;
   collection: string;
   city: string;
-  dateCreated: Date;
-  dateModified: Date;
+  dateCreated: number;
+  dateModified: number;
   image: string;
 }
 

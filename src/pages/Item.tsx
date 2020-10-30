@@ -53,7 +53,9 @@ class Item extends React.Component<Props, IState> {
       if (sort === "Alphabetical") {
         return a.name > b.name ? 1 : -1;
       } else if (sort === "Date descending") {
-        return b.dateCreated.getTime() - a.dateCreated.getTime();
+        const aDate = new Date(a.dateCreated);
+        const bDate = new Date(b.dateCreated);
+        return bDate.getTime() - aDate.getTime();
       }
       return 1;
     });
