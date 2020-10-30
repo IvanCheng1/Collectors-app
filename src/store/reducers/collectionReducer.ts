@@ -3,6 +3,7 @@ import {
   CollectionActionTypes,
   DELETE_COLLECTION,
   EDIT_COLLECTION,
+  UPDATE_COLLECTION_MODIFIED_DATE,
 } from "../actions/collectionActions";
 import { collectionInitialState } from "../initialStates/collectionInitialState";
 
@@ -31,6 +32,13 @@ export default function collectionReducer(
       });
     case DELETE_COLLECTION:
       return state.filter((c) => c.id !== action.id);
+    case UPDATE_COLLECTION_MODIFIED_DATE:
+      return state.map((c) => {
+        if (c.name === action.collection) {
+          c.dateModified = new Date().getTime();
+        }
+        return c;
+      });
     default:
       return state;
   }

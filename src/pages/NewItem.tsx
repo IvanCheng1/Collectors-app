@@ -45,6 +45,7 @@ import RNPickerSelect from "react-native-picker-select";
 import { ICollection } from "../store/reducers/collectionReducer";
 import { CollectionStackParamList } from "./CollectionStack";
 import Item from "./Item";
+import { handleUpdateCollectionModifiedDate } from "../store/actions/collectionActions";
 // import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 
 type StateKey = "name" | "description" | "image" | "city";
@@ -269,6 +270,9 @@ class NewItem extends React.Component<Props, IState> {
       this.props.handleAddItem(item);
     }
 
+    // updating last modified date for collection
+    this.props.handleUpdateCollectionModifiedDate(collection)
+
     // clear state
     this.resetState();
 
@@ -452,6 +456,7 @@ interface LinkDispatchProps {
   handleAddItem: (item: IItem) => void;
   handleEditItem: (id: string, newItem: IItem) => void;
   handleDeleteItem: (id: string) => void;
+  handleUpdateCollectionModifiedDate: (collection: string) => void;
 }
 
 const mapStateToProps = (
@@ -469,6 +474,10 @@ const mapDispatchToProps = (
   handleAddItem: bindActionCreators(handleAddItem, dispatch),
   handleEditItem: bindActionCreators(handleEditItem, dispatch),
   handleDeleteItem: bindActionCreators(handleDeleteItem, dispatch),
+  handleUpdateCollectionModifiedDate: bindActionCreators(
+    handleUpdateCollectionModifiedDate,
+    dispatch
+  ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewItem);

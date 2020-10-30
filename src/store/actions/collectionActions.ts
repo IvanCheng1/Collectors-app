@@ -5,6 +5,7 @@ import { ICollection } from "../reducers/collectionReducer";
 export const ADD_COLLECTION = "ADD_COLLECTION";
 export const EDIT_COLLECTION = "EDIT_COLLECTION";
 export const DELETE_COLLECTION = "DELETE_COLLECTION";
+export const UPDATE_COLLECTION_MODIFIED_DATE = "UPDATE_COLLECTION_MODIFIED_DAT";
 
 interface addCollectionAction {
   type: typeof ADD_COLLECTION;
@@ -20,6 +21,11 @@ interface editCollectionAction {
 interface deleteCollectionAction {
   type: typeof DELETE_COLLECTION;
   id: string;
+}
+
+interface updateCollectionModifiedDateAction {
+  type: typeof UPDATE_COLLECTION_MODIFIED_DATE;
+  collection: string;
 }
 
 const addCollectionAction = (
@@ -49,6 +55,15 @@ const deleteCollectionAction = (id: string): CollectionActionTypes => {
   };
 };
 
+const updateCollectionModifiedDateAction = (
+  collection: string
+): CollectionActionTypes => {
+  return {
+    type: UPDATE_COLLECTION_MODIFIED_DATE,
+    collection,
+  };
+};
+
 export const handleAddCollection = (collection: ICollection) => {
   return (dispatch: Dispatch<CollectionActionTypes>) => {
     dispatch(addCollectionAction(collection));
@@ -73,7 +88,14 @@ export const handleDeleteCollection = (id: string) => {
   };
 };
 
+export const handleUpdateCollectionModifiedDate = (collection: string) => {
+  return (dispatch: Dispatch<CollectionActionTypes>) => {
+    dispatch(updateCollectionModifiedDateAction(collection));
+  };
+};
+
 export type CollectionActionTypes =
   | addCollectionAction
   | editCollectionAction
-  | deleteCollectionAction;
+  | deleteCollectionAction
+  | updateCollectionModifiedDateAction;

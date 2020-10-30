@@ -76,11 +76,19 @@ class Item extends React.Component<Props, IState> {
         <Image style={myStyles.img} source={image} />
 
         {/* <Text>{currentItem.name}</Text> */}
-        <Text style={myStyles.itemDescription}>{currentItem.description}</Text>
-        <Text style={myStyles.itemLocation}>
-          <Entypo name="location-pin" size={14} color={mainColor} />
-          {currentItem.city}
-        </Text>
+        {currentItem.description !== "" && (
+          <Text style={myStyles.itemDescription}>
+            {currentItem.description}
+          </Text>
+        )}
+
+        {currentItem.city !== "" && (
+          <Text style={myStyles.itemLocation}>
+            <Entypo name="location-pin" size={14} color={mainColor} />
+            {currentItem.city}
+          </Text>
+        )}
+
         <View style={myStyles.btnBarArrows}>
           <TouchableOpacity
             onPress={() =>
