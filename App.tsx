@@ -28,7 +28,6 @@ import {
 } from "./src/utils/myStyles";
 import SearchStack from "./src/pages/SearchStack";
 import { PersistGate } from "redux-persist/integration/react";
-import { getCollectionsAsync, getItemsAsync } from "./src/utils/collectionAsync";
 
 // declare const global: { HermesInternal: null | {} };
 
@@ -41,11 +40,6 @@ export type BottomTabParamList = {
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 class App extends React.Component {
-  componentDidMount() {
-    getItemsAsync()
-    getCollectionsAsync()
-  }
-
   render() {
     return (
       <Provider store={store}>

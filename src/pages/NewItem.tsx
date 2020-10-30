@@ -75,7 +75,7 @@ class NewItem extends React.Component<Props, IState> {
     image: "",
     city: "",
     collection: "",
-    dateCreated: 0,
+    dateCreated: new Date().getTime(),
     showDatePicker: false,
   };
 
