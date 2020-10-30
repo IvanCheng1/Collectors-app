@@ -15,7 +15,13 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { CollectionStackParamList } from "./CollectionStack";
 import { IItem } from "../store/reducers/itemReducer";
 import { ItemActionTypes } from "../store/actions/itemActions";
-import { Sort, sortButtons } from "../utils/types";
+import {
+  Sort,
+  Sort2,
+  sortButtons,
+  sortButtons2,
+  sortButtonsDefault,
+} from "../utils/types";
 import { FlatList } from "react-native-gesture-handler";
 import { ButtonGroup } from "react-native-elements";
 import { dateToDisplayMY, generateItemPicture } from "../utils/functions";
@@ -27,16 +33,20 @@ interface IProps {
 }
 
 interface IState {
-  sort: Sort;
+  sort: Sort2;
   sortIndex: number;
+  sortButtons: Sort2[];
+  sortButtons2: number[];
 }
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
 
 class Items extends React.Component<Props, IState> {
   state = {
-    sort: "Date descending" as Sort, /// to be changed to from store.settings
+    sort: "Newest" as Sort2, /// to be changed to from store.settings
     sortIndex: 0,
+    sortButtons: sortButtonsDefault,
+    sortButtons2: [0, 0, 0],
   };
 
   renderItem = (i: IItem) => {
@@ -77,11 +87,36 @@ class Items extends React.Component<Props, IState> {
     );
   };
 
+  changeButtons = (selectedIndex: number) => {
+    if (selectedIndex !== 1) {
+      let array = this.state.sortButtons2;
+      array[selectedIndex] = array[selectedIndex] === 1 ? 0 : 1;
+
+      let newButtons = this.state.sortButtons;
+
+      for (let i = 0; i < array.length; i++) {
+        const currIndex = array[i];
+        newButtons[i] = sortButtons2[i][currIndex];
+      }
+
+      this.setState({
+        sortButtons2: array,
+        sortButtons: newButtons,
+        sort: newButtons[selectedIndex],
+      });
+    }
+  };
+
   updateSortIndex = (selectedIndex: number) => {
-    this.setState({
-      sort: sortButtons[selectedIndex],
-      sortIndex: selectedIndex,
-    });
+    if (selectedIndex === this.state.sortIndex) {
+      // change buttons
+      this.changeButtons(selectedIndex);
+    } else {
+      this.setState({
+        sortIndex: selectedIndex,
+        sort: this.state.sortButtons[selectedIndex],
+      });
+    }
   };
 
   render() {
@@ -92,16 +127,25 @@ class Items extends React.Component<Props, IState> {
     );
 
     const orderedFilteredItems = filteredItems.sort((a, b) => {
-      const aDate = new Date(a.dateCreated);
-      const bDate = new Date(b.dateCreated);
-      if (sort === "Alphabetical") {
-        return a.name > b.name ? 1 : -1;
-      } else if (sort === "Date descending") {
-        return bDate.getTime() - aDate.getTime();
-      } else if (sort === "Date ascending") {
-        return aDate.getTime() - bDate.getTime();
+      const aDateCreated = new Date(a.dateCreated);
+      const bDateCreated = new Date(b.dateCreated);
+      const aDateModified = new Date(a.dateModified);
+      const bDateModified = new Date(b.dateModified);
+
+      switch (sort) {
+        case "A-Z":
+          return a.name > b.name ? 1 : -1;
+        case "Z-A":
+          return a.name < b.name ? 1 : -1;
+        case "Newest":
+          return bDateCreated.getTime() - aDateCreated.getTime();
+        case "Oldest":
+          return aDateCreated.getTime() - bDateCreated.getTime();
+        case "Last modified":
+          return bDateModified.getTime() - aDateModified.getTime();
+        default:
+          return 1;
       }
-      return 1;
     });
 
     const orderedFilteredItemsLength = orderedFilteredItems.length;
@@ -111,7 +155,7 @@ class Items extends React.Component<Props, IState> {
         <ButtonGroup
           onPress={this.updateSortIndex}
           selectedIndex={sortIndex}
-          buttons={sortButtons}
+          buttons={this.state.sortButtons}
           selectedButtonStyle={{ backgroundColor: mainColor }}
           textStyle={{ fontSize: 12 }}
         />

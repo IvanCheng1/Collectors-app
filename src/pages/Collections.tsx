@@ -63,13 +63,6 @@ class Collections extends React.Component<Props, IState> {
     });
   }
 
-  updateSearch = (search: string): void => {
-    this.setState({ search });
-  };
-  // updateSearch = (search: string): void => {
-  //   this.setState({ search });
-  // };
-
   changeButtons = (selectedIndex: number) => {
     if (selectedIndex !== 1) {
       let array = this.state.sortButtons2;
@@ -147,7 +140,7 @@ class Collections extends React.Component<Props, IState> {
     const { sort, sortIndex, search } = this.state;
 
     const orderedCollections = collections.sort((a, b) => {
-      // return 1
+
       const aDateCreated = new Date(a.dateCreated);
       const bDateCreated = new Date(b.dateCreated);
       const aDateModified = new Date(a.dateModified);
@@ -158,9 +151,9 @@ class Collections extends React.Component<Props, IState> {
           return a.name > b.name ? 1 : -1;
         case "Z-A":
           return a.name < b.name ? 1 : -1;
-        case "Oldest":
-          return bDateCreated.getTime() - aDateCreated.getTime();
         case "Newest":
+          return bDateCreated.getTime() - aDateCreated.getTime();
+        case "Oldest":
           return aDateCreated.getTime() - bDateCreated.getTime();
         case "Last modified":
           return bDateModified.getTime() - aDateModified.getTime();
@@ -173,8 +166,6 @@ class Collections extends React.Component<Props, IState> {
 
     return (
       <SafeAreaView style={myStyles.containerFlatList}>
-        {/* <Searchbar onChangeText={this.updateSearch} value={search} /> */}
-
         <ButtonGroup
           onPress={this.updateSortIndex}
           selectedIndex={sortIndex}

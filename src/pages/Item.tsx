@@ -50,14 +50,25 @@ class Item extends React.Component<Props, IState> {
     );
 
     const orderedFilteredItems = filteredItems.sort((a, b) => {
-      if (sort === "Alphabetical") {
-        return a.name > b.name ? 1 : -1;
-      } else if (sort === "Date descending") {
-        const aDate = new Date(a.dateCreated);
-        const bDate = new Date(b.dateCreated);
-        return bDate.getTime() - aDate.getTime();
+      const aDateCreated = new Date(a.dateCreated);
+      const bDateCreated = new Date(b.dateCreated);
+      const aDateModified = new Date(a.dateModified);
+      const bDateModified = new Date(b.dateModified);
+
+      switch (sort) {
+        case "A-Z":
+          return a.name > b.name ? 1 : -1;
+        case "Z-A":
+          return a.name < b.name ? 1 : -1;
+        case "Newest":
+          return bDateCreated.getTime() - aDateCreated.getTime();
+        case "Oldest":
+          return aDateCreated.getTime() - bDateCreated.getTime();
+        case "Last modified":
+          return bDateModified.getTime() - aDateModified.getTime();
+        default:
+          return 1;
       }
-      return 1;
     });
 
     const currentIndex = orderedFilteredItems.indexOf(currentItem);

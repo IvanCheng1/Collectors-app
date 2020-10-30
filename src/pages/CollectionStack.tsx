@@ -11,7 +11,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Collections from "./Collections";
 import Items from "./Items";
 import Item from "./Item";
-import { Sort } from "../utils/types";
+import { Sort, Sort2 } from "../utils/types";
 import { AntDesign } from "@expo/vector-icons";
 import NewItem from "./NewItem";
 import NewCollection from "./NewCollection";
@@ -19,7 +19,7 @@ import NewCollection from "./NewCollection";
 export type CollectionStackParamList = {
   Collections: undefined;
   Items: { id: string; collection: string };
-  Item: { id: string; title: string; collection: string; sort: Sort };
+  Item: { id: string; title: string; collection: string; sort: Sort2 };
   NewCollection: { id?: string };
   NewItem: { id?: string; collection: string };
 };
