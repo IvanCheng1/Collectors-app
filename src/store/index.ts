@@ -1,12 +1,15 @@
 import { applyMiddleware, createStore } from "redux";
+import { persistStore } from "redux-persist";
 import thunk, { ThunkMiddleware } from "redux-thunk";
 import { CollectionActionTypes } from "./actions/collectionActions";
 import { ItemActionTypes } from "./actions/itemActions";
-import { rootReducer, rootState } from "./reducers";
+import { persistedReducer, rootReducer, rootState } from "./reducers";
 
 export const store = createStore(
-  rootReducer,
+  persistedReducer,
   applyMiddleware(
     thunk as ThunkMiddleware<rootState, CollectionActionTypes, ItemActionTypes>
   )
 );
+
+export const persistor = persistStore(store);

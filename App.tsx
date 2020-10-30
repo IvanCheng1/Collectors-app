@@ -16,7 +16,7 @@ import { Provider } from "react-redux";
 
 import CollectionStack from "./src/pages/CollectionStack";
 import SettingsStack from "./src/pages/SettingsStack";
-import { store } from "./src/store";
+import { persistor, store } from "./src/store";
 import {
   fifthColor,
   mainColor,
@@ -27,6 +27,8 @@ import {
   thirdColor,
 } from "./src/utils/myStyles";
 import SearchStack from "./src/pages/SearchStack";
+import { PersistGate } from "redux-persist/integration/react";
+import { getCollectionsAsync, getItemsAsync } from "./src/utils/collectionAsync";
 
 // declare const global: { HermesInternal: null | {} };
 
@@ -39,38 +41,44 @@ export type BottomTabParamList = {
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 class App extends React.Component {
+  componentDidMount() {
+    getItemsAsync()
+    getCollectionsAsync()
+  }
+
   render() {
     return (
       <Provider store={store}>
-        <NavigationContainer>
-          {/* <StatusBar barStyle="dark-content" /> */}
-          <BottomTab.Navigator
-            tabBarOptions={{
-              activeTintColor: paleColor,
-              inactiveTintColor: fifthColor,
-            }}
-          >
-            <BottomTab.Screen
-              name="Collections"
-              component={CollectionStack}
-              options={{
-                tabBarLabel: "Collections",
-                tabBarIcon: ({ color }) => (
-                  <AntDesign name="home" color={color} size={24} />
-                ),
+        <PersistGate loading={null} persistor={persistor}>
+          <NavigationContainer>
+            {/* <StatusBar barStyle="dark-content" /> */}
+            <BottomTab.Navigator
+              tabBarOptions={{
+                activeTintColor: paleColor,
+                inactiveTintColor: fifthColor,
               }}
-            />
-            <BottomTab.Screen
-              name="Search"
-              component={SearchStack}
-              options={{
-                tabBarLabel: "Search",
-                tabBarIcon: ({ color }) => (
-                  <AntDesign name="search1" color={color} size={24} />
-                ),
-              }}
-            />
-            {/* <BottomTab.Screen
+            >
+              <BottomTab.Screen
+                name="Collections"
+                component={CollectionStack}
+                options={{
+                  tabBarLabel: "Collections",
+                  tabBarIcon: ({ color }) => (
+                    <AntDesign name="home" color={color} size={24} />
+                  ),
+                }}
+              />
+              <BottomTab.Screen
+                name="Search"
+                component={SearchStack}
+                options={{
+                  tabBarLabel: "Search",
+                  tabBarIcon: ({ color }) => (
+                    <AntDesign name="search1" color={color} size={24} />
+                  ),
+                }}
+              />
+              {/* <BottomTab.Screen
               name="Settings"
               component={SettingsStack}
               options={{
@@ -80,8 +88,9 @@ class App extends React.Component {
                 ),
               }}
             /> */}
-          </BottomTab.Navigator>
-        </NavigationContainer>
+            </BottomTab.Navigator>
+          </NavigationContainer>
+        </PersistGate>
       </Provider>
     );
   }
