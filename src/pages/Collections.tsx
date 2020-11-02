@@ -100,6 +100,7 @@ class Collections extends React.Component<Props, IState> {
     const image = c.image
       ? { uri: c.image }
       : generateCollectionPicture(c.name);
+
     return (
       <TouchableOpacity
         onPress={() =>
@@ -141,9 +142,9 @@ class Collections extends React.Component<Props, IState> {
 
       switch (sort) {
         case "A-Z":
-          return a.name > b.name ? 1 : -1;
+          return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;
         case "Z-A":
-          return a.name < b.name ? 1 : -1;
+          return a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1;
         case "Newest":
           return bDateCreated.getTime() - aDateCreated.getTime();
         case "Oldest":

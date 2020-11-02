@@ -301,7 +301,7 @@ class NewItem extends React.Component<Props, IState> {
         id,
         title: name,
         collection,
-        sort: "Alphabetical",
+        sort: "A-Z",
       });
     }
   };

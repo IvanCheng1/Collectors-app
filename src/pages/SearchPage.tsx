@@ -174,7 +174,7 @@ class SearchPage extends React.Component<Props, IState> {
     }
     // sort by alphabetical order
     displayResults.sort((a, b) => {
-      if (a.name > b.name) {
+      if (a.name.toLowerCase() > b.name.toLowerCase()) {
         return 1;
       }
       return -1;
