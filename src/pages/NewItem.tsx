@@ -46,6 +46,7 @@ import { ICollection } from "../store/reducers/collectionReducer";
 import { CollectionStackParamList } from "./CollectionStack";
 import Item from "./Item";
 import { handleUpdateCollectionModifiedDate } from "../store/actions/collectionActions";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 // import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 
 type StateKey = "name" | "description" | "image" | "city";
@@ -141,8 +142,8 @@ class NewItem extends React.Component<Props, IState> {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [1, 1],
+        // allowsEditing: true,
+        // aspect: [1, 1],
         quality: 1,
       });
       if (!result.cancelled) {
@@ -168,8 +169,8 @@ class NewItem extends React.Component<Props, IState> {
     try {
       let result = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [1, 1],
+        // allowsEditing: true,
+        // aspect: [1, 1],
         quality: 1,
       });
       if (!result.cancelled) {
@@ -331,17 +332,23 @@ class NewItem extends React.Component<Props, IState> {
 
     // const isDarkMode = useColorScheme() === 'dark';
 
+    // const height = Image.getSize(image, (w, h) => (h), (e) => console.log(e.message))
+
     return (
       <SafeAreaView style={myStyles.container}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+          {/* <ScrollView showsVerticalScrollIndicator={false}> */}
           <View style={myStyles.container}>
-            <View style={myStyles.imgPlaceHolder}>
-              {image ? (
-                <Image style={myStyles.img} source={{ uri: image }} />
-              ) : (
-                <Text>No photo</Text>
-              )}
-            </View>
+            {/* <View style={myStyles.imgPlaceHolder}> */}
+            {image ? (
+              <Image
+                style={[myStyles.img, { height: 400 }]}
+                source={{ uri: image }}
+              />
+            ) : (
+              <Text>No photo</Text>
+            )}
+            {/* </View> */}
             <View style={myStyles.btnBar}>
               <TouchableOpacity
                 style={myStyles.btnBarButtons}
@@ -407,6 +414,7 @@ class NewItem extends React.Component<Props, IState> {
               mode="date"
               onConfirm={this.changeDate}
               onCancel={this.showDatePicker}
+              isDarkModeEnabled={false}
             />
 
             {route.params?.id && (
@@ -446,7 +454,8 @@ class NewItem extends React.Component<Props, IState> {
               <Text style={myStyles.btnText}>Save Item</Text>
             </TouchableOpacity>
           </View>
-        </ScrollView>
+          {/* </ScrollView> */}
+        </KeyboardAwareScrollView>
       </SafeAreaView>
     );
   }

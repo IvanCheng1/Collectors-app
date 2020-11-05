@@ -13,7 +13,10 @@ import {
   StatusBar,
   TouchableOpacity,
   Image,
+  Modal,
+  Dimensions,
 } from "react-native";
+import ImageModal from "react-native-image-modal";
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import { ItemActionTypes } from "../store/actions/itemActions";
@@ -32,11 +35,40 @@ interface IProps {
   route: RouteProp<CollectionStackParamList, "Item">;
 }
 
-interface IState {}
+interface IState {
+  width: number;
+  height: number;
+}
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
 
 class Item extends React.Component<Props, IState> {
+  state = {
+    width: 0,
+    height: 0,
+  };
+
+  componentDidMount() {
+    const { id } = this.props.route.params;
+    const currentItem: IItem = this.props.items.filter((i) => i.id === id)[0];
+
+    Image.getSize(currentItem.image, (w, h) => {
+      let factor: number;
+
+      if (w > h) {
+        const windowWidth = Dimensions.get("window").width;
+        factor = w / (windowWidth * 0.95);
+      } else {
+        factor = h / 350;
+      }
+
+      this.setState({
+        height: h / factor,
+        width: w / factor,
+      });
+    });
+  }
+
   render() {
     const { navigation, items, route } = this.props;
     const { id, sort } = this.props.route.params;
@@ -79,12 +111,42 @@ class Item extends React.Component<Props, IState> {
       orderedFilteredItems[currentIndex - 1] ||
       orderedFilteredItems[currentIndex - 1 + orderedFilteredItems.length];
 
+    // const images = [
+    //   {
+    //     url: currentItem.image,
+    //     props: {
+    //       header: "hi",
+    //     },
+    //   },
+    //   {
+    //     url: nextItem.image,
+    //   },
+    // ];
+
+    if (this.state.height === 0) {
+      Image.getSize(currentItem.image, (w, h) => {
+        this.setState({ height: h / 10 });
+      });
+    }
+
     return (
       <SafeAreaView style={myStyles.containerTop}>
         <Text style={myStyles.itemDate}>
           {dateToDisplay(currentItem.dateCreated)}
         </Text>
-        <Image style={myStyles.img} source={image} />
+        <View>
+          <ImageModal
+            resizeMode="contain"
+            // imageBackgroundColor="#000000"
+            style={[
+              myStyles.img,
+              { height: this.state.height, width: this.state.width },
+            ]}
+            source={image}
+            hideCloseButton={true}
+          />
+        </View>
+        {/* <Image style={myStyles.img} source={image} /> */}
 
         {/* <Text>{currentItem.name}</Text> */}
         {currentItem.description !== "" && (

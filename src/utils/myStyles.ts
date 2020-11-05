@@ -302,11 +302,12 @@ export const myStyles = StyleSheet.create({
     marginTop: 40,
   },
   img: {
-    width: windowWidth * 0.9,
-    height: windowWidth * 0.9,
+    // width: windowWidth * 0.95,
+    // height: windowWidth * 0.95,
+    // height: 400,
     resizeMode: "contain",
     // backgroundColor: "black",
-    borderRadius: 10,
+    // borderRadius: 10,
   },
   imgPlaceHolder: {
     width: windowWidth * 0.9,
