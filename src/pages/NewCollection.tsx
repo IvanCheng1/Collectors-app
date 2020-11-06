@@ -13,6 +13,7 @@ import {
   Image,
   Platform,
   Alert,
+  Dimensions,
 } from "react-native";
 import { IItem } from "../store/reducers/itemReducer";
 import { rootState } from "../store/reducers";
@@ -60,6 +61,8 @@ interface IState {
   image: string;
   dateCreated: number;
   oldCollectionName: string;
+  height: number;
+  width: number;
 }
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
@@ -71,6 +74,8 @@ class NewCollection extends React.Component<Props, IState> {
     image: "",
     dateCreated: 0,
     oldCollectionName: "",
+    height: 0,
+    width: 0,
   };
 
   componentDidMount() {
@@ -80,6 +85,9 @@ class NewCollection extends React.Component<Props, IState> {
 
       const { id } = this.props.route.params;
       const collection = this.props.collections.filter((c) => c.id === id)[0];
+
+      this.getImageDimensions(collection.image);
+
       this.setState({
         name: collection.name,
         id,
@@ -120,6 +128,7 @@ class NewCollection extends React.Component<Props, IState> {
       });
       if (!result.cancelled) {
         this.setState({ image: result.uri });
+        this.getImageDimensions(result.uri);
       }
 
       // console.log(result);
@@ -149,6 +158,7 @@ class NewCollection extends React.Component<Props, IState> {
       });
       if (!result.cancelled) {
         this.setState({ image: result.uri });
+        this.getImageDimensions(result.uri);
       }
 
       // console.log(result);
@@ -210,6 +220,24 @@ class NewCollection extends React.Component<Props, IState> {
     );
   };
 
+  getImageDimensions = (imageURI: string): void => {
+    Image.getSize(imageURI, (w, h) => {
+      let factor: number;
+
+      if (w > h) {
+        const windowWidth = Dimensions.get("window").width;
+        factor = w / (windowWidth * 0.9);
+      } else {
+        factor = h / 350;
+      }
+
+      this.setState({
+        height: h / factor,
+        width: w / factor,
+      });
+    });
+  };
+
   clearState = (): void => {
     this.setState({
       name: "",
@@ -221,7 +249,7 @@ class NewCollection extends React.Component<Props, IState> {
   };
 
   render() {
-    const { name, image, id } = this.state;
+    const { name, image, id, height, width } = this.state;
     const { route } = this.props;
     return (
       // <KeyboardAvoidingView
@@ -231,13 +259,16 @@ class NewCollection extends React.Component<Props, IState> {
       <SafeAreaView style={myStyles.container}>
         <KeyboardAwareScrollView>
           <View style={myStyles.containerTop}>
-            <View style={myStyles.imgPlaceHolder}>
-              {image ? (
-                <Image style={myStyles.img} source={{ uri: image }} />
-              ) : (
+            {image ? (
+              <Image
+                style={[myStyles.imgEdit, { height, width }]}
+                source={{ uri: image }}
+              />
+            ) : (
+              <View style={myStyles.imgPlaceHolder}>
                 <Text>No Photo Selected</Text>
-              )}
-            </View>
+              </View>
+            )}
             <View style={myStyles.btnBar}>
               <TouchableOpacity
                 style={myStyles.btnBarButtons}
