@@ -15,6 +15,7 @@ import {
   Alert,
   TouchableWithoutFeedback,
   Keyboard,
+  Dimensions,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { rootState } from "../store/reducers";
@@ -65,6 +66,8 @@ interface IState {
   collection: string;
   dateCreated: number;
   showDatePicker: boolean;
+  width: number;
+  height: number;
 }
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
@@ -79,6 +82,8 @@ class NewItem extends React.Component<Props, IState> {
     collection: "",
     dateCreated: new Date().getTime(),
     showDatePicker: false,
+    width: 0,
+    height: 0,
   };
 
   componentDidMount() {
@@ -86,6 +91,8 @@ class NewItem extends React.Component<Props, IState> {
       // edit mode
       const { id } = this.props.route.params;
       const oldItem: IItem = this.props.items.filter((i) => i.id === id)[0];
+
+      this.getImageDimensions(oldItem.image);
 
       this.setState({
         name: oldItem.name,
@@ -148,6 +155,7 @@ class NewItem extends React.Component<Props, IState> {
       });
       if (!result.cancelled) {
         this.setState({ image: result.uri });
+        this.getImageDimensions(result.uri);
       }
     } catch (e) {
       console.log(e);
@@ -175,6 +183,7 @@ class NewItem extends React.Component<Props, IState> {
       });
       if (!result.cancelled) {
         this.setState({ image: result.uri });
+        this.getImageDimensions(result.uri);
       }
 
       // console.log(result);
@@ -307,6 +316,24 @@ class NewItem extends React.Component<Props, IState> {
     }
   };
 
+  getImageDimensions = (imageURI: string): void => {
+    Image.getSize(imageURI, (w, h) => {
+      let factor: number;
+
+      if (w > h) {
+        const windowWidth = Dimensions.get("window").width;
+        factor = w / (windowWidth * 0.9);
+      } else {
+        factor = h / 350;
+      }
+
+      this.setState({
+        height: h / factor,
+        width: w / factor,
+      });
+    });
+  };
+
   resetState = (): void => {
     this.setState({
       name: "",
@@ -328,6 +355,8 @@ class NewItem extends React.Component<Props, IState> {
       showDatePicker,
       dateCreated,
       collection,
+      width,
+      height,
     } = this.state;
 
     // const isDarkMode = useColorScheme() === 'dark';
@@ -339,16 +368,16 @@ class NewItem extends React.Component<Props, IState> {
         <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
           {/* <ScrollView showsVerticalScrollIndicator={false}> */}
           <View style={myStyles.container}>
-            {/* <View style={myStyles.imgPlaceHolder}> */}
             {image ? (
               <Image
-                style={[myStyles.img, { height: 400 }]}
+                style={[myStyles.imgEdit, { height, width }]}
                 source={{ uri: image }}
               />
             ) : (
-              <Text>No photo</Text>
+              <View style={myStyles.imgPlaceHolder}>
+                <Text>No photo</Text>
+              </View>
             )}
-            {/* </View> */}
             <View style={myStyles.btnBar}>
               <TouchableOpacity
                 style={myStyles.btnBarButtons}

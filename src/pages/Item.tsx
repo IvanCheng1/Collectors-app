@@ -57,7 +57,7 @@ class Item extends React.Component<Props, IState> {
 
       if (w > h) {
         const windowWidth = Dimensions.get("window").width;
-        factor = w / (windowWidth * 0.95);
+        factor = w / (windowWidth * 0.9);
       } else {
         factor = h / 350;
       }
@@ -110,18 +110,6 @@ class Item extends React.Component<Props, IState> {
     const prevItem: IItem =
       orderedFilteredItems[currentIndex - 1] ||
       orderedFilteredItems[currentIndex - 1 + orderedFilteredItems.length];
-
-    // const images = [
-    //   {
-    //     url: currentItem.image,
-    //     props: {
-    //       header: "hi",
-    //     },
-    //   },
-    //   {
-    //     url: nextItem.image,
-    //   },
-    // ];
 
     if (this.state.height === 0) {
       Image.getSize(currentItem.image, (w, h) => {

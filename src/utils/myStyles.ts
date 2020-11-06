@@ -127,6 +127,7 @@ export const myStyles = StyleSheet.create({
     lineHeight: 26,
     color: fifthColor,
     margin: 20,
+    // marginBottom: 0,
 
     // fontWeight: "bold",
   },
@@ -308,6 +309,16 @@ export const myStyles = StyleSheet.create({
     resizeMode: "contain",
     // backgroundColor: "black",
     // borderRadius: 10,
+    // marginTop: windowWidth * 0.05,
+  },
+  imgEdit: {
+    // width: windowWidth * 0.95,
+    // height: windowWidth * 0.95,
+    // height: 400,
+    resizeMode: "contain",
+    // backgroundColor: "black",
+    // borderRadius: 10,
+    marginTop: windowWidth * 0.05,
   },
   imgPlaceHolder: {
     width: windowWidth * 0.9,
