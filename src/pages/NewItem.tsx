@@ -48,7 +48,6 @@ import { CollectionStackParamList } from "./CollectionStack";
 import Item from "./Item";
 import { handleUpdateCollectionModifiedDate } from "../store/actions/collectionActions";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-// import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 
 type StateKey = "name" | "description" | "image" | "city";
 
@@ -105,7 +104,6 @@ class NewItem extends React.Component<Props, IState> {
       });
     } else {
       // new mode
-      // this.resetState();
       this.setState({
         collection: this.props.route.params.collection,
       });
@@ -185,8 +183,6 @@ class NewItem extends React.Component<Props, IState> {
         this.setState({ image: result.uri });
         this.getImageDimensions(result.uri);
       }
-
-      // console.log(result);
     } catch (e) {
       console.log(e);
     }
@@ -358,10 +354,6 @@ class NewItem extends React.Component<Props, IState> {
       width,
       height,
     } = this.state;
-
-    // const isDarkMode = useColorScheme() === 'dark';
-
-    // const height = Image.getSize(image, (w, h) => (h), (e) => console.log(e.message))
 
     return (
       <SafeAreaView style={myStyles.container}>

@@ -76,7 +76,7 @@ class Items extends React.Component<Props, IState> {
           // style={{ borderWidth: 1, borderColor: "red" }}
         >
           <Image style={myStyles.imageListThirds} source={image} />
-          <View>
+          <View style={myStyles.itemTitleHolder}>
             <Text style={myStyles.itemTitleCard}>{i.name}</Text>
             <Text style={myStyles.itemDateCard}>
               {dateToDisplayMY(i.dateCreated)}

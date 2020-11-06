@@ -88,6 +88,8 @@ export const myStyles = StyleSheet.create({
     // paddingRight: 20,
     flexDirection: "row",
     justifyContent: "center",
+    padding: 3,
+    marginBottom: 3,
   },
   collectionTitleCard: {
     fontSize: 18,
@@ -100,6 +102,10 @@ export const myStyles = StyleSheet.create({
   collectionDateCard: {
     color: thirdColor,
     textAlign: "center",
+  },
+  itemTitleHolder: {
+    padding: 1,
+    marginBottom: 5,
   },
   itemTitleCard: {
     fontSize: 13,

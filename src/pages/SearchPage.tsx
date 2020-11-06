@@ -85,7 +85,6 @@ class SearchPage extends React.Component<Props, IState> {
           onPress={() => {
             if (this.isIItem(item)) {
               navigation.navigate("Collections");
-              // navigation.popToTop();
 
               navigation.navigate("Items", {
                 id: collections.filter((c) => c.name === item.collection)[0].id,
@@ -96,7 +95,7 @@ class SearchPage extends React.Component<Props, IState> {
                 id: item.id,
                 title: item.name,
                 collection: item.collection,
-                sort: "Alphabetical",
+                sort: "A-Z",
               });
             } else {
               navigation.navigate("Items", {
@@ -108,7 +107,9 @@ class SearchPage extends React.Component<Props, IState> {
           key={item.id}
         >
           <Image style={myStyles.imageListThirds} source={image} />
-          <Text style={myStyles.itemTitleCard}>{item.name}</Text>
+          <View style={myStyles.itemTitleHolder}>
+            <Text style={myStyles.itemTitleCard}>{item.name}</Text>
+          </View>
         </TouchableOpacity>
       </View>
     );

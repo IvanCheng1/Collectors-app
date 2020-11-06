@@ -252,10 +252,6 @@ class NewCollection extends React.Component<Props, IState> {
     const { name, image, id, height, width } = this.state;
     const { route } = this.props;
     return (
-      // <KeyboardAvoidingView
-      //   behavior={Platform.OS == "ios" ? "padding" : "height"}
-      //   style={{ flex: 1 }}
-      // >
       <SafeAreaView style={myStyles.container}>
         <KeyboardAwareScrollView>
           <View style={myStyles.containerTop}>
@@ -322,8 +318,6 @@ class NewCollection extends React.Component<Props, IState> {
           </View>
         </KeyboardAwareScrollView>
       </SafeAreaView>
-
-      // </KeyboardAvoidingView>
     );
   }
 }
