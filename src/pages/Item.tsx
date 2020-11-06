@@ -52,22 +52,36 @@ class Item extends React.Component<Props, IState> {
     const { id } = this.props.route.params;
     const currentItem: IItem = this.props.items.filter((i) => i.id === id)[0];
 
-    Image.getSize(currentItem.image, (w, h) => {
-      let factor: number;
-
-      if (w > h) {
-        const windowWidth = Dimensions.get("window").width;
-        factor = w / (windowWidth * 0.9);
-      } else {
-        factor = h / 350;
-      }
-
-      this.setState({
-        height: h / factor,
-        width: w / factor,
-      });
-    });
+    this.getImageDimensions(currentItem.image);
   }
+
+  getImageDimensions = (imageURI: string): void => {
+    Image.getSize(
+      imageURI,
+      (w, h) => {
+        let factor: number;
+
+        if (w > h) {
+          const windowWidth = Dimensions.get("window").width;
+          factor = w / (windowWidth * 0.9);
+        } else {
+          factor = h / 350;
+        }
+
+        this.setState({
+          height: h / factor,
+          width: w / factor,
+        });
+      },
+      (e) => {
+        // console.log(e)
+        this.setState({
+          height: 350,
+          width: 350,
+        });
+      }
+    );
+  };
 
   render() {
     const { navigation, items, route } = this.props;
@@ -111,25 +125,21 @@ class Item extends React.Component<Props, IState> {
       orderedFilteredItems[currentIndex - 1] ||
       orderedFilteredItems[currentIndex - 1 + orderedFilteredItems.length];
 
-    if (this.state.height === 0) {
-      Image.getSize(currentItem.image, (w, h) => {
-        this.setState({ height: h / 10 });
-      });
-    }
-
     return (
       <SafeAreaView style={myStyles.containerTop}>
         <Text style={myStyles.itemDate}>
           {dateToDisplay(currentItem.dateCreated)}
         </Text>
+        {/* <Text>{currentItem.orientation}</Text> */}
         <View>
           <ImageModal
             resizeMode="contain"
             // imageBackgroundColor="#000000"
-            style={[
-              myStyles.img,
-              { height: this.state.height, width: this.state.width },
-            ]}
+            style={
+              currentItem.orientation === "portrait"
+                ? myStyles.imgPortrait
+                : myStyles.imgLandscape
+            }
             source={image}
             hideCloseButton={true}
           />

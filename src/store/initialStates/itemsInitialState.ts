@@ -9,6 +9,7 @@ export const itemInitialState = [
     city: "London",
     id: "_a5x31hxvnm8",
     image: "",
+    orientation: "landscape",
   },
   {
     name: "ZTurtle",
@@ -20,6 +21,7 @@ export const itemInitialState = [
     city: "London",
     id: "_y5d33hev3j6",
     image: "",
+    orientation: "landscape",
   },
   {
     name: "Hard Rock Amsterdam",
@@ -31,6 +33,7 @@ export const itemInitialState = [
     city: "Amsterdam",
     id: "_mku890hj55s",
     image: "",
+    orientation: "landscape",
   },
   {
     name: "Hard Rock New York",
@@ -42,6 +45,7 @@ export const itemInitialState = [
     city: "New York",
     id: "_mkf892gj541",
     image: "",
+    orientation: "landscape",
   },
   {
     name: "A250e",
@@ -53,5 +57,6 @@ export const itemInitialState = [
     city: "London",
     id: "_36v8a79vak8",
     image: "",
+    orientation: "landscape",
   },
 ];

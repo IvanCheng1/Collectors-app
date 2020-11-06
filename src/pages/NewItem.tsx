@@ -67,6 +67,7 @@ interface IState {
   showDatePicker: boolean;
   width: number;
   height: number;
+  orientation: string;
 }
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
@@ -83,6 +84,7 @@ class NewItem extends React.Component<Props, IState> {
     showDatePicker: false,
     width: 0,
     height: 0,
+    orientation: "",
   };
 
   componentDidMount() {
@@ -152,8 +154,11 @@ class NewItem extends React.Component<Props, IState> {
         quality: 1,
       });
       if (!result.cancelled) {
-        this.setState({ image: result.uri });
-        this.getImageDimensions(result.uri);
+        this.setState({
+          image: result.uri,
+          orientation: result.height > result.width ? "portrait" : "landscape",
+        });
+        // this.getImageDimensions(result.uri);
       }
     } catch (e) {
       console.log(e);
@@ -180,8 +185,11 @@ class NewItem extends React.Component<Props, IState> {
         quality: 1,
       });
       if (!result.cancelled) {
-        this.setState({ image: result.uri });
-        this.getImageDimensions(result.uri);
+        this.setState({
+          image: result.uri,
+          orientation: result.height > result.width ? "portrait" : "landscape",
+        });
+        // this.getImageDimensions(result.uri);
       }
     } catch (e) {
       console.log(e);
@@ -242,6 +250,7 @@ class NewItem extends React.Component<Props, IState> {
       city,
       dateCreated,
       collection,
+      orientation,
     } = this.state;
     // const { collection } = this.props.route.params;
 
@@ -256,6 +265,7 @@ class NewItem extends React.Component<Props, IState> {
         description,
         city,
         image,
+        orientation,
         dateCreated,
         id
       );
@@ -269,6 +279,7 @@ class NewItem extends React.Component<Props, IState> {
         description,
         city,
         image,
+        orientation,
         dateCreated
       );
 
@@ -353,6 +364,7 @@ class NewItem extends React.Component<Props, IState> {
       collection,
       width,
       height,
+      orientation,
     } = this.state;
 
     return (
@@ -362,7 +374,12 @@ class NewItem extends React.Component<Props, IState> {
           <View style={myStyles.container}>
             {image ? (
               <Image
-                style={[myStyles.imgEdit, { height, width }]}
+                style={[
+                  myStyles.imgEdit,
+                  orientation === "portrait"
+                    ? myStyles.imgPortrait
+                    : myStyles.imgLandscape,
+                ]}
                 source={{ uri: image }}
               />
             ) : (

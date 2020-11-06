@@ -18,6 +18,7 @@ export interface IItem {
   dateCreated: number;
   dateModified: number;
   image: string;
+  orientation: string;
 }
 
 export default function itemReducer(

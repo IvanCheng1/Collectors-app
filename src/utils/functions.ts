@@ -69,6 +69,7 @@ export function createItemObject(
   description: string,
   city: string,
   image: string,
+  orientation: string,
   dateCreated?: number,
   id?: string
 ): IItem {
@@ -81,6 +82,7 @@ export function createItemObject(
     image,
     dateCreated: dateCreated ? dateCreated : new Date().getTime(),
     dateModified: new Date().getTime(),
+    orientation,
   };
 }
 
