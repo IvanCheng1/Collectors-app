@@ -93,7 +93,7 @@ class NewItem extends React.Component<Props, IState> {
       const { id } = this.props.route.params;
       const oldItem: IItem = this.props.items.filter((i) => i.id === id)[0];
 
-      this.getImageDimensions(oldItem.image);
+      // this.getImageDimensions(oldItem.image);
 
       this.setState({
         name: oldItem.name,
@@ -103,6 +103,7 @@ class NewItem extends React.Component<Props, IState> {
         collection: oldItem.collection,
         id,
         dateCreated: oldItem.dateCreated,
+        orientation: oldItem.orientation,
       });
     } else {
       // new mode
@@ -323,23 +324,23 @@ class NewItem extends React.Component<Props, IState> {
     }
   };
 
-  getImageDimensions = (imageURI: string): void => {
-    Image.getSize(imageURI, (w, h) => {
-      let factor: number;
+  // getImageDimensions = (imageURI: string): void => {
+  //   Image.getSize(imageURI, (w, h) => {
+  //     let factor: number;
 
-      if (w > h) {
-        const windowWidth = Dimensions.get("window").width;
-        factor = w / (windowWidth * 0.9);
-      } else {
-        factor = h / 350;
-      }
+  //     if (w > h) {
+  //       const windowWidth = Dimensions.get("window").width;
+  //       factor = w / (windowWidth * 0.9);
+  //     } else {
+  //       factor = h / 350;
+  //     }
 
-      this.setState({
-        height: h / factor,
-        width: w / factor,
-      });
-    });
-  };
+  //     this.setState({
+  //       height: h / factor,
+  //       width: w / factor,
+  //     });
+  //   });
+  // };
 
   resetState = (): void => {
     this.setState({

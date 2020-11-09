@@ -63,6 +63,7 @@ interface IState {
   oldCollectionName: string;
   height: number;
   width: number;
+  orientation: string;
 }
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
@@ -76,6 +77,7 @@ class NewCollection extends React.Component<Props, IState> {
     oldCollectionName: "",
     height: 0,
     width: 0,
+    orientation: "",
   };
 
   componentDidMount() {
@@ -86,7 +88,7 @@ class NewCollection extends React.Component<Props, IState> {
       const { id } = this.props.route.params;
       const collection = this.props.collections.filter((c) => c.id === id)[0];
 
-      this.getImageDimensions(collection.image);
+      // this.getImageDimensions(collection.image);
 
       this.setState({
         name: collection.name,
@@ -94,6 +96,7 @@ class NewCollection extends React.Component<Props, IState> {
         image: collection.image,
         dateCreated: collection.dateCreated,
         oldCollectionName: collection.name,
+        // orientation: collection.orientation,
       });
     } else {
       // new collection
@@ -127,8 +130,11 @@ class NewCollection extends React.Component<Props, IState> {
         quality: 1,
       });
       if (!result.cancelled) {
-        this.setState({ image: result.uri });
-        this.getImageDimensions(result.uri);
+        this.setState({
+          image: result.uri,
+          orientation: result.height > result.width ? "portrait" : "landscape",
+        });
+        // this.getImageDimensions(result.uri);
       }
 
       // console.log(result);
@@ -157,8 +163,11 @@ class NewCollection extends React.Component<Props, IState> {
         quality: 1,
       });
       if (!result.cancelled) {
-        this.setState({ image: result.uri });
-        this.getImageDimensions(result.uri);
+        this.setState({
+          image: result.uri,
+          orientation: result.height > result.width ? "portrait" : "landscape",
+        });
+        // this.getImageDimensions(result.uri);
       }
 
       // console.log(result);
@@ -220,23 +229,23 @@ class NewCollection extends React.Component<Props, IState> {
     );
   };
 
-  getImageDimensions = (imageURI: string): void => {
-    Image.getSize(imageURI, (w, h) => {
-      let factor: number;
+  // getImageDimensions = (imageURI: string): void => {
+  //   Image.getSize(imageURI, (w, h) => {
+  //     let factor: number;
 
-      if (w > h) {
-        const windowWidth = Dimensions.get("window").width;
-        factor = w / (windowWidth * 0.9);
-      } else {
-        factor = h / 350;
-      }
+  //     if (w > h) {
+  //       const windowWidth = Dimensions.get("window").width;
+  //       factor = w / (windowWidth * 0.9);
+  //     } else {
+  //       factor = h / 350;
+  //     }
 
-      this.setState({
-        height: h / factor,
-        width: w / factor,
-      });
-    });
-  };
+  //     this.setState({
+  //       height: h / factor,
+  //       width: w / factor,
+  //     });
+  //   });
+  // };
 
   clearState = (): void => {
     this.setState({
@@ -249,7 +258,7 @@ class NewCollection extends React.Component<Props, IState> {
   };
 
   render() {
-    const { name, image, id, height, width } = this.state;
+    const { name, image, id, height, width, orientation } = this.state;
     const { route } = this.props;
     return (
       <SafeAreaView style={myStyles.container}>
@@ -257,7 +266,12 @@ class NewCollection extends React.Component<Props, IState> {
           <View style={myStyles.containerTop}>
             {image ? (
               <Image
-                style={[myStyles.imgEdit, { height, width }]}
+                style={[
+                  myStyles.imgEdit,
+                  orientation === "portrait"
+                    ? myStyles.imgPortrait
+                    : myStyles.imgLandscape,
+                ]}
                 source={{ uri: image }}
               />
             ) : (
