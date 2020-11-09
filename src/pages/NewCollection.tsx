@@ -177,12 +177,20 @@ class NewCollection extends React.Component<Props, IState> {
   };
 
   onSubmit = (): void => {
-    const { name, id, dateCreated, oldCollectionName, image } = this.state;
+    const {
+      name,
+      id,
+      dateCreated,
+      oldCollectionName,
+      image,
+      orientation,
+    } = this.state;
     if (this.props.route.params?.id) {
       // edit collection
       const newCollection: ICollection = createCollectionObject(
         name,
         image,
+        orientation,
         dateCreated,
         id
       );
@@ -191,7 +199,7 @@ class NewCollection extends React.Component<Props, IState> {
       this.props.handleEditItemForCollection(oldCollectionName, name);
     } else {
       // new collection
-      const collection = createCollectionObject(name, image);
+      const collection = createCollectionObject(name, image, orientation);
 
       this.props.handleAddCollection(collection);
     }

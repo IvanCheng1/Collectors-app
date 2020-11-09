@@ -10,6 +10,7 @@ import { collectionInitialState } from "../initialStates/collectionInitialState"
 export interface ICollection {
   name: string;
   id: string;
+  orientation: string;
   dateCreated: number;
   dateModified: number;
   image: string;

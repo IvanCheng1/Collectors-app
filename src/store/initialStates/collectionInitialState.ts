@@ -5,6 +5,7 @@ export const collectionInitialState = [
     id: "_95scyqx24rb",
     dateCreated: new Date("2019-06-28").getTime(),
     dateModified: new Date("2019-06-28").getTime(),
+    orientation: "landscape",
   },
   {
     name: "Cars",
@@ -12,5 +13,6 @@ export const collectionInitialState = [
     id: "_pw4j2ehhc3s",
     dateCreated: new Date("2018-06-28").getTime(),
     dateModified: new Date("2018-06-28").getTime(),
+    orientation: "landscape",
   },
 ];

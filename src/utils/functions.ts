@@ -51,12 +51,14 @@ export function dateToDisplayMY(date: number): string {
 export function createCollectionObject(
   name: string,
   image: string,
+  orientation: string,
   dateCreated?: number,
   id?: string
 ): ICollection {
   return {
     name,
     id: id ? id : generateID(),
+    orientation,
     dateCreated: dateCreated ? dateCreated : new Date().getTime(),
     dateModified: new Date().getTime(),
     image,
