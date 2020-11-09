@@ -39,6 +39,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { CollectionStackParamList } from "./CollectionStack";
 import {
   AntDesign,
+  Feather,
   FontAwesome,
   Ionicons,
   MaterialCommunityIcons,
@@ -96,7 +97,19 @@ class NewCollection extends React.Component<Props, IState> {
         image: collection.image,
         dateCreated: collection.dateCreated,
         oldCollectionName: collection.name,
-        // orientation: collection.orientation,
+        orientation: collection.orientation,
+      });
+
+      // add delete button
+      this.props.navigation.setOptions({
+        headerRight: () => (
+          <TouchableOpacity
+            style={{ paddingRight: 14 }}
+            onPress={() => this.onDelete()}
+          >
+            <Feather name="trash-2" size={20} color="white" />
+          </TouchableOpacity>
+        ),
       });
     } else {
       // new collection
@@ -218,9 +231,12 @@ class NewCollection extends React.Component<Props, IState> {
 
     Alert.alert(
       "Delete Collection",
-      `This will delete the collection and ${numberOfItems} item${
-        numberOfItems === 0 || (numberOfItems > 1 ? "s" : "")
-      } inside. Are you sure?`,
+      `This will delete the collection${
+        numberOfItems > 0
+          ? ` and ${numberOfItems} item${numberOfItems > 1 ? "s" : ""} inside`
+          : ``
+      }. Are you sure?`,
+
       [
         {
           text: "Delete",
@@ -321,7 +337,7 @@ class NewCollection extends React.Component<Props, IState> {
                 this.changeName(e.nativeEvent.text)
               }
             />
-
+{/* 
             {route.params?.id && (
               <TouchableOpacity
                 style={[myStyles.btn, myStyles.btnDark]}
@@ -329,7 +345,7 @@ class NewCollection extends React.Component<Props, IState> {
               >
                 <Text style={myStyles.btnText}>Delete Collection</Text>
               </TouchableOpacity>
-            )}
+            )} */}
 
             <TouchableOpacity
               style={myStyles.btn}

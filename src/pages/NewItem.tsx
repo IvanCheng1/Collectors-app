@@ -493,14 +493,14 @@ class NewItem extends React.Component<Props, IState> {
               />
             </>
 
-            {route.params?.id && (
+            {/* {route.params?.id && (
               <TouchableOpacity
                 style={[myStyles.btn, myStyles.btnDark]}
                 onPress={this.onDelete}
               >
                 <Text style={myStyles.btnText}>Delete Item</Text>
               </TouchableOpacity>
-            )}
+            )} */}
 
             <TouchableOpacity style={myStyles.btn} onPress={this.onSubmit}>
               <Text style={myStyles.btnText}>Save Item</Text>
