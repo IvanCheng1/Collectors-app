@@ -73,7 +73,6 @@ class Items extends React.Component<Props, IState> {
             });
           }}
           key={i.id}
-          // style={{ borderWidth: 1, borderColor: "red" }}
         >
           <Image style={myStyles.imageListThirds} source={image} />
           <View style={myStyles.itemTitleHolder}>

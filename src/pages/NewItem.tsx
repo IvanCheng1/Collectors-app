@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { myStyles } from "../utils/myStyles";
 import {
@@ -10,13 +10,8 @@ import {
   TextInputChangeEventData,
   TouchableOpacity,
   View,
-  useColorScheme,
   Platform,
   Alert,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Dimensions,
-  Button,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { rootState } from "../store/reducers";
@@ -68,8 +63,6 @@ interface IState {
   collection: string;
   dateCreated: number;
   showDatePicker: boolean;
-  width: number;
-  height: number;
   orientation: string;
 }
 
@@ -85,8 +78,6 @@ class NewItem extends React.Component<Props, IState> {
     collection: "",
     dateCreated: new Date().getTime(),
     showDatePicker: false,
-    width: 0,
-    height: 0,
     orientation: "",
   };
 
@@ -170,6 +161,8 @@ class NewItem extends React.Component<Props, IState> {
         quality: 1,
       });
       if (!result.cancelled) {
+        // console.log(result)
+
         this.setState({
           image: result.uri,
           orientation: result.height > result.width ? "portrait" : "landscape",
@@ -201,6 +194,8 @@ class NewItem extends React.Component<Props, IState> {
         quality: 1,
       });
       if (!result.cancelled) {
+        // Alert.alert(`${result.height} ${result.width}`);
+        // console.log(result)
         this.setState({
           image: result.uri,
           orientation: result.height > result.width ? "portrait" : "landscape",
@@ -333,24 +328,6 @@ class NewItem extends React.Component<Props, IState> {
     }
   };
 
-  // getImageDimensions = (imageURI: string): void => {
-  //   Image.getSize(imageURI, (w, h) => {
-  //     let factor: number;
-
-  //     if (w > h) {
-  //       const windowWidth = Dimensions.get("window").width;
-  //       factor = w / (windowWidth * 0.9);
-  //     } else {
-  //       factor = h / 350;
-  //     }
-
-  //     this.setState({
-  //       height: h / factor,
-  //       width: w / factor,
-  //     });
-  //   });
-  // };
-
   resetState = (): void => {
     this.setState({
       name: "",
@@ -363,7 +340,7 @@ class NewItem extends React.Component<Props, IState> {
   };
 
   render() {
-    const { route, navigation, collections } = this.props;
+    const { route, collections } = this.props;
     const {
       name,
       description,
@@ -380,7 +357,6 @@ class NewItem extends React.Component<Props, IState> {
     return (
       <SafeAreaView style={myStyles.container}>
         <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-          {/* <ScrollView showsVerticalScrollIndicator={false}> */}
           <View style={myStyles.container}>
             {image ? (
               <Image
@@ -451,10 +427,8 @@ class NewItem extends React.Component<Props, IState> {
             {route.params?.id && (
               // edit mode
               <>
-                {/* <View>
-                  <Text>Change collection</Text>
-                </View> */}
                 <RNPickerSelect
+                  useNativeAndroidPickerStyle={false}
                   onValueChange={(value: string) => {
                     this.changeCollection(value);
                   }}
@@ -466,9 +440,6 @@ class NewItem extends React.Component<Props, IState> {
                     };
                   })}
                   value={collection}
-                  // placeholder="hi"
-                  // useNativeAndroidPickerStyle={false}
-                  // textInputProps={{ color: "black" }}
                   style={myStyles}
                 />
               </>
@@ -481,7 +452,6 @@ class NewItem extends React.Component<Props, IState> {
                 <Text style={myStyles.btnText}>
                   {dateToDisplay(dateCreated)}
                 </Text>
-                {/* <Text style={myStyles.btnText}>Change date</Text> */}
               </TouchableOpacity>
               <DateTimePickerModal
                 isVisible={showDatePicker}
@@ -493,20 +463,10 @@ class NewItem extends React.Component<Props, IState> {
               />
             </>
 
-            {/* {route.params?.id && (
-              <TouchableOpacity
-                style={[myStyles.btn, myStyles.btnDark]}
-                onPress={this.onDelete}
-              >
-                <Text style={myStyles.btnText}>Delete Item</Text>
-              </TouchableOpacity>
-            )} */}
-
             <TouchableOpacity style={myStyles.btn} onPress={this.onSubmit}>
               <Text style={myStyles.btnText}>Save Item</Text>
             </TouchableOpacity>
           </View>
-          {/* </ScrollView> */}
         </KeyboardAwareScrollView>
       </SafeAreaView>
     );

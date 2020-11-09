@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 // import { connect } from "react-redux";
 import { myStyles } from "../utils/myStyles";
 import {
@@ -6,14 +6,12 @@ import {
   Text,
   View,
   TextInput,
-  KeyboardAvoidingView,
   NativeSyntheticEvent,
   TextInputChangeEventData,
   TouchableOpacity,
   Image,
   Platform,
   Alert,
-  Dimensions,
 } from "react-native";
 import { IItem } from "../store/reducers/itemReducer";
 import { rootState } from "../store/reducers";
@@ -24,13 +22,9 @@ import {
   handleDeleteCollection,
   handleEditCollection,
 } from "../store/actions/collectionActions";
-import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import {
-  createCollectionObject,
-  generateCollectionPicture,
-} from "../utils/functions";
+import { createCollectionObject } from "../utils/functions";
 import { ICollection } from "../store/reducers/collectionReducer";
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
@@ -41,7 +35,6 @@ import {
   AntDesign,
   Feather,
   FontAwesome,
-  Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { RouteProp } from "@react-navigation/native";
@@ -62,8 +55,6 @@ interface IState {
   image: string;
   dateCreated: number;
   oldCollectionName: string;
-  height: number;
-  width: number;
   orientation: string;
 }
 
@@ -76,8 +67,6 @@ class NewCollection extends React.Component<Props, IState> {
     image: "",
     dateCreated: 0,
     oldCollectionName: "",
-    height: 0,
-    width: 0,
     orientation: "",
   };
 
@@ -88,8 +77,6 @@ class NewCollection extends React.Component<Props, IState> {
 
       const { id } = this.props.route.params;
       const collection = this.props.collections.filter((c) => c.id === id)[0];
-
-      // this.getImageDimensions(collection.image);
 
       this.setState({
         name: collection.name,
@@ -138,8 +125,8 @@ class NewCollection extends React.Component<Props, IState> {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        // allowsEditing: true,
-        // aspect: [1, 1],
+        allowsEditing: true,
+        aspect: [1, 1],
         quality: 1,
       });
       if (!result.cancelled) {
@@ -147,7 +134,6 @@ class NewCollection extends React.Component<Props, IState> {
           image: result.uri,
           orientation: result.height > result.width ? "portrait" : "landscape",
         });
-        // this.getImageDimensions(result.uri);
       }
 
       // console.log(result);
@@ -180,7 +166,6 @@ class NewCollection extends React.Component<Props, IState> {
           image: result.uri,
           orientation: result.height > result.width ? "portrait" : "landscape",
         });
-        // this.getImageDimensions(result.uri);
       }
 
       // console.log(result);
@@ -253,24 +238,6 @@ class NewCollection extends React.Component<Props, IState> {
     );
   };
 
-  // getImageDimensions = (imageURI: string): void => {
-  //   Image.getSize(imageURI, (w, h) => {
-  //     let factor: number;
-
-  //     if (w > h) {
-  //       const windowWidth = Dimensions.get("window").width;
-  //       factor = w / (windowWidth * 0.9);
-  //     } else {
-  //       factor = h / 350;
-  //     }
-
-  //     this.setState({
-  //       height: h / factor,
-  //       width: w / factor,
-  //     });
-  //   });
-  // };
-
   clearState = (): void => {
     this.setState({
       name: "",
@@ -282,8 +249,7 @@ class NewCollection extends React.Component<Props, IState> {
   };
 
   render() {
-    const { name, image, id, height, width, orientation } = this.state;
-    const { route } = this.props;
+    const { name, image, orientation } = this.state;
     return (
       <SafeAreaView style={myStyles.container}>
         <KeyboardAwareScrollView>
@@ -337,15 +303,6 @@ class NewCollection extends React.Component<Props, IState> {
                 this.changeName(e.nativeEvent.text)
               }
             />
-{/* 
-            {route.params?.id && (
-              <TouchableOpacity
-                style={[myStyles.btn, myStyles.btnDark]}
-                onPress={this.onDelete}
-              >
-                <Text style={myStyles.btnText}>Delete Collection</Text>
-              </TouchableOpacity>
-            )} */}
 
             <TouchableOpacity
               style={myStyles.btn}

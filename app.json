@@ -1,3 +1,6 @@
 {
-  "name": "CollectorsApp"
+  "expo": {
+    "name": "Collectors App",
+    "orientation": "portrait"
+  }
 }

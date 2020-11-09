@@ -1,12 +1,6 @@
-import React, { Component, UIEventHandler } from "react";
+import React from "react";
 import { myStyles, stackBackgroundColor } from "../utils/myStyles";
-import {
-  Alert,
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Collections from "./Collections";
 import Items from "./Items";

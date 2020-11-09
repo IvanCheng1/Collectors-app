@@ -57,13 +57,6 @@ class Collections extends React.Component<Props, IState> {
     sortButtons2: [0, 0, 0],
   };
 
-  componentDidMount() {
-    // this.props.navigation.navigate("Items", {
-    //   id: "_95scyqx24rb",
-    //   collection: "Pins",
-    // });
-  }
-
   changeButtons = (selectedIndex: number) => {
     if (selectedIndex !== 1) {
       let array = this.state.sortButtons2;

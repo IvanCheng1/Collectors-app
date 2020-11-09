@@ -2,31 +2,15 @@ import { AntDesign, Entypo } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer, RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Container } from "native-base";
 import React from "react";
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  TouchableOpacity,
-  Image,
-  Modal,
-  Dimensions,
-} from "react-native";
+import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
 import ImageModal from "react-native-image-modal";
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import { ItemActionTypes } from "../store/actions/itemActions";
 import { rootState } from "../store/reducers";
 import { IItem } from "../store/reducers/itemReducer";
-import {
-  dateToDisplay,
-  dateToString,
-  generateItemPicture,
-} from "../utils/functions";
+import { dateToDisplay, generateItemPicture } from "../utils/functions";
 import { mainColor, myStyles } from "../utils/myStyles";
 import { CollectionStackParamList } from "./CollectionStack";
 
@@ -46,41 +30,6 @@ class Item extends React.Component<Props, IState> {
   state = {
     width: 0,
     height: 0,
-  };
-
-  componentDidMount() {
-    const { id } = this.props.route.params;
-    const currentItem: IItem = this.props.items.filter((i) => i.id === id)[0];
-
-    this.getImageDimensions(currentItem.image);
-  }
-
-  getImageDimensions = (imageURI: string): void => {
-    Image.getSize(
-      imageURI,
-      (w, h) => {
-        let factor: number;
-
-        if (w > h) {
-          const windowWidth = Dimensions.get("window").width;
-          factor = w / (windowWidth * 0.9);
-        } else {
-          factor = h / 350;
-        }
-
-        this.setState({
-          height: h / factor,
-          width: w / factor,
-        });
-      },
-      (e) => {
-        // console.log(e)
-        this.setState({
-          height: 350,
-          width: 350,
-        });
-      }
-    );
   };
 
   render() {
@@ -130,11 +79,9 @@ class Item extends React.Component<Props, IState> {
         <Text style={myStyles.itemDate}>
           {dateToDisplay(currentItem.dateCreated)}
         </Text>
-        {/* <Text>{currentItem.orientation}</Text> */}
         <View>
           <ImageModal
             resizeMode="contain"
-            // imageBackgroundColor="#000000"
             style={
               currentItem.orientation === "portrait"
                 ? myStyles.imgPortrait
@@ -144,9 +91,7 @@ class Item extends React.Component<Props, IState> {
             hideCloseButton={true}
           />
         </View>
-        {/* <Image style={myStyles.img} source={image} /> */}
 
-        {/* <Text>{currentItem.name}</Text> */}
         {currentItem.description !== "" && (
           <Text style={myStyles.itemDescription}>
             {currentItem.description}
