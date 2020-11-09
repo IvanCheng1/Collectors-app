@@ -13,9 +13,9 @@ export const stackBackgroundColor = secondColor;
 
 export const myStyles = StyleSheet.create({
   inputIOS: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
+    fontSize: 14,
+    // paddingVertical: 12,
+    // paddingHorizontal: 10,
     borderWidth: 1,
     borderColor: mainColor,
     borderRadius: 10,
@@ -27,14 +27,15 @@ export const myStyles = StyleSheet.create({
     marginRight: "auto",
   },
   inputAndroid: {
-    fontSize: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
+    fontSize: 14,
+    // paddingHorizontal: 10,
+    // paddingVertical: 8,
     borderWidth: 0.5,
     borderColor: "purple",
     borderRadius: 8,
     color: "black",
     paddingRight: 30, // to ensure the text is never behind the icon
+    padding: 15,
     width: 300,
     marginLeft: "auto",
     marginRight: "auto",
@@ -325,7 +326,7 @@ export const myStyles = StyleSheet.create({
   },
   imgLandscape: {
     width: windowWidth * 0.95,
-    height: windowWidth * 3 / 4 ,
+    height: (windowWidth * 3) / 4,
     // height: 400,
     resizeMode: "contain",
     // backgroundColor: "black",

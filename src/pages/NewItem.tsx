@@ -16,6 +16,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Dimensions,
+  Button,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { rootState } from "../store/reducers";
@@ -38,7 +39,9 @@ import { useDarkMode } from "react-native-dynamic";
 import Constants from "expo-constants";
 import {
   AntDesign,
+  Feather,
   FontAwesome,
+  Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import RNPickerSelect from "react-native-picker-select";
@@ -104,6 +107,18 @@ class NewItem extends React.Component<Props, IState> {
         id,
         dateCreated: oldItem.dateCreated,
         orientation: oldItem.orientation,
+      });
+
+      // add delete button
+      this.props.navigation.setOptions({
+        headerRight: () => (
+          <TouchableOpacity
+            style={{ paddingRight: 14 }}
+            onPress={() => this.onDelete()}
+          >
+            <Feather name="trash-2" size={20} color="white" />
+          </TouchableOpacity>
+        ),
       });
     } else {
       // new mode
@@ -211,21 +226,16 @@ class NewItem extends React.Component<Props, IState> {
   };
 
   onDelete = (): void => {
-    // check first
-
     Alert.alert(
       "Delete Item",
-      `Are you sure you want to delete ${this.state.name} from ${this.state.collection}?`,
+      `Are you sure you want to delete ${this.state.name} from ${this.props.route.params.collection}?`,
       [
         {
           text: "Delete",
           onPress: () => {
             const collection = this.props.collections.filter(
-              (c) => c.name === this.state.collection
+              (c) => c.name === this.props.route.params.collection
             )[0];
-
-            // clear state
-            // this.resetState();
 
             // go back to collection
             this.props.navigation.navigate("Items", {
@@ -253,7 +263,6 @@ class NewItem extends React.Component<Props, IState> {
       collection,
       orientation,
     } = this.state;
-    // const { collection } = this.props.route.params;
 
     let id: string;
 
@@ -354,7 +363,7 @@ class NewItem extends React.Component<Props, IState> {
   };
 
   render() {
-    const { route, collections } = this.props;
+    const { route, navigation, collections } = this.props;
     const {
       name,
       description,
@@ -439,29 +448,12 @@ class NewItem extends React.Component<Props, IState> {
               }
             />
 
-            <TouchableOpacity
-              style={myStyles.btn}
-              onPress={this.showDatePicker}
-            >
-              <Text style={myStyles.btnText}>{dateToDisplay(dateCreated)}</Text>
-              {/* <Text style={myStyles.btnText}>Change date</Text> */}
-            </TouchableOpacity>
-
-            <DateTimePickerModal
-              isVisible={showDatePicker}
-              date={new Date(dateCreated)}
-              mode="date"
-              onConfirm={this.changeDate}
-              onCancel={this.showDatePicker}
-              isDarkModeEnabled={false}
-            />
-
             {route.params?.id && (
               // edit mode
               <>
-                <View>
+                {/* <View>
                   <Text>Change collection</Text>
-                </View>
+                </View> */}
                 <RNPickerSelect
                   onValueChange={(value: string) => {
                     this.changeCollection(value);
@@ -479,14 +471,35 @@ class NewItem extends React.Component<Props, IState> {
                   // textInputProps={{ color: "black" }}
                   style={myStyles}
                 />
-
-                <TouchableOpacity
-                  style={[myStyles.btn, myStyles.btnDark]}
-                  onPress={this.onDelete}
-                >
-                  <Text style={myStyles.btnText}>Delete Item</Text>
-                </TouchableOpacity>
               </>
+            )}
+            <>
+              <TouchableOpacity
+                style={myStyles.btn}
+                onPress={this.showDatePicker}
+              >
+                <Text style={myStyles.btnText}>
+                  {dateToDisplay(dateCreated)}
+                </Text>
+                {/* <Text style={myStyles.btnText}>Change date</Text> */}
+              </TouchableOpacity>
+              <DateTimePickerModal
+                isVisible={showDatePicker}
+                date={new Date(dateCreated)}
+                mode="date"
+                onConfirm={this.changeDate}
+                onCancel={this.showDatePicker}
+                isDarkModeEnabled={false}
+              />
+            </>
+
+            {route.params?.id && (
+              <TouchableOpacity
+                style={[myStyles.btn, myStyles.btnDark]}
+                onPress={this.onDelete}
+              >
+                <Text style={myStyles.btnText}>Delete Item</Text>
+              </TouchableOpacity>
             )}
 
             <TouchableOpacity style={myStyles.btn} onPress={this.onSubmit}>
