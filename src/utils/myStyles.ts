@@ -22,6 +22,9 @@ export const myStyles = StyleSheet.create({
     color: "black",
     paddingRight: 30, // to ensure the text is never behind the icon
     padding: 15,
+    width: 300,
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   inputAndroid: {
     fontSize: 16,
@@ -32,6 +35,9 @@ export const myStyles = StyleSheet.create({
     borderRadius: 8,
     color: "black",
     paddingRight: 30, // to ensure the text is never behind the icon
+    width: 300,
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   container: {
     flex: 1,

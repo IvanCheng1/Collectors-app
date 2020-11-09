@@ -31,6 +31,7 @@ import {
   generateCollectionPicture,
 } from "../utils/functions";
 import * as Haptics from "expo-haptics";
+import { persistor } from "../store";
 
 interface IProps {
   navigation: StackNavigationProp<CollectionStackParamList>;
