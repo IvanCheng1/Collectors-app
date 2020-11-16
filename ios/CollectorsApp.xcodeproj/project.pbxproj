@@ -775,6 +775,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CollectorsApp.app/CollectorsApp";
+				TARGETED_DEVICE_FAMILY = "1";
 			};
 			name = Debug;
 		};
@@ -795,6 +796,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CollectorsApp.app/CollectorsApp";
+				TARGETED_DEVICE_FAMILY = "1";
 			};
 			name = Release;
 		};
@@ -813,11 +815,13 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = CollectorsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ivancheng.collectorsapp";
+				PRODUCT_NAME = collectorsapp;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+				TARGETED_DEVICE_FAMILY = "1";
+				CODE_SIGN_ENTITLEMENTS = CollectorsApp/CollectorsApp.entitlements;
 			};
 			name = Debug;
 		};
@@ -835,10 +839,12 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = CollectorsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ivancheng.collectorsapp";
+				PRODUCT_NAME = collectorsapp;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+				TARGETED_DEVICE_FAMILY = "1";
+				CODE_SIGN_ENTITLEMENTS = CollectorsApp/CollectorsApp.entitlements;
 			};
 			name = Release;
 		};
@@ -865,8 +871,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.CollectorsApp-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TARGETED_DEVICE_FAMILY = 3;
+				TARGETED_DEVICE_FAMILY = "1";
 				TVOS_DEPLOYMENT_TARGET = 10.0;
+				CODE_SIGN_ENTITLEMENTS = CollectorsApp/CollectorsApp.entitlements;
 			};
 			name = Debug;
 		};
@@ -893,8 +900,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.CollectorsApp-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TARGETED_DEVICE_FAMILY = 3;
+				TARGETED_DEVICE_FAMILY = "1";
 				TVOS_DEPLOYMENT_TARGET = 10.0;
+				CODE_SIGN_ENTITLEMENTS = CollectorsApp/CollectorsApp.entitlements;
 			};
 			name = Release;
 		};
@@ -922,6 +930,7 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CollectorsApp-tvOS.app/CollectorsApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				TARGETED_DEVICE_FAMILY = "1";
 			};
 			name = Debug;
 		};
@@ -949,6 +958,7 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CollectorsApp-tvOS.app/CollectorsApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				TARGETED_DEVICE_FAMILY = "1";
 			};
 			name = Release;
 		};
@@ -1009,6 +1019,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				CODE_SIGN_ENTITLEMENTS = CollectorsApp/CollectorsApp.entitlements;
 			};
 			name = Debug;
 		};
@@ -1062,6 +1073,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				CODE_SIGN_ENTITLEMENTS = CollectorsApp/CollectorsApp.entitlements;
 			};
 			name = Release;
 		};
