@@ -7077,9 +7077,9 @@ react-native-vector-icons@^7.0.0, react-native-vector-icons@^7.1.0:
     yargs "^15.0.2"
 
 react-native-windows@^0.62.0-0:
-  version "0.62.15"
-  resolved "https://registry.yarnpkg.com/react-native-windows/-/react-native-windows-0.62.15.tgz#046ce9c7bbf95bd075432587129cae2c097d4d9b"
-  integrity sha512-rUhg1Hx7m+IS3m+XPnkgjFYF+mpCxLcVlOpnUH3Sf8zlWJ3YqK3ISSN3Iyl8X2562OcZD67ac0uZOXkNOgRdNw==
+  version "0.62.16"
+  resolved "https://registry.yarnpkg.com/react-native-windows/-/react-native-windows-0.62.16.tgz#096cb4d236220b276b5ca283b5b8608b596a90fa"
+  integrity sha512-V428kiBHblal8YtvTPdP/uaTlTJGYHSh/EmHxCHICynzA7coNmXRt4XqPpYrUXWImLVJ2r1MinRyF5MIJl4kVA==
   dependencies:
     "@babel/runtime" "^7.8.4"
     cli-spinners "^2.2.0"
