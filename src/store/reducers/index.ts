@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import collectionReducer from "./collectionReducer";
 import itemReducer from "./itemReducer";
 import { createTransform, persistReducer } from "redux-persist";
+// import { AsyncStorage } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const rootReducer = combineReducers({
