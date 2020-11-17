@@ -27,7 +27,6 @@ import { bindActionCreators } from "redux";
 import { createCollectionObject } from "../utils/functions";
 import { ICollection } from "../store/reducers/collectionReducer";
 import * as ImagePicker from "expo-image-picker";
-import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { CollectionStackParamList } from "./CollectionStack";
@@ -111,7 +110,7 @@ class NewCollection extends React.Component<Props, IState> {
   };
 
   getPermissionAsync = async () => {
-    if (Constants.platform?.ios) {
+    if (Platform.OS === 'ios') {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
       if (status !== "granted") {
         // alert("Sorry, we need camera roll permissions to make this work!");
@@ -143,7 +142,7 @@ class NewCollection extends React.Component<Props, IState> {
   };
 
   getCameraPermissionAsync = async () => {
-    if (Constants.platform?.ios) {
+    if (Platform.OS === 'ios') {
       const { status } = await Permissions.askAsync(Permissions.CAMERA);
       if (status !== "granted") {
         // alert("Sorry, we need camera roll permissions to make this work!");

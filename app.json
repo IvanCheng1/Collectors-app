@@ -5,7 +5,6 @@
     "orientation": "portrait",
     "description": "Document collections and items in one place",
     "version": "1.0.0",
-    "sdkVersion": "39.0.0",
     "ios": {
       "bundleIdentifier": "com.ivancheng.collectorsapp"
     },

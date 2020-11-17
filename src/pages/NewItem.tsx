@@ -31,7 +31,6 @@ import * as ImagePicker from "expo-image-picker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { ScrollView } from "react-native-gesture-handler";
 import { useDarkMode } from "react-native-dynamic";
-import Constants from "expo-constants";
 import {
   AntDesign,
   Feather,
@@ -142,7 +141,7 @@ class NewItem extends React.Component<Props, IState> {
   };
 
   getPermissionAsync = async () => {
-    if (Constants.platform?.ios) {
+    if (Platform.OS === "ios") {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
       if (status !== "granted") {
         // alert("Sorry, we need camera roll permissions to make this work!");
@@ -175,7 +174,7 @@ class NewItem extends React.Component<Props, IState> {
   };
 
   getCameraPermissionAsync = async () => {
-    if (Constants.platform?.ios) {
+    if (Platform.OS === "ios") {
       const { status } = await Permissions.askAsync(Permissions.CAMERA);
       if (status !== "granted") {
         // alert("Sorry, we need camera roll permissions to make this work!");
