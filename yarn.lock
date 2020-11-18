@@ -3577,9 +3577,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.591:
-  version "1.3.596"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.596.tgz#c7ed98512c7ff36ddcbfed9e54e6355335c35257"
-  integrity sha512-nLO2Wd2yU42eSoNJVQKNf89CcEGqeFZd++QsnN2XIgje1s/19AgctfjLIbPORlvcCO8sYjLwX4iUgDdusOY8Sg==
+  version "1.3.598"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.598.tgz#8f757018902ab6190323a8c5f6124d854893a35b"
+  integrity sha512-G5Ztk23/ubLYVPxPXnB1uu105uzIPd4xB/D8ld8x1GaSC9+vU9NZL16nYZya8H77/7CCKKN7dArzJL3pBs8N7A==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -4099,7 +4099,7 @@ expo-status-bar@~1.0.2:
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.0.2.tgz#2441a77c56be31597898337b0d086981f2adefd8"
   integrity sha512-5313u744GcLzCadxIPXyTkYw77++UXv1dXCuhYDxDbtsEf93iMra7WSvzyE8a7mRQLIIPRuGnBOdrL/V1C7EOQ==
 
-expo-updates@~0.3.3:
+expo-updates@~0.3.2:
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/expo-updates/-/expo-updates-0.3.5.tgz#cd9aafeb5cbe16399df7d39243d00d330d99e674"
   integrity sha512-O+W0MfDZPhhCYKFtLL85ifd+YAm3rFKALWzmyKOSGBb/L+8CBPQsbbB3mdvji0V2NCqq0+jrBvSCmNa5LRD41w==
@@ -6807,9 +6807,9 @@ node-notifier@^6.0.0:
     which "^1.3.1"
 
 node-releases@^1.1.66:
-  version "1.1.66"
-  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.66.tgz#609bd0dc069381015cd982300bae51ab4f1b1814"
-  integrity sha512-JHEQ1iWPGK+38VLB2H9ef2otU4l8s3yAMt9Xf934r6+ojCYDMHPMqvCc9TnzfeFSP1QEOeU6YZEd3+De0LTCgg==
+  version "1.1.67"
+  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.67.tgz#28ebfcccd0baa6aad8e8d4d8fe4cbc49ae239c12"
+  integrity sha512-V5QF9noGFl3EymEwUYzO+3NTDpGfQB4ve6Qfnzf3UNydMhjQRVPR1DZTuvWiLzaFJYw2fmDwAfnRNEVb64hSIg==
 
 node-stream-zip@^1.9.1:
   version "1.12.0"
@@ -7550,6 +7550,11 @@ react-native-easy-grid@0.2.2:
   dependencies:
     lodash "^4.17.15"
 
+react-native-eject@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-eject/-/react-native-eject-0.1.2.tgz#5824c332d092d845b1a77766c81023fa3c97bfd5"
+  integrity sha512-ITuAYOLMOiSXNAjWeucQPm5i6VVweuh/Zo2gfMFSCf1DjVrdOocWwy2kkg65ypbbt26tW6Vd3ZrqNRCsC9rqDA==
+
 react-native-elements@^3.0.0-alpha.1:
   version "3.0.0-alpha.1"
   resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-3.0.0-alpha.1.tgz#03b9d5cbfc413226cee209dbbce2d22077fe3b1f"
@@ -7617,9 +7622,9 @@ react-native-paper@^4.2.0:
     react-native-safe-area-view "^0.14.9"
 
 react-native-picker-select@^8.0.2:
-  version "8.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-picker-select/-/react-native-picker-select-8.0.2.tgz#c57c56f0228fb92e0c8386e9e46d38ce2d487afe"
-  integrity sha512-A0VyIdkWyE6D+AK8t2uQ95PJ+RjpiUZia8+rQLr5cK3GPmCqBLQ8+aWbnUr3vT/TV4bGMqc8u2Dov5h7CVQIXQ==
+  version "8.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-picker-select/-/react-native-picker-select-8.0.3.tgz#6f86d7ed848ef03ea1195439fab680b5a44d4ead"
+  integrity sha512-I52C+7QOxTSbZMefCjuhMjykWiwIcmyqh0AiNp5xlkXHJTonJG6yDhacXW8u1rH1++6aPJ4YFtGuqhjMvcyQxg==
   dependencies:
     "@react-native-community/picker" "1.6.0"
     lodash.isequal "^4.5.0"
@@ -7744,7 +7749,7 @@ react-native-windows@^0.62.0-0:
     uuid "^3.3.2"
     xml-parser "^1.2.1"
 
-react-native@0.63.3:
+react-native@~0.63.3:
   version "0.63.3"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.63.3.tgz#4a7f6540e049ff41810887bbd1125abc4672f3bf"
   integrity sha512-71wq13uNo5W8QVQnFlnzZ3AD+XgUBYGhpsxysQFW/hJ8GAt/J5o+Bvhy81FXichp6IBDJDh/JgfHH2gNji8dFA==
