@@ -15,9 +15,11 @@
     },
     "android": {
       "package": "com.ivancheng.collectorsapp",
+      "versionCode": "2",
       "permissions": [
         "CAMERA",
-        "READ_EXTERNAL_STORAGE"
+        "READ_EXTERNAL_STORAGE",
+        "READ_INTERNAL_STORAGE"
       ]
     }
   }
