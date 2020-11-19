@@ -9,7 +9,11 @@
     },
     "orientation": "portrait",
     "description": "Document collections and items in one place",
-    "version": "1.0.0",
+    "version": "1.0.1",
+    "permissions": [
+      "CAMERA",
+      "READ_EXTERNAL_STORAGE"
+    ],
     "ios": {
       "bundleIdentifier": "com.ivancheng.collectorsapp"
     },
