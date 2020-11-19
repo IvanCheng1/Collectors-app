@@ -1,7 +1,12 @@
 {
   "expo": {
     "name": "Collectors App",
+    "slug": "collectors-app",
     "icon": "./src/icons/app-icon-512.png",
+    "splash": {
+      "image": "./src/images/splash/splash.png",
+      "resizeMode": "cover"
+    },
     "orientation": "portrait",
     "description": "Document collections and items in one place",
     "version": "1.0.0",
