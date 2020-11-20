@@ -1,6 +1,0 @@
-module Pods_CollectorsApp {
-  umbrella header "Pods-CollectorsApp-umbrella.h"
-
-  export *
-  module * { export * }
-}

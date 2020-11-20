@@ -151,6 +151,7 @@ class NewCollection extends React.Component<Props, IState> {
   };
 
   cameraRoll = async () => {
+    this.getPermissionAsync();
     this.getCameraPermissionAsync();
 
     try {
