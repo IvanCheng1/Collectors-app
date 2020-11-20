@@ -349,8 +349,6 @@ class NewItem extends React.Component<Props, IState> {
       showDatePicker,
       dateCreated,
       collection,
-      width,
-      height,
       orientation,
     } = this.state;
 
