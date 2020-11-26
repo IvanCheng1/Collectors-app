@@ -11,7 +11,8 @@
     "description": "Document collections and items in one place",
     "version": "1.0.1",
     "ios": {
-      "bundleIdentifier": "com.ivancheng.collectorsapp"
+      "bundleIdentifier": "com.ivancheng.collectorsapp",
+      "icon": "./src/icons/appstore-icon.png"
     },
     "android": {
       "package": "com.ivancheng.collectorsapp",

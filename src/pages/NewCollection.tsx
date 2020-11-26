@@ -110,7 +110,7 @@ class NewCollection extends React.Component<Props, IState> {
   };
 
   getPermissionAsync = async () => {
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === "ios") {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
       if (status !== "granted") {
         // alert("Sorry, we need camera roll permissions to make this work!");
@@ -142,24 +142,24 @@ class NewCollection extends React.Component<Props, IState> {
   };
 
   getCameraPermissionAsync = async () => {
-    if (Platform.OS === 'ios') {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    if (Platform.OS === "ios") {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
       if (status !== "granted") {
-        // alert("Sorry, we need camera roll permissions to make this work!");
+        Alert.alert("Sorry, we need camera roll permissions to make this work!");
       }
     }
   };
 
   cameraRoll = async () => {
-    this.getPermissionAsync();
+    // this.getPermissionAsync();
     this.getCameraPermissionAsync();
 
     try {
       let result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        // mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [1, 1],
-        quality: 1,
+        // quality: 1,
       });
       if (!result.cancelled) {
         this.setState({

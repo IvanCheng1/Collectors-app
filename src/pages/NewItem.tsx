@@ -183,7 +183,7 @@ class NewItem extends React.Component<Props, IState> {
   };
 
   cameraRoll = async () => {
-    this.getPermissionAsync();
+    // this.getPermissionAsync();
     this.getCameraPermissionAsync();
 
     try {
