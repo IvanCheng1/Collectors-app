@@ -9,7 +9,7 @@
     },
     "orientation": "portrait",
     "description": "Document collections and items in one place",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "ios": {
       "bundleIdentifier": "com.ivancheng.collectorsapp",
       "icon": "./src/icons/appstore-icon.png"
