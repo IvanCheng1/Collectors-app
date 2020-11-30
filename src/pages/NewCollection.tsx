@@ -172,8 +172,8 @@ class NewCollection extends React.Component<Props, IState> {
 
       // console.log(result);
     } catch (e) {
-      // console.log(e);
-      Alert.alert(e.toString());
+      console.log(e);
+      // Alert.alert(e.toString());
     }
   };
 

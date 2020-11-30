@@ -9,13 +9,13 @@
     },
     "orientation": "portrait",
     "description": "Document collections and items in one place",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "ios": {
       "bundleIdentifier": "com.ivancheng.collectorsapp",
       "icon": "./src/icons/appstore-icon.png",
       "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "This app uses your photo library to enable you to save pictures of your collection and item.",
-        "NSCameraUsageDescription": "This app uses the camera to take photos of your collection and item."
+        "NSPhotoLibraryUsageDescription": "Enable Collectors App to access your camera roll to select and save pictures of your collections and items",
+        "NSCameraUsageDescription": "Enable Collectors App to access the camera to take photos of your collections and items."
       }
     },
     "android": {

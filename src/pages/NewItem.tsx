@@ -203,8 +203,8 @@ class NewItem extends React.Component<Props, IState> {
         // this.getImageDimensions(result.uri);
       }
     } catch (e) {
-      // console.log(e);
-      Alert.alert(e.toString());
+      console.log(e);
+      // Alert.alert(e.toString());
     }
   };
 
