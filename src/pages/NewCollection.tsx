@@ -143,9 +143,11 @@ class NewCollection extends React.Component<Props, IState> {
 
   getCameraPermissionAsync = async () => {
     if (Platform.OS === "ios") {
-      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      const { status } = await Permissions.askAsync(Permissions.CAMERA);
       if (status !== "granted") {
-        Alert.alert("Sorry, we need camera roll permissions to make this work!");
+        Alert.alert(
+          "Sorry, we need camera roll permissions to make this work!"
+        );
       }
     }
   };
