@@ -12,7 +12,11 @@
     "version": "1.0.2",
     "ios": {
       "bundleIdentifier": "com.ivancheng.collectorsapp",
-      "icon": "./src/icons/appstore-icon.png"
+      "icon": "./src/icons/appstore-icon.png",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "This app uses your photo library to enable you to save pictures of your collection and item.",
+        "NSCameraUsageDescription": "This app uses the camera to take photos of your collection and item."
+      }
     },
     "android": {
       "package": "com.ivancheng.collectorsapp",
