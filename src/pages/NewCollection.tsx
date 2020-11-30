@@ -110,12 +110,12 @@ class NewCollection extends React.Component<Props, IState> {
   };
 
   getPhotoPermissionAsync = async () => {
-    if (Platform.OS === "ios") {
+    // if (Platform.OS === "ios") {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
       if (status !== "granted") {
-        // alert("Sorry, we need camera roll permissions to make this work!");
+        Alert.alert("Sorry, we need camera roll permissions to select photos!");
       }
-    }
+    // }
   };
 
   pickImage = async () => {
@@ -142,14 +142,14 @@ class NewCollection extends React.Component<Props, IState> {
   };
 
   getCameraPermissionAsync = async () => {
-    if (Platform.OS === "ios") {
+    // if (Platform.OS === "ios") {
       const { status } = await Permissions.askAsync(Permissions.CAMERA);
       if (status !== "granted") {
         Alert.alert(
-          "Sorry, we need camera roll permissions to make this work!"
+          "Sorry, we need camera permissions to take a photo!"
         );
-      }
-    }
+      } 
+    // }
   };
 
   openCamera = async () => {
