@@ -109,7 +109,7 @@ class NewCollection extends React.Component<Props, IState> {
     });
   };
 
-  getPermissionAsync = async () => {
+  getPhotoPermissionAsync = async () => {
     if (Platform.OS === "ios") {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
       if (status !== "granted") {
@@ -119,7 +119,7 @@ class NewCollection extends React.Component<Props, IState> {
   };
 
   pickImage = async () => {
-    this.getPermissionAsync();
+    this.getPhotoPermissionAsync();
 
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -152,9 +152,9 @@ class NewCollection extends React.Component<Props, IState> {
     }
   };
 
-  cameraRoll = async () => {
-    // this.getPermissionAsync();
+  openCamera = async () => {
     this.getCameraPermissionAsync();
+    this.getPhotoPermissionAsync();
 
     try {
       let result = await ImagePicker.launchCameraAsync({
@@ -172,7 +172,8 @@ class NewCollection extends React.Component<Props, IState> {
 
       // console.log(result);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
+      Alert.alert(e.toString());
     }
   };
 
@@ -289,7 +290,7 @@ class NewCollection extends React.Component<Props, IState> {
 
               <TouchableOpacity
                 style={myStyles.btnBarButtons}
-                onPress={this.cameraRoll}
+                onPress={this.openCamera}
               >
                 <View>
                   <AntDesign name="camera" size={24} color="white" />
