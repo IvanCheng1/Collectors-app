@@ -1,6 +1,6 @@
-# 🚧 WIP - Collectors App
+# Collectors App
 
-An app that allows you to document your collections and items for easy access to show your friends.
+A mobile app that allows you to document your collections and items. You can easily create collections and add items to each collection. You can search for a specific item or collection on the search page by typing in a keyword.
 
 Built using TypeScript, React-Native and React-Redux.
 
@@ -8,6 +8,11 @@ Built using TypeScript, React-Native and React-Redux.
   <img src="./src/gifs/androidDemo.gif" height='500'/>
   <img src="./src/gifs/iosDemo.gif" height='500'/>
 </p>
+
+## Download
+
+* [Google Play Store](https://play.google.com/store/apps/details?id=com.ivancheng.collectorsapp)
+* Apple App Store (not available yet)
 
 ## Instructions
 
@@ -17,7 +22,7 @@ Built using TypeScript, React-Native and React-Redux.
 
 ## Platform
 
-This app was developed and tested using [expo](https://expo.io/) running on Google Pixel 3 simulator (Android 11) and iPhone 12 simulator (iOS 14.1)
+This app was developed and tested using [expo](https://expo.io/) running on Google Pixel 4 simulator (Android 11) and iPhone 12 simulator (iOS 14.1)
 
 ## Authors
 
