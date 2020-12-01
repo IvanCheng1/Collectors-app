@@ -5,8 +5,8 @@ A mobile app that allows you to document your collections and items. You can eas
 Built using TypeScript, React-Native and React-Redux.
 
 <p align="center">
-  <img src="./src/gifs/androidDemo.gif" height='500'/>
-  <img src="./src/gifs/iosDemo.gif" height='500'/>
+  <img src="./src/gifs/android-example.gif" height='500'/>
+  <img src="./src/gifs/ios-example.gif" height='500'/>
 </p>
 
 ## Download
