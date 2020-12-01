@@ -12,7 +12,7 @@ Built using TypeScript, React-Native and React-Redux.
 ## Download
 
 * [Google Play Store](https://play.google.com/store/apps/details?id=com.ivancheng.collectorsapp)
-* Apple App Store (not available yet)
+* [Apple App Store](https://apps.apple.com/us/app/collectors-app/id1541375642)
 
 ## Instructions
 
