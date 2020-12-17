@@ -1,6 +1,6 @@
 # Collectors App
 
-A mobile app that allows you to document your collections and items. You can easily create collections and add items to each collection. You can search for a specific item or collection on the search page by typing in a keyword.
+A published mobile app that allows you to document your collections and items. You can easily create collections and add items to each collection. You can search for a specific item or collection on the search page by typing in a keyword.
 
 Built using TypeScript, React-Native and React-Redux.
 
@@ -11,8 +11,8 @@ Built using TypeScript, React-Native and React-Redux.
 
 ## Download
 
-* [Google Play Store](https://play.google.com/store/apps/details?id=com.ivancheng.collectorsapp)
-* [Apple App Store](https://apps.apple.com/us/app/collectors-app/id1541375642)
+- [Google Play Store](https://play.google.com/store/apps/details?id=com.ivancheng.collectorsapp)
+- [Apple App Store](https://apps.apple.com/us/app/collectors-app/id1541375642)
 
 ## Instructions
 
@@ -23,6 +23,11 @@ Built using TypeScript, React-Native and React-Redux.
 ## Platform
 
 This app was developed and tested using [expo](https://expo.io/) running on Google Pixel 4 simulator (Android 11) and iPhone 12 simulator (iOS 14.1)
+
+## Releases
+
+- 1.0.3: Initial release
+- 1.0.4: (WIP) Compress images before storing to improve performance
 
 ## Authors
 
