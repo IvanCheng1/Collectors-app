@@ -91,41 +91,45 @@ export function createItemObject(
 export const generateCollectionPicture = (
   collectionName: string
 ): ImageSourcePropType => {
-  const remain = (collectionName.charCodeAt(0) + collectionName.length) % 5;
+  // const remain = (collectionName.charCodeAt(0) + collectionName.length) % 5;
   // so that it's the same picture everytime
 
-  switch (remain) {
-    case 0:
-      return require(`../images/collectionsExamples/0.jpg`);
-    case 1:
-      return require(`../images/collectionsExamples/1.jpg`);
-    case 2:
-      return require(`../images/collectionsExamples/2.jpg`);
-    case 3:
-      return require(`../images/collectionsExamples/3.jpg`);
-    case 4:
-      return require(`../images/collectionsExamples/4.jpg`);
-    default:
-      return require(`../images/collectionsExamples/4.jpg`);
-  }
+  return require(`../images/collectionsExamples/collectionPlaceholder.png`)
+
+  // switch (remain) {
+  //   case 0:
+  //     return require(`../images/collectionsExamples/0.jpg`);
+  //   case 1:
+  //     return require(`../images/collectionsExamples/1.jpg`);
+  //   case 2:
+  //     return require(`../images/collectionsExamples/2.jpg`);
+  //   case 3:
+  //     return require(`../images/collectionsExamples/3.jpg`);
+  //   case 4:
+  //     return require(`../images/collectionsExamples/4.jpg`);
+  //   default:
+  //     return require(`../images/collectionsExamples/4.jpg`);
+  // }
 };
 
 export const generateItemPicture = (itemName: string): ImageSourcePropType => {
-  const remain = (itemName.charCodeAt(0) + itemName.length) % 5;
+  // const remain = (itemName.charCodeAt(0) + itemName.length) % 5;
   // so that it's the same picture everytime
 
-  switch (remain) {
-    case 0:
-      return require(`../images/itemsExamples/0.jpg`);
-    case 1:
-      return require(`../images/itemsExamples/1.jpg`);
-    case 2:
-      return require(`../images/itemsExamples/2.jpg`);
-    case 3:
-      return require(`../images/itemsExamples/3.jpg`);
-    case 4:
-      return require(`../images/itemsExamples/4.jpg`);
-    default:
-      return require(`../images/itemsExamples/4.jpg`);
-  }
+  return require(`../images/itemsExamples/itemPlaceholder.png`)
+
+  // switch (remain) {
+  //   case 0:
+  //     return require(`../images/itemsExamples/0.jpg`);
+  //   case 1:
+  //     return require(`../images/itemsExamples/1.jpg`);
+  //   case 2:
+  //     return require(`../images/itemsExamples/2.jpg`);
+  //   case 3:
+  //     return require(`../images/itemsExamples/3.jpg`);
+  //   case 4:
+  //     return require(`../images/itemsExamples/4.jpg`);
+  //   default:
+  //     return require(`../images/itemsExamples/4.jpg`);
+  // }
 };

@@ -9,7 +9,7 @@
     },
     "orientation": "portrait",
     "description": "Document collections and items in one place",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "ios": {
       "bundleIdentifier": "com.ivancheng.collectorsapp",
       "icon": "./src/icons/appstore-icon.png",
@@ -20,7 +20,7 @@
     },
     "android": {
       "package": "com.ivancheng.collectorsapp",
-      "versionCode": 3,
+      "versionCode": 4,
       "permissions": [
         "CAMERA",
         "READ_EXTERNAL_STORAGE",

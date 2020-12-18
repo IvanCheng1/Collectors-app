@@ -157,7 +157,7 @@ class NewItem extends React.Component<Props, IState> {
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         // allowsEditing: true,
         // aspect: [1, 1],
-        quality: 1,
+        quality: 0.3,
       });
       if (!result.cancelled) {
         // console.log(result)
@@ -191,7 +191,7 @@ class NewItem extends React.Component<Props, IState> {
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         // allowsEditing: true,
         // aspect: [1, 1],
-        quality: 1,
+        quality: 0.3,
       });
       if (!result.cancelled) {
         // Alert.alert(`${result.height} ${result.width}`);
