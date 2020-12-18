@@ -26,7 +26,7 @@ This app was developed and tested using [expo](https://expo.io/) running on Goog
 
 ## Releases
 
-- 1.0.3 (androidversion - 3): Initial release
+- 1.0.3 (androidVersion - 3): Initial release
 - 1.0.4 (androidVersion - 4): Minor updates
   - Compress image before storing to improve performance
   - Updated generic photo when image is not provided by user
